@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./routes/HomePage";
 import ReferenceDetailPage from "./routes/ReferenceDetailPage";
@@ -15,7 +15,7 @@ function App() {
             element={<ReferenceDetailPage />}
           />
           <Route path="/:assignmentId" element={<HomePage />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<Navigate to="/1" />} />
         </Routes>
       </BrowserRouter>
     </div>
