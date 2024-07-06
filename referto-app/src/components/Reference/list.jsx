@@ -5,12 +5,13 @@ const ReferenceList = () => {
   const referencesList = references;
 
   return (
-    <div className="w-full">
+    <div>
       {referencesList.map((reference) => (
         <ReferenceItem
           key={reference.paperInfo_id}
           referenceId={reference.paperInfo_id}
           referenceName={reference.reference}
+          isVisible={true}
         />
       ))}
     </div>

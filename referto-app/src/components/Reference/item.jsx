@@ -1,7 +1,7 @@
 import { Pencil, Copy, Trash2, Eye } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
-const ReferenceItem = ({ referenceId, referenceName }) => {
+const ReferenceItem = ({ referenceId, referenceName, isVisible }) => {
   const { assignmentId } = useParams();
 
   return (
@@ -22,7 +22,9 @@ const ReferenceItem = ({ referenceId, referenceName }) => {
       </div>
       <Link
         to={`/${assignmentId}/${referenceId}`}
-        className="px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex"
+        className={`px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex ${
+          isVisible ? "block" : "hidden"
+        }`}
       >
         <div className="justify-center items-center gap-2.5 flex">
           <Eye className="text-white w-[18px] h-[18px] relative" />
