@@ -1,7 +1,6 @@
 import { Copy } from "lucide-react";
 import ReferenceList from "../components/Reference/list";
 import SidebarList from "../components/Sidebar/list";
-import StyleList from "../components/Style/list";
 import FileUpload from "../components/FileUpload";
 
 const HomePage = () => {
@@ -11,10 +10,7 @@ const HomePage = () => {
         <SidebarList />
       </div>
       <div className="w-full h-[959px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
-        <div className="self-stretch justify-between items-center inline-flex">
-          <div className="h-5 w-1000px justify-start items-center gap-[30px] flex">
-            <StyleList />
-          </div>
+        <div className="self-stretch justify-end items-center inline-flex">
           <FileUpload />
         </div>
         <div className="w-full h-[241px] flex-col justify-start items-center inline-flex">

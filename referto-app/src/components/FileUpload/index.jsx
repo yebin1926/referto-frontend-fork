@@ -1,24 +1,23 @@
 import { Upload } from "lucide-react";
-import { useRef } from "react";
+import { useState } from "react";
+import SelectStyleModal from "../Modals/SelectStyle";
 
 const FileUpload = () => {
-  const fileInputRef = useRef(null);
-
-  const handleButtonClick = () => {
-    fileInputRef.current.click();
+  const [isOpen, setIsOpen] = useState(false);
+  const handleUploadClick = () => {
+    setIsOpen(true);
+  };
+  const handleCloseClick = () => {
+    setIsOpen(false);
   };
 
   return (
-    <>
-      <input
-        type="file"
-        multiple
-        ref={fileInputRef}
-        style={{ display: "none" }}
-      />
+    <div>
       <div
-        className="px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer"
-        onClick={handleButtonClick}
+        className={`px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex ${
+          !isOpen ? "cursor-pointer" : ""
+        }`}
+        onClick={handleUploadClick}
       >
         <div className="justify-center items-center gap-2.5 flex">
           <Upload className="text-white selection:w-[18px] h-[18px] relative" />
@@ -27,7 +26,8 @@ const FileUpload = () => {
           Upload
         </div>
       </div>
-    </>
+      {isOpen && <SelectStyleModal onClose={handleCloseClick} />}
+    </div>
   );
 };
 
