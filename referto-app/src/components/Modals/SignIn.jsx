@@ -8,6 +8,10 @@ const SignInModal = ({ onClose }) => {
     //
   };
 
+  const handleSignInData = (e) => {
+    //
+  };
+
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-70 z-10">
       <div className="w-[360px] h-100% px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex-col justify-center items-center gap-[7px] inline-flex">
