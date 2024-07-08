@@ -2,7 +2,7 @@ import { Pencil, Copy, Trash2, Eye } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
 const ReferenceItem = ({ referenceId, referenceName, isVisible }) => {
-  const { assignmentId } = useParams();
+  const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
 
   return (
     <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">

@@ -11,7 +11,7 @@ const ReferenceList = () => {
           key={reference.paperInfo_id}
           referenceId={reference.paperInfo_id}
           referenceName={reference.reference}
-          isVisible={true}
+          isVisible={true} //view 버튼 없어지게 하는 것
         />
       ))}
     </div>

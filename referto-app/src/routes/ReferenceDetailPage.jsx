@@ -26,8 +26,11 @@ const ReferenceDetailPage = () => {
           </div>
         </div>
 
-        <div className="w-[413px] h-full px-6 py-5 bg-black border-l border-neutral-400 flex-col justify-start items-center gap-[15px] inline-flex">
-          <ReferenceMemo referenceId={referenceId} />
+        <div className="w-[413px] h-full px-6 py-5 border-neutral-400 flex-col justify-start items-center gap-[15px] inline-flex">
+          <ReferenceMemo
+            referenceId={referenceId}
+            referenceName={referenceName}
+          />
         </div>
       </div>
     </div>
