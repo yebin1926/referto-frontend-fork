@@ -2,8 +2,23 @@ import { Copy } from "lucide-react";
 import ReferenceList from "../components/Reference/list";
 import SidebarList from "../components/Sidebar/list";
 import FileUpload from "../components/FileUpload";
+import { useState } from "react";
 
 const HomePage = () => {
+  const [allReferences, setAllReferences] = useState([]);
+  const handleCopyAll = () => {
+    const allReferencesText = allReferences.join('\n');
+    const textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+    textarea.value = allReferencesText;
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    alert('All references copied to clipboard!');
+  };
+  const getAllReferences = (references) => {
+    setAllReferences(references);
+  };
   return (
     <div className="w-full flex flex-row justify-between">
       <div className="flex flex-col w-[280px] h-[959px] items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">
@@ -26,10 +41,10 @@ const HomePage = () => {
               </div>
             </div>
             <div className="w-11 self-stretch px-2.5 justify-start items-center gap-[15px] flex">
-              <Copy className="text-neutral-500 w-6 h-6 relative" />
+              <Copy className="text-neutral-500 w-6 h-6 relative cursor-pointer" onClick={handleCopyAll} />
             </div>
           </div>
-          <ReferenceList />
+          <ReferenceList getAllReferences={getAllReferences}/>
         </div>
       </div>
     </div>

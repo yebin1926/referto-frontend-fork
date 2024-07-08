@@ -2,17 +2,19 @@ import { useState } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
-const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceDelete }) => {
+const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceDelete, handleReferenceUpdate }) => {
   const { assignmentId } = useParams();
   const [content, setContent] = useState(referenceName);
   const [isEdit, setIsEdit] = useState(false);
   const handleEditContent = () => {
-    console.log("수정하고 싶어요!");
     setIsEdit(!isEdit);
-    console.log(referenceName);
-  }
+  };
   const handleChange = (event) => {
     setContent(event.target.value);
+  };
+  const handleContentUpdate = () => {
+    handleReferenceUpdate(referenceId, content);
+    setIsEdit(!isEdit);
   }
   const handleCopy = () => {
     const $textarea = document.createElement('textarea');
@@ -20,8 +22,9 @@ const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceD
     $textarea.value = content;
     $textarea.select();
     document.execCommand('copy');
-    document.body.removeChild($textarea);
-  }
+    document.body.removeChild($textarea);    
+    alert('Your reference copied to clipboard!');
+  };
   return (
     <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
@@ -34,7 +37,7 @@ const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceD
           {isEdit ? <input value={content} onChange={handleChange}  style={{ border: '1px solid black' }} /> : content}
         </div>
         <div className="w-[83px] self-stretch px-2.5 justify-start items-center gap-[15px] flex cursor-pointer">
-          {isEdit ? <Check className="text-neutral-500 w-6 h-6 relative" onClick={() => setIsEdit(!isEdit)}/> : <Pencil className="text-neutral-500 w-6 h-6 relative" onClick={handleEditContent}/>}
+          {isEdit ? <Check className="text-neutral-500 w-6 h-6 relative" onClick={handleContentUpdate}/> : <Pencil className="text-neutral-500 w-6 h-6 relative" onClick={handleEditContent}/>}
           <Copy className="text-neutral-500 w-6 h-6 relative" onClick={handleCopy}/>
         </div>
       </div>
