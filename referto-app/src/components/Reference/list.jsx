@@ -1,13 +1,23 @@
 import references from "../../data/references";
 import ReferenceItem from "./item";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const ReferenceList = () => {
+const ReferenceList = ({ getAllReferences }) => {
   const [referencesList, setReferencesList] = useState(references);
+  useEffect(() => {
+    getAllReferences(referencesList.map(ref => ref.reference));
+  }, [referencesList, getAllReferences]);
   const handleReferenceDelete = (referenceId) => {
     alert('Do you really want to delete?')
     setReferencesList(referencesList.filter((reference) => reference.paperInfo_id !== referenceId));
   }
+  const handleReferenceUpdate = (referenceId, newContent) => {
+    setReferencesList(referencesList.map((reference) => {
+      if (reference.paperInfo_id === referenceId) {
+        return {...reference, reference: newContent};
+      } return reference;
+    }));
+  };
   return (
     <div>
       {referencesList.map((reference) => (
@@ -17,6 +27,7 @@ const ReferenceList = () => {
           referenceName={reference.reference}
           isVisible={true}
           handleReferenceDelete={handleReferenceDelete}
+          handleReferenceUpdate={handleReferenceUpdate}
         />
       ))}
     </div>
