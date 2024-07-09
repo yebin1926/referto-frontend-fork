@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
+=======
 const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceDelete, handleReferenceUpdate }) => {
-  const { assignmentId } = useParams();
+  const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
   const [isEdit, setIsEdit] = useState(false);
   const handleEditContent = () => {
