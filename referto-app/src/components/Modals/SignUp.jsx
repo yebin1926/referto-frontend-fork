@@ -28,7 +28,7 @@ const SignUpModal = ({ onClose, onSwitch }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-70 z-10">
-      <div className="w-[400px] h-3/5 px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex-col justify-center items-center gap-[7px] inline-flex">
+      <div className="w-[400px] h-1/2 px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex-col justify-center items-center gap-[7px] inline-flex">
         <div className="self-stretch justify-end items-center gap-2.5 inline-flex">
           <X
             className="w-[18px] h-[18px] relative cursor-pointer"
@@ -69,11 +69,6 @@ const SignUpModal = ({ onClose, onSwitch }) => {
                 SIGN UP
               </button>
             </form>
-            <img
-              alt="Log in with Google"
-              src={Google}
-              className="w-[200px] py-3"
-            />
             <div className="text-center font-['Pretendard'] text-gray-700">
               Already have an account?
             </div>
