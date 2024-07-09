@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 axios.defaults.baseURL = "http://localhost:8000/api";
 
@@ -44,3 +45,18 @@ instanceWithToken.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+// Function to set a cookie
+export const setCookie = (name, value, days) => {
+  Cookies.set(name, value, { expires: days });
+};
+
+// Function to get a cookie
+export const getCookie = (name) => {
+  return Cookies.get(name);
+};
+
+// Function to remove a cookie
+export const removeCookie = (name) => {
+  Cookies.remove(name);
+};
