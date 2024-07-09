@@ -1,15 +1,18 @@
 import logo from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
-import SignInModal from "../Modals/SignIn";
+import LogInModal from "../Modals/LogIn";
+import SignUpModal from "../Modals/SignUp";
 import { useState } from "react";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleSignInClick = () => {
-    setIsOpen(true);
+  const [showLogIn, setShowLogIn] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+
+  const handleLogInClick = () => {
+    setShowLogIn(true);
   };
   const handleCloseClick = () => {
-    setIsOpen(false);
+    setShowLogIn(false);
   };
 
   return (
@@ -32,11 +35,11 @@ const Header = () => {
         <div className="inline-flex items-center justify-center gap-2.5 relative self-stretch flex-[0_0_auto]">
           <div
             className="relative w-fit [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center tracking-[0] leading-6 whitespace-nowrap cursor-pointer"
-            onClick={handleSignInClick}
+            onClick={handleLogInClick}
           >
-            Sign In
+            Log In
           </div>
-          {isOpen && <SignInModal onClose={handleCloseClick} />}
+          {showLogIn && <LogInModal onClose={handleCloseClick} />}
         </div>
       </div>
     </div>
