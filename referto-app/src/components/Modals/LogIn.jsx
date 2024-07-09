@@ -3,7 +3,7 @@ import { useState } from "react";
 import { signIn } from "../../apis/api";
 import Google from "../../assets/images/Google_SI.png";
 
-const LogInModal = ({ onClose }) => {
+const LogInModal = ({ onClose, onSwitch }) => {
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
@@ -17,6 +17,12 @@ const LogInModal = ({ onClose }) => {
   const handleLogInSubmit = (e) => {
     e.preventDefault();
     signIn(logInData);
+    onClose();
+  };
+
+  const handleSignUpSwitch = () => {
+    onClose();
+    onSwitch();
   };
 
   return (
@@ -63,16 +69,16 @@ const LogInModal = ({ onClose }) => {
               </button>
             </form>
             <img
-              alt="Sign in with Google"
+              alt="Log in with Google"
               src={Google}
               className="w-[200px] py-3"
             />
             <div className="text-center font-['Pretendard'] text-gray-700">
               Are you new?
             </div>
-            <a href="SignUp.jsx" className="underline">
-              Sign Up
-            </a>
+            <button className="underline" onClick={handleSignUpSwitch}>
+              Sign up
+            </button>
           </div>
         </div>
       </div>

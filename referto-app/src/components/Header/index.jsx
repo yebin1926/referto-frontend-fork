@@ -8,11 +8,20 @@ const Header = () => {
   const [showLogIn, setShowLogIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
 
-  const handleLogInClick = () => {
+  const openLogInModal = () => {
     setShowLogIn(true);
   };
-  const handleCloseClick = () => {
+
+  const closeLogInModal = () => {
     setShowLogIn(false);
+  };
+
+  const openSignUpModal = () => {
+    setShowSignUp(true);
+  };
+
+  const closeSignUpModal = () => {
+    setShowSignUp(false);
   };
 
   return (
@@ -35,11 +44,16 @@ const Header = () => {
         <div className="inline-flex items-center justify-center gap-2.5 relative self-stretch flex-[0_0_auto]">
           <div
             className="relative w-fit [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center tracking-[0] leading-6 whitespace-nowrap cursor-pointer"
-            onClick={handleLogInClick}
+            onClick={openLogInModal}
           >
             Log In
           </div>
-          {showLogIn && <LogInModal onClose={handleCloseClick} />}
+          {showLogIn && (
+            <LogInModal onClose={closeLogInModal} onSwitch={openSignUpModal} />
+          )}
+          {showSignUp && (
+            <SignUpModal onClose={closeSignUpModal} onSwitch={openLogInModal} />
+          )}
         </div>
       </div>
     </div>
