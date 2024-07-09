@@ -2,12 +2,13 @@ import { X } from "lucide-react";
 import StyleList from "../Style/list";
 import { useRef } from "react";
 
-const SelectStyleModal = ({ onClose }) => {
+const SelectStyleModal = ({ onClose, onClick }) => {
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
     onClose();
+    onClick();
   };
 
   return (
