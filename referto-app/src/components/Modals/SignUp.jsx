@@ -17,7 +17,8 @@ const SignUpModal = ({ onClose, onSwitch }) => {
 
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
-    signUp(signUpData);
+    //signUp(signUpData);
+    alert("회원가입 되었습니다");
     onClose();
   };
 
@@ -29,12 +30,6 @@ const SignUpModal = ({ onClose, onSwitch }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-70 z-10">
       <div className="w-[400px] h-1/2 px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex-col justify-center items-center gap-[7px] inline-flex">
-        <div className="self-stretch justify-end items-center gap-2.5 inline-flex">
-          <X
-            className="w-[18px] h-[18px] relative cursor-pointer"
-            onClick={onClose}
-          />
-        </div>
         <div className="self-stretch h-full flex-col justify-start items-center gap-6 flex">
           <div className="self-stretch h-full flex-col justify-start items-center gap-2.5 flex py-8">
             <div className="self-stretch text-center text-neutral-900 text-2xl font-black font-['Pretendard'] leading-9">

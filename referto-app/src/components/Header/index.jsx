@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { setCookie, getCookie, removeCookie } from "../../apis/axios";
 
 const Header = () => {
-  const [showLogIn, setShowLogIn] = useState(false);
+  const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
 
   const openLogInModal = () => {
