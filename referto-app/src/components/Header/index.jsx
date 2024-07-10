@@ -1,15 +1,42 @@
 import logo from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
-import SignInModal from "../Modals/SignIn";
-import { useState } from "react";
+import LogInModal from "../Modals/LogIn";
+import SignUpModal from "../Modals/SignUp";
+import { useState, useEffect } from "react";
+import { setCookie, getCookie, removeCookie } from "../../apis/axios";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleSignInClick = () => {
-    setIsOpen(true);
+  const [showLogIn, setShowLogIn] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+
+  const openLogInModal = () => {
+    setShowLogIn(true);
   };
-  const handleCloseClick = () => {
-    setIsOpen(false);
+
+  const closeLogInModal = () => {
+    setShowLogIn(false);
+  };
+
+  const openSignUpModal = () => {
+    setShowSignUp(true);
+  };
+
+  const closeSignUpModal = () => {
+    setShowSignUp(false);
+  };
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const loggedIn = getCookie("access_token") ? true : false;
+    setIsUserLoggedIn(loggedIn);
+  }, []);
+
+  const handleSignOut = () => {
+    removeCookie("access_token");
+    removeCookie("refresh_token");
+    setIsUserLoggedIn(false);
+    window.location.href = "/";
   };
 
   return (
@@ -30,13 +57,37 @@ const Header = () => {
       </div>
       <div className="inline-flex items-center justify-end gap-2.5 relative self-stretch flex-[0_0_auto]">
         <div className="inline-flex items-center justify-center gap-2.5 relative self-stretch flex-[0_0_auto]">
-          <div
-            className="relative w-fit [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center tracking-[0] leading-6 whitespace-nowrap cursor-pointer"
-            onClick={handleSignInClick}
-          >
-            Sign In
-          </div>
-          {isOpen && <SignInModal onClose={handleCloseClick} />}
+          {isUserLoggedIn ? (
+            <Link
+              to="/"
+              onClick={handleSignOut}
+              className=" w-fit [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center"
+            >
+              Sign Out
+            </Link>
+          ) : (
+            <div className="items-center justify-center flex">
+              <div
+                className="relative w-fit [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center tracking-[0] leading-6 whitespace-nowrap cursor-pointer"
+                onClick={openLogInModal}
+              >
+                Log In
+              </div>
+              {showLogIn && (
+                <LogInModal
+                  onClose={closeLogInModal}
+                  onSwitch={openSignUpModal}
+                />
+              )}
+              {showSignUp && (
+                <SignUpModal
+                  onClose={closeSignUpModal}
+                  onSwitch={openLogInModal}
+                />
+              )}
+              ;
+            </div>
+          )}
         </div>
       </div>
     </div>

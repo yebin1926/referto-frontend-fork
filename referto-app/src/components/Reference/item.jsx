@@ -15,15 +15,15 @@ const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceD
   const handleContentUpdate = () => {
     handleReferenceUpdate(referenceId, content);
     setIsEdit(!isEdit);
-  }
+  };
   const handleCopy = () => {
-    const $textarea = document.createElement('textarea');
+    const $textarea = document.createElement("textarea");
     document.body.appendChild($textarea);
     $textarea.value = content;
     $textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild($textarea);    
-    alert('Your reference copied to clipboard!');
+    document.execCommand("copy");
+    document.body.removeChild($textarea);
+    alert("Your reference copied to clipboard!");
   };
   return (
     <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
@@ -34,11 +34,24 @@ const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceD
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
         <div className="grow shrink basis-0 text-neutral-700 text-lg font-medium font-['Pretendard'] leading-[27px]">
-          {isEdit ? <input value={content} onChange={handleChange}  style={{ border: '1px solid text-neutral-700' }} /> : content}
+          {isEdit ? <input value={content} onChange={handleChange}  style={{ border: '1px solid text-neutral-700' }} /> : content}  
         </div>
         <div className="w-[83px] self-stretch px-2.5 justify-start items-center gap-[15px] flex cursor-pointer">
-          {isEdit ? <Check className="text-neutral-500 w-6 h-6 relative" onClick={handleContentUpdate}/> : <Pencil className="text-neutral-500 w-6 h-6 relative" onClick={handleEditContent}/>}
-          <Copy className="text-neutral-500 w-6 h-6 relative" onClick={handleCopy}/>
+          {isEdit ? (
+            <Check
+              className="text-neutral-500 w-6 h-6 relative"
+              onClick={handleContentUpdate}
+            />
+          ) : (
+            <Pencil
+              className="text-neutral-500 w-6 h-6 relative"
+              onClick={handleEditContent}
+            />
+          )}
+          <Copy
+            className="text-neutral-500 w-6 h-6 relative"
+            onClick={handleCopy}
+          />
         </div>
       </div>
       <Link
@@ -55,7 +68,10 @@ const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceD
         </div>
       </Link>
       <div className="w-11 self-stretch px-2.5 justify-center items-center gap-2.5 flex cursor-pointer">
-        <Trash2 className="text-red-400 w-6 h-6 relative" onClick={() => handleReferenceDelete(referenceId)}/>
+        <Trash2
+          className="text-red-400 w-6 h-6 relative"
+          onClick={() => handleReferenceDelete(referenceId)}
+        />
       </div>
     </div>
   );

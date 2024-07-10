@@ -1,14 +1,9 @@
-
 import axios from "axios";
-import { getCookie } from "../utils/cookie";
+import Cookies from "js-cookie";
 
-// baseURL, credential, 헤더 세팅 
-axios.defaults.baseURL = 'http://localhost:8000/api';
-axios.defaults.withCredentials = true;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers.common['X-CSRFToken'] = getCookie('csrftoken');
+axios.defaults.baseURL = "http://localhost:8000/api";
 
-// 누구나 접근 가능한 API들 
+// 누구나 접근 가능한 API들
 export const instance = axios.create();
 
 // Token 있어야 접근 가능한 API들 - 얘는 토큰을 넣어줘야 해요
@@ -18,7 +13,7 @@ export const instanceWithToken = axios.create();
 instanceWithToken.interceptors.request.use(
   // 요청을 보내기전 수행할 일
   (config) => {
-    const accessToken = getCookie('access_token');
+    const accessToken = localStorage.getItem("access_token");
 
     if (!accessToken) {
       // token 없으면 리턴
@@ -40,7 +35,7 @@ instanceWithToken.interceptors.request.use(
 
 instanceWithToken.interceptors.response.use(
   (response) => {
-    // 서버 응답 데이터를 프론트에 넘겨주기 전 수행할 일 
+    // 서버 응답 데이터를 프론트에 넘겨주기 전 수행할 일
     console.log("Interceptor Response!!");
     return response;
   },
@@ -50,3 +45,18 @@ instanceWithToken.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+// Function to set a cookie
+export const setCookie = (name, value, days) => {
+  Cookies.set(name, value, { expires: days });
+};
+
+// Function to get a cookie
+export const getCookie = (name) => {
+  return Cookies.get(name);
+};
+
+// Function to remove a cookie
+export const removeCookie = (name) => {
+  Cookies.remove(name);
+};

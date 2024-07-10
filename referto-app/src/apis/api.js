@@ -1,4 +1,6 @@
 import { instance, instanceWithToken } from "./axios";
+import { useNavigate } from 'react-router-dom';
+
 
 // Account 관련 API들
 export const signIn = async (data) => {
@@ -63,22 +65,17 @@ export const deleteAssignment = async (id) => {
 
 
 
-// Papers 관련 API들
-
-export const getPaper = async (id) => {
-    const response = await instance.get(`/papers/${id}/`);
-    return response.data;
-  };
+// Papers 관련 API
   
-export const createPaper = async (data, navigate) => {
-    const response = await instanceWithToken.post("/papers/", data);
+export const uploadPaper = async (formData, navigate) => {
+    const response = await instanceWithToken.post("/papers/upload/", formData);
     if (response.status === 201) {
       console.log("PAPER CREATE SUCCESS");
       navigate("/");
     } else {
       console.log("[ERROR] error while creating paper");
     }
-  };
+};
   
 // paper 수정은 현재 없음
 // export const updatePaper = async (id, data) => {
