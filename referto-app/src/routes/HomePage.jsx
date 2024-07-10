@@ -2,7 +2,7 @@ import { Copy } from "lucide-react";
 import ReferenceList from "../components/Reference/list";
 import SidebarList from "../components/Sidebar/list";
 import FileUpload from "../components/FileUpload";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const HomePage = () => {
   const [allReferences, setAllReferences] = useState([]);
@@ -16,9 +16,9 @@ const HomePage = () => {
     document.body.removeChild(textarea);
     alert('All references copied to clipboard!');
   };
-  const getAllReferences = (references) => {
+  const getAllReferences = useCallback((references) => {
     setAllReferences(references);
-  };
+  },[]);
   return (
     <div className="w-full flex flex-row justify-between">
       <div className="flex flex-col w-[280px] h-[959px] items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">

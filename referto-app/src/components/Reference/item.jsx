@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
-=======
 const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceDelete, handleReferenceUpdate }) => {
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
@@ -35,7 +34,7 @@ const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceD
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
         <div className="grow shrink basis-0 text-neutral-700 text-lg font-medium font-['Pretendard'] leading-[27px]">
-          {isEdit ? <input value={content} onChange={handleChange}  style={{ border: '1px solid black' }} /> : content}
+          {isEdit ? <input value={content} onChange={handleChange}  style={{ border: '1px solid text-neutral-700' }} /> : content}
         </div>
         <div className="w-[83px] self-stretch px-2.5 justify-start items-center gap-[15px] flex cursor-pointer">
           {isEdit ? <Check className="text-neutral-500 w-6 h-6 relative" onClick={handleContentUpdate}/> : <Pencil className="text-neutral-500 w-6 h-6 relative" onClick={handleEditContent}/>}
