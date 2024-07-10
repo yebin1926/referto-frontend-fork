@@ -1,4 +1,5 @@
 import logo from "../../assets/images/logo.svg";
+import user from "../../assets/images/user.svg";
 import { Link } from "react-router-dom";
 import LogInModal from "../Modals/LogIn";
 import SignUpModal from "../Modals/SignUp";
@@ -58,13 +59,19 @@ const Header = () => {
       <div className="inline-flex items-center justify-end gap-2.5 relative self-stretch flex-[0_0_auto]">
         <div className="inline-flex items-center justify-center gap-2.5 relative self-stretch flex-[0_0_auto]">
           {isUserLoggedIn ? (
-            <Link
-              to="/"
-              onClick={handleSignOut}
-              className=" w-fit [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center"
-            >
-              Sign Out
-            </Link>
+            <div className="flex flex-row">
+              <div className="w-fit mx-3 [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center">
+                {/*getCookie("user_email")*/}User 1
+              </div>
+              <img alt="profile" src={user} className="mr-5" />
+              <Link
+                to="/"
+                onClick={handleSignOut}
+                className=" w-fit ml-5 [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center"
+              >
+                Sign Out
+              </Link>
+            </div>
           ) : (
             <div className="items-center justify-center flex">
               <div
