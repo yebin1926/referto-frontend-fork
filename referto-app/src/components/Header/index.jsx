@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import LogInModal from "../Modals/LogIn";
 import SignUpModal from "../Modals/SignUp";
 import { useState, useEffect } from "react";
-import { setCookie, getCookie, removeCookie } from "../../apis/axios";
+import { getCookie, removeCookie } from "../../utils/cookie";
 
 const Header = () => {
   const [showLogIn, setShowLogIn] = useState(false);
