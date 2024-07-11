@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
-const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceDelete, handleReferenceUpdate }) => {
+const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceDelete, handleReferenceUpdate, findIndexofReference }) => {
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
   const [isEdit, setIsEdit] = useState(false);
@@ -29,12 +29,12 @@ const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceD
     <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
-          {referenceId}
+          {parseInt(findIndexofReference(referenceId)) + 1}
         </div>
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
         <div className="grow shrink basis-0 text-neutral-700 text-lg font-medium font-['Pretendard'] leading-[27px]">
-          {isEdit ? <input value={content} onChange={handleChange}  style={{ border: '1px solid text-neutral-700' }} /> : content}  
+          {isEdit ? <input value={content} onChange={handleChange} className="border border-gray-300 rounded-md" /> : content}  
         </div>
         <div className="w-[83px] self-stretch px-2.5 justify-start items-center gap-[15px] flex cursor-pointer">
           {isEdit ? (
@@ -67,12 +67,12 @@ const ReferenceItem = ({ referenceId, referenceName, isVisible, handleReferenceD
           View
         </div>
       </Link>
-      <div className="w-11 self-stretch px-2.5 justify-center items-center gap-2.5 flex cursor-pointer">
+      <Link to="/1" className="w-11 self-stretch px-2.5 justify-center items-center gap-2.5 flex cursor-pointer">
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          onClick={() => handleReferenceDelete(referenceId)}
+          onClick={(event) => handleReferenceDelete(referenceId, event)}
         />
-      </div>
+      </Link>
     </div>
   );
 };

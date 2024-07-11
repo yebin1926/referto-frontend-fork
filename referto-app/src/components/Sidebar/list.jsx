@@ -8,15 +8,20 @@ const SidebarList = () => {
   const [selectedAssignmentId, setSelectedAssignmentId] = useState(1);
   const addAssignment = () => {
     const newAssignment = {
-      assignment_id: assignmentsList.length + 1, 
+      assignment_id: Math.random(), 
       name: "untitled",
       user_id: "d"    
     }
     setAssignmentsList([...assignmentsList, newAssignment]);
   };
   const handleAssignmentDelete = (assignmentId) => {
-    alert('Do you really want to delete?');
-    setAssignmentsList(assignmentsList.filter((assignment) => assignment.assignment_id !== assignmentId));
+    if (assignmentsList.length === 1) {
+      alert("Cannot delete the last remaining assignment.");
+    } else {
+      if (window.confirm('Do you really want to delete?')) {
+        setAssignmentsList(assignmentsList.filter((assignment) => assignment.assignment_id !== assignmentId));
+      }
+    }
   };
   const handleAssignmentUpdate = (assignmentId, newName) => {
     setAssignmentsList(assignmentsList.map((assignment) => {

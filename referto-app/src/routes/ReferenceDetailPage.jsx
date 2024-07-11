@@ -5,7 +5,7 @@ import PDFViewer from "../components/PDFView";
 import PDF1 from "../data/PDFs/PDF1.pdf";
 import ReferenceMemo from "../components/Reference/memo";
 
-const ReferenceDetailPage = () => {
+const ReferenceDetailPage = ({ handleReferenceDelete, handleReferenceUpdate, findIndexofReference }) => {
   const { referenceId } = useParams();
   const reference = references.find((ref) => ref.paperInfo_id === referenceId);
   const referenceName = reference.reference;
@@ -18,6 +18,9 @@ const ReferenceDetailPage = () => {
         referenceId={referenceId}
         referenceName={referenceName}
         isVisible={false}
+        handleReferenceDelete={handleReferenceDelete}
+        handleReferenceUpdate={handleReferenceUpdate}
+        findIndexofReference={findIndexofReference}
       />
       <div className="w-full h-full justify-start items-start inline-flex">
         <div className="w-full h-full p-5 flex-row justify-start items-start inline-flex">
