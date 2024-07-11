@@ -73,7 +73,7 @@ const SignUpModal = ({ onClose, onSwitch }) => {
               Already have an account?
             </div>
             <button className="underline" onClick={handleLogInSwitch}>
-              Sign Up
+              Log in
             </button>
           </div>
         </div>
