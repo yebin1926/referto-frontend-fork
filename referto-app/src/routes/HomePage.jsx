@@ -2,8 +2,12 @@ import { Copy } from "lucide-react";
 import ReferenceList from "../components/Reference/list";
 import SidebarList from "../components/Sidebar/list";
 import FileUpload from "../components/FileUpload";
+import StyleList from "../components/Style/list";
+
+
 
 const HomePage = ({ referencesList, handleReferenceDelete, handleReferenceUpdate, getAllReferences, findIndexofReference }) => {
+
   const handleCopyAll = () => {
     const allReferencesText = getAllReferences().join("\n");
     const textarea = document.createElement("textarea");
@@ -21,13 +25,22 @@ const HomePage = ({ referencesList, handleReferenceDelete, handleReferenceUpdate
   //그리고 getAllReferences 함수를 실행할때마다 업데이트된 referencesList를 기반으로 거기에서 각주부분만 가져온다.
   //굳이 allReferences 값을 따로 관리하고 set해줄 필요가 없다. 
   //그렇다면 내가 전체복사버튼을 눌렀을때 -> handleCopyAll에서 getAllReference함수를 호출한 뒤, getAllReference함수에서 반환해준 각주부분 모음들을 다 모아서 복사할 수 있게 하면된다. 
+  
+  
+  
+  
+  
+  
+  
+  
   return (
     <div className="w-full flex flex-row justify-between">
-      <div className="flex flex-col w-[280px] h-[959px] items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">
+      <div className="flex flex-col w-[280px] h-[850px] items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">
         <SidebarList />
       </div>
-      <div className="w-full h-[959px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
+      <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
         <div className="self-stretch justify-end items-center inline-flex">
+          <StyleList />
           <FileUpload />
         </div>
         <div className="w-full h-[241px] flex-col justify-start items-center inline-flex">
