@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from "../utils/cookie";
 
 axios.defaults.baseURL = "http://localhost:8000/api";
 
@@ -12,25 +13,14 @@ export const instanceWithToken = axios.create();
 instanceWithToken.interceptors.request.use(
   // 요청을 보내기전 수행할 일
   (config) => {
-    const accessToken = localStorage.getItem("access_token");
-
-    if (!accessToken) {
-      // token 없으면 리턴
-      return;
-    } else {
-      // token 있으면 헤더에 담아주기 (Authorization은 장고에서 JWT 토큰을 인식하는 헤더 key)
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
+    const token = getCookie('access_token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
-  },
-
-  // 클라이언트 요청 오류 났을 때 처리
-  (error) => {
-    // 콘솔에 찍어주고, 요청을 보내지 않고 오류를 발생시킴
-    console.log("Request Error:", error);
+  }, error => {
     return Promise.reject(error);
-  }
-);
+  });
 
 instanceWithToken.interceptors.response.use(
   (response) => {
@@ -44,4 +34,3 @@ instanceWithToken.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
