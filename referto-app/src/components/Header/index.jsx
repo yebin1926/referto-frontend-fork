@@ -1,4 +1,5 @@
 import logo from "../../assets/images/logo.svg";
+import user from "../../assets/images/user.svg";
 import { Link } from "react-router-dom";
 import LogInModal from "../Modals/LogIn";
 import SignUpModal from "../Modals/SignUp";
@@ -6,22 +7,26 @@ import { useState, useEffect } from "react";
 import { getCookie, removeCookie } from "../../utils/cookie";
 
 const Header = () => {
-  const [showLogIn, setShowLogIn] = useState(false);
+  const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
 
   const openLogInModal = () => {
+    console.log("openLogIn");
     setShowLogIn(true);
   };
 
   const closeLogInModal = () => {
+    console.log("closeLogIn");
     setShowLogIn(false);
   };
 
   const openSignUpModal = () => {
+    console.log("openSignup");
     setShowSignUp(true);
   };
 
   const closeSignUpModal = () => {
+    console.log("closeSignup");
     setShowSignUp(false);
   };
 
@@ -30,12 +35,16 @@ const Header = () => {
   useEffect(() => {
     const loggedIn = getCookie("access_token") ? true : false;
     setIsUserLoggedIn(loggedIn);
+    if (loggedIn) {
+      setShowLogIn(false);
+      setShowSignUp(false);
+    }
+    console.log("useEffect " + loggedIn);
   }, []);
 
   const handleSignOut = () => {
     removeCookie("access_token");
     removeCookie("refresh_token");
-    setIsUserLoggedIn(false);
     window.location.href = "/";
   };
 
@@ -58,13 +67,19 @@ const Header = () => {
       <div className="inline-flex items-center justify-end gap-2.5 relative self-stretch flex-[0_0_auto]">
         <div className="inline-flex items-center justify-center gap-2.5 relative self-stretch flex-[0_0_auto]">
           {isUserLoggedIn ? (
-            <Link
-              to="/"
-              onClick={handleSignOut}
-              className=" w-fit [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center"
-            >
-              Sign Out
-            </Link>
+            <div className="flex flex-row">
+              <div className="w-fit mx-3 [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center">
+                {/*getCookie("user_email")*/}User 1
+              </div>
+              <img alt="profile" src={user} className="mr-5" />
+              <Link
+                to="/"
+                onClick={handleSignOut}
+                className=" w-fit ml-5 [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center"
+              >
+                Sign Out
+              </Link>
+            </div>
           ) : (
             <div className="items-center justify-center flex">
               <div
