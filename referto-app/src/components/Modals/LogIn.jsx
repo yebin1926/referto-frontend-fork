@@ -1,7 +1,5 @@
-import { X } from "lucide-react";
 import { useState } from "react";
 import { signIn } from "../../apis/api";
-import Google from "../../assets/images/Google_SI.png";
 
 const LogInModal = ({ onClose, onSwitch }) => {
   const [logInData, setLogInData] = useState({
@@ -16,7 +14,7 @@ const LogInModal = ({ onClose, onSwitch }) => {
 
   const handleLogInSubmit = (e) => {
     e.preventDefault();
-    //signIn(logInData);
+    signIn(logInData);
     alert("로그인 되었습니다");
     onClose();
   };

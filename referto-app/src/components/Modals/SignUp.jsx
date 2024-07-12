@@ -1,13 +1,10 @@
-import { X } from "lucide-react";
 import { useState } from "react";
 import { signUp } from "../../apis/api";
-import Google from "../../assets/images/Google_SI.png";
 
 const SignUpModal = ({ onClose, onSwitch }) => {
   const [signUpData, setSignUpData] = useState({
     email: "",
     password: "",
-    confirm_password: "",
   });
 
   const handleSignUpData = (e) => {
@@ -17,8 +14,7 @@ const SignUpModal = ({ onClose, onSwitch }) => {
 
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
-    //signUp(signUpData);
-    alert("회원가입 되었습니다");
+    signUp(signUpData);
     onClose();
   };
 
@@ -68,7 +64,7 @@ const SignUpModal = ({ onClose, onSwitch }) => {
               Already have an account?
             </div>
             <button className="underline" onClick={handleLogInSwitch}>
-              Sign Up
+              Log in
             </button>
           </div>
         </div>

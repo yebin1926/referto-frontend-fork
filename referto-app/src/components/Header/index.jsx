@@ -4,25 +4,29 @@ import { Link } from "react-router-dom";
 import LogInModal from "../Modals/LogIn";
 import SignUpModal from "../Modals/SignUp";
 import { useState, useEffect } from "react";
-import { setCookie, getCookie, removeCookie } from "../../apis/axios";
+import { getCookie, removeCookie } from "../../utils/cookie";
 
 const Header = () => {
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
 
   const openLogInModal = () => {
+    console.log("openLogIn");
     setShowLogIn(true);
   };
 
   const closeLogInModal = () => {
+    console.log("closeLogIn");
     setShowLogIn(false);
   };
 
   const openSignUpModal = () => {
+    console.log("openSignup");
     setShowSignUp(true);
   };
 
   const closeSignUpModal = () => {
+    console.log("closeSignup");
     setShowSignUp(false);
   };
 
@@ -31,12 +35,16 @@ const Header = () => {
   useEffect(() => {
     const loggedIn = getCookie("access_token") ? true : false;
     setIsUserLoggedIn(loggedIn);
+    if (loggedIn) {
+      setShowLogIn(false);
+      setShowSignUp(false);
+    }
+    console.log("useEffect " + loggedIn);
   }, []);
 
   const handleSignOut = () => {
     removeCookie("access_token");
     removeCookie("refresh_token");
-    setIsUserLoggedIn(false);
     window.location.href = "/";
   };
 

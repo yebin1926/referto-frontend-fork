@@ -1,7 +1,10 @@
 import axios from "axios";
-import Cookies from "js-cookie";
+import { getCookie } from "../utils/cookie";
 
 axios.defaults.baseURL = "http://localhost:8000/api";
+axios.defaults.withCredentials = true;
+axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.headers.common["X-CSRFToken"] = getCookie("csrftoken");
 
 // 누구나 접근 가능한 API들
 export const instance = axios.create();
@@ -45,18 +48,3 @@ instanceWithToken.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// Function to set a cookie
-export const setCookie = (name, value, days) => {
-  Cookies.set(name, value, { expires: days });
-};
-
-// Function to get a cookie
-export const getCookie = (name) => {
-  return Cookies.get(name);
-};
-
-// Function to remove a cookie
-export const removeCookie = (name) => {
-  Cookies.remove(name);
-};
