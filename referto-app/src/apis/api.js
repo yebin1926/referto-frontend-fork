@@ -62,13 +62,12 @@ export const deleteAssignment = async (id) => {
 
 // Papers 관련 API
 
-export const uploadPaper = async (formData, navigate) => {
-  const response = await instanceWithToken.post("/papers/upload/", formData);
+export const uploadPaper = async (formData, config) => {
+  const response = await instanceWithToken.post("/papers/", formData, config);
   if (response.status === 201) {
-    console.log("PAPER CREATE SUCCESS");
-    navigate("/");
+    console.log("PAPER UPLOAD SUCCESS");
   } else {
-    console.log("[ERROR] error while creating paper");
+    console.log("[ERROR] error while uploading paper");
   }
 };
 
@@ -94,3 +93,14 @@ export const deletePaper = async (id) => {
 // Memos 관련 API들
 
 // PaperInfos 관련 API들
+
+//User 관련 API
+export const getUser = async () => {
+  const response = await instanceWithToken.get("/account/info");
+  if (response.status === 200) {
+    console.log("GET USER SUCCESS");
+  } else {
+    console.log("[ERROR] error while getting user");
+  }
+  return response.data;
+};

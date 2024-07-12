@@ -31,7 +31,7 @@ instanceWithToken.interceptors.request.use(
   // 클라이언트 요청 오류 났을 때 처리
   (error) => {
     // 콘솔에 찍어주고, 요청을 보내지 않고 오류를 발생시킴
-    console.log("Request Error!!");
+    console.log("Request Error:", error);
     return Promise.reject(error);
   }
 );
@@ -39,7 +39,7 @@ instanceWithToken.interceptors.request.use(
 instanceWithToken.interceptors.response.use(
   (response) => {
     // 서버 응답 데이터를 프론트에 넘겨주기 전 수행할 일
-    console.log("Interceptor Response!!");
+    console.log("Interceptor Response:", response);
     return response;
   },
   (error) => {

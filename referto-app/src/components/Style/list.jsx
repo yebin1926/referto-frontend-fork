@@ -15,6 +15,7 @@ const StyleList = () => {
     <div className="flex flex-1 gap-7">
       {styles.map((style) => (
         <StyleItem
+          key={style.id}
           styleId={style.id}
           styleName={style.name}
           selectedStyleId={selectedStyleId}
