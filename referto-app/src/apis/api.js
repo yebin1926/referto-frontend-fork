@@ -92,15 +92,30 @@ export const deletePaper = async (id) => {
 
 // Memos 관련 API들
 
+export const getMemo = async (paperId) => {
+  const response = await instanceWithToken.get(`/papers/${paperId}/memo`);
+  return response.data;
+};
+
+export const updateMemo = async (paperId, data) => {
+  const response = await instanceWithToken.put(`/papers/${paperId}/memo`);
+  if (response.status === 200) {
+    console.log("MEMO UPDATE SUCCESS");
+    window.location.reload();
+  } else {
+    console.log("[ERROR] error while updating memo");
+  }
+};
+
 // PaperInfos 관련 API들
 
 //User 관련 API
 export const getUser = async () => {
-  const response = await instanceWithToken.get("/account/info");
+  const response = await instanceWithToken.get("/account/info/");
   if (response.status === 200) {
     console.log("GET USER SUCCESS");
   } else {
-    console.log("[ERROR] error while getting user");
+    console.log("[ERROR] error while updating comment");
   }
   return response.data;
 };

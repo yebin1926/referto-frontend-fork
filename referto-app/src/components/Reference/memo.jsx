@@ -1,9 +1,17 @@
-import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NotepadText, Save, Copy } from "lucide-react";
+import { getMemo, updateMemo } from "../../apis/api";
 
 const ReferenceMemo = ({ referenceId, referenceName }) => {
   const [memoContent, setMemoContent] = useState("");
+
+  useEffect(() => {
+    const getMemoAPI = async () => {
+      const memo = await getMemo(referenceId);
+      setMemoContent(memo);
+    };
+    getMemoAPI();
+  }, [referenceId]);
 
   const handleContentChange = (e) => {
     setMemoContent(e.target.value);
@@ -21,7 +29,8 @@ const ReferenceMemo = ({ referenceId, referenceName }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    alert("메모가 저장되었습니다");
+    updateMemo({ paperId: referenceId, data: memoContent });
+    setMemoContent("");
   };
 
   return (
