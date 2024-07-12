@@ -5,7 +5,11 @@ import PDFViewer from "../components/PDFView";
 import PDF1 from "../data/PDFs/PDF1.pdf";
 import ReferenceMemo from "../components/Reference/memo";
 
-const ReferenceDetailPage = ({ handleReferenceDelete, handleReferenceUpdate, findIndexofReference }) => {
+const ReferenceDetailPage = ({
+  handleReferenceDelete,
+  handleReferenceUpdate,
+  findIndexofReference,
+}) => {
   const { referenceId } = useParams();
   const reference = references.find((ref) => ref.paperInfo_id === referenceId);
   const referenceName = reference.reference;
