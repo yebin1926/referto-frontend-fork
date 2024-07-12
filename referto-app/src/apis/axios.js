@@ -16,7 +16,7 @@ export const instanceWithToken = axios.create();
 instanceWithToken.interceptors.request.use(
   // 요청을 보내기전 수행할 일
   (config) => {
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = getCookie("access_token");
 
     if (!accessToken) {
       // token 없으면 리턴
