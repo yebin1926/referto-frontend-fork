@@ -1,9 +1,11 @@
-import Cookies from 'js-cookie';
+import { Cookies } from "react-cookie";
+
+const cookies = new Cookies();
 
 export const getCookie = (name) => {
-  return Cookies.get(name);
+  return cookies.get(name);
 };
 
 export const removeCookie = (name) => {
-  Cookies.remove(name);
+  cookies.remove(name);
 };

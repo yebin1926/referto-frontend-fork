@@ -2,6 +2,9 @@ import axios from "axios";
 import { getCookie } from "../utils/cookie";
 
 axios.defaults.baseURL = "http://localhost:8000/api";
+axios.defaults.withCredentials = true;
+axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.headers.common["X-CSRFToken"] = getCookie("csrftoken");
 
 // 누구나 접근 가능한 API들
 export const instance = axios.create();
@@ -11,16 +14,22 @@ export const instanceWithToken = axios.create();
 
 // instanceWithToken에는 쿠키에서 토큰을 찾고 담아줍시다!
 instanceWithToken.interceptors.request.use(
-  // 요청을 보내기전 수행할 일
   (config) => {
-    const token = getCookie('access_token');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+    const accessToken = getCookie("access_token");
+
+    if (!accessToken) {
+      // token 없으면 요청을 중단하고 오류를 반환
+      return Promise.reject(new Error('No access token found'));
+    } else {
+      // token 있으면 헤더에 담아주기 (Authorization은 장고에서 JWT 토큰을 인식하는 헤더 key)
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
     return config;
-  }, error => {
+  },
+  (error) => {
     return Promise.reject(error);
-  });
+  }
+);
 
 instanceWithToken.interceptors.response.use(
   (response) => {
