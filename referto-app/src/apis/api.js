@@ -22,8 +22,8 @@ export const signUp = async (data) => {
 
 // Assignments 관련 API들
 export const getAssignments = async () => {
-  const response = await instance.get("/assignments/");
-  if (response.status === 201) {
+  const response = await instanceWithToken.get("/assignments/");
+  if (response.status === 200) {
     console.log("ASSIGNMENT GET SUCCESS");
     return response.data;
   } else {
@@ -36,11 +36,11 @@ export const getAssignments = async () => {
 //     return response.data;
 //   };
 
-export const createAssignment = async (data, navigate) => {
+export const createAssignment = async (data) => {
   const response = await instanceWithToken.post("/assignments/", data);
   if (response.status === 201) {
     console.log("ASSIGNMENT CREATE SUCCESS");
-    navigate("/");
+    return response.data
   } else {
     console.log("[ERROR] error while creating assignment");
   }
@@ -50,6 +50,7 @@ export const updateAssignment = async (id, data) => {
   const response = await instanceWithToken.put(`/assignments/${id}/`, data);
   if (response.status === 200) {
     console.log("ASSIGNMENT UPDATE SUCCESS");
+    return response.data
   } else {
     console.log("[ERROR] error while updating assignment");
   }
@@ -70,6 +71,7 @@ export const uploadPaper = async (formData, config) => {
   const response = await instanceWithToken.post("/papers/", formData, config);
   if (response.status === 201) {
     console.log("PAPER UPLOAD SUCCESS");
+    // return response.data
   } else {
     console.log("[ERROR] error while uploading paper");
   }

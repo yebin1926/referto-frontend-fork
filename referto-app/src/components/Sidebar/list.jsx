@@ -6,9 +6,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCookie, removeCookie } from "../../utils/cookie";
 
-const SidebarList = () => {
+const SidebarList = (props) => {
   // const [assignmentsList, setAssignmentsList] = useState(assignments);
-  const [selectedAssignmentId, setSelectedAssignmentId] = useState(1);
   // const addAssignment = () => {
   //   const newAssignment = {
   //     assignment_id: Math.random(), 
@@ -38,6 +37,7 @@ const SidebarList = () => {
   const navigate = useNavigate()
   const [user, setUser] = useState()
   const [assignmentsList, setAssignmentsList] = useState([]);
+  const { isUserLoggedIn } = props
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -55,7 +55,6 @@ const SidebarList = () => {
 
   useEffect(() => {
     const fetchAssignments = async () => {
-      if (user) {
         try {
           const assignments = await getAssignments(user);
           setAssignmentsList(assignments);
@@ -63,22 +62,20 @@ const SidebarList = () => {
           console.error('Error fetching assignments:', error);
         }
       }
-    };
-    fetchAssignments();
-  }, [user]);
-
-  
+    fetchAssignments()
+  }, [isUserLoggedIn]);
 
   const addAssignment = async () => {
     try {
-      const newAssignment = await createAssignment('untitled');
+      const newAssignment = await createAssignment({
+        name: 'untitled'
+      });
       setAssignmentsList([...assignmentsList, newAssignment]);
-      navigate(`/assignments/${newAssignment.assignment_id}`);
+      navigate(`/${newAssignment.assignment_id}`);
     } catch (error) {
       console.error('Error creating assignment:', error);
     }
-  };
-
+  }
 
   return (
     <div className="w-full">
@@ -91,18 +88,16 @@ const SidebarList = () => {
           <Plus className="selection:w-[18px] h-[18px] relative cursor-pointer" onClick={addAssignment}/>
         </div>
       </div>
-      {assignmentsList.map((assignment) => (
+      {assignmentsList && (
+      assignmentsList.map((assignment) => (
         <SidebarItem
           key={assignment.assignment_id}
           assignmentId={assignment.assignment_id}
           assignmentName={assignment.name}
           assignmentsList={assignmentsList}
-          selectedAssignmentId={selectedAssignmentId}
-          setSelectedAssignmentId={setSelectedAssignmentId}
-          // handleAssignmentDelete={handleAssignmentDelete}
-          // handleAssignmentUpdate={handleAssignmentUpdate}
         />
-      ))}
+      ))
+    )}
     </div>
   );
 };

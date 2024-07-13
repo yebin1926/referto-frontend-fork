@@ -6,7 +6,7 @@ import StyleList from "../components/Style/list";
 
 
 
-const HomePage = ({ referencesList, handleReferenceDelete, handleReferenceUpdate, getAllReferences, findIndexofReference }) => {
+const HomePage = ({ referencesList, handleReferenceDelete, handleReferenceUpdate, getAllReferences, findIndexofReference, isUserLoggedIn}) => {
 
   const handleCopyAll = () => {
     const allReferencesText = getAllReferences().join("\n");
@@ -36,7 +36,7 @@ const HomePage = ({ referencesList, handleReferenceDelete, handleReferenceUpdate
   return (
     <div className="w-full flex flex-row justify-between">
       <div className="flex flex-col w-[280px] h-[850px] items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">
-        <SidebarList />
+        <SidebarList isUserLoggedIn={isUserLoggedIn}/>
       </div>
       <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
         <div className="self-stretch justify-end items-center inline-flex">
