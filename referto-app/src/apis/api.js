@@ -71,7 +71,7 @@ export const uploadPaper = async (formData, config) => {
   const response = await instanceWithToken.post("/papers/", formData, config);
   if (response.status === 201) {
     console.log("PAPER UPLOAD SUCCESS");
-    // return response.data
+    return response.data
   } else {
     console.log("[ERROR] error while uploading paper");
   }
