@@ -2,6 +2,7 @@ import { Upload, Loader } from "lucide-react";
 import { useState, useRef } from "react";
 // import SelectStyleModal from "../Modals/SelectStyle";
 import { uploadPaper } from '../../apis/api';
+import { useParams } from "react-router-dom";
 
 const FileUpload = () => {
   const [uploadStatus, setUploadStatus] = useState('');
@@ -15,12 +16,16 @@ const FileUpload = () => {
   //   setIsOpen(false);
   // };
 
+  const { assignmentId } = useParams();
+
   const handleFileChange = async (e) => {
+    
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
 
     const formData = new FormData();
     formData.append('pdf', selectedFile);
+    formData.append('assignment', assignmentId)
 
     setUploadStatus('ing');
 

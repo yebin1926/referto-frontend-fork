@@ -7,12 +7,11 @@ import { useState, useEffect } from "react";
 import { getCookie, removeCookie } from "../../utils/cookie";
 import { getUser } from "../../apis/api";
 
-const Header = () => {
+const Header = (props) => {
+  const { isUserLoggedIn, setIsUserLoggedIn } = props
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
   const [user, setUser] = useState("null");
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
-
 
   const openLogInModal = () => {
     console.log("openLogIn");
@@ -37,7 +36,6 @@ const Header = () => {
   useEffect(() => {
     const loggedIn = !!(getCookie("access_token"))
     setIsUserLoggedIn(loggedIn);
-    console.log(loggedIn)
     if (loggedIn) {
       setShowLogIn(false);
       setShowSignUp(false);
@@ -113,6 +111,7 @@ const Header = () => {
                 <SignUpModal
                   onClose={closeSignUpModal}
                   onSwitch={openLogInModal}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
                 />
               )}
             </div>

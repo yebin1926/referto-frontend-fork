@@ -10,11 +10,7 @@ import { updateAssignment, deleteAssignment } from '../../apis/api';
 const SidebarItem = ({
   assignmentId,
   assignmentName,
-  assignmentsList,
-  selectedAssignmentId,
-  setSelectedAssignmentId,
-  // handleAssignmentDelete,
-  // handleAssignmentUpdate
+  assignmentsList
 }) => {
 
   const [isEdit, setIsEdit] = useState(false)
@@ -23,45 +19,48 @@ const SidebarItem = ({
   const [onChangeValue, setOnChangeValue] = useState(content)
   const ref = useRef(null)
   const navigate = useNavigate()
-  const params = useParams();
-
-  const { currentAssignmentId } = useParams();
+  const { assignmentId: selectedAssignmentIdString } = useParams();
+  const selectedAssignmentId = Number(selectedAssignmentIdString)
 
   const handleEditAssignment = async() => {
-    setIsEdit(!isEdit)
-    setIsOpen(!isOpen)
+    setIsEdit(false)
+    setIsOpen(false)
     try {
-      const response = await updateAssignment(assignmentId , {content: onChangeValue});
-      console.log('Assignment name updated successfully:', response.data);
-      setContent(response.data.name)
+      const data = await updateAssignment(selectedAssignmentId , {name: onChangeValue});
+      console.log('Assignment name updated successfully:', data);
+      setContent(data.name)
     } catch (error) {
       console.error('Error updating assignment name:', error);
     }
   };
 
   const handleDeleteAssignment = async() => {
+    const currentIndex = assignmentsList.findIndex((elem) => elem.assignment_id === assignmentId)
+
     setIsOpen(!isOpen)
+
+    if (assignmentsList.length === 1) {
+      alert("Cannot delete the last remaining assignment.");
+      return;
+    } else {
     const confirmDelete = window.confirm('Do you really want to delete?')
-    if (!confirmDelete) return;
+    if (!confirmDelete) return; 
+    }
 
     try {
-      if (assignmentsList.length === 1) {
-        alert("Cannot delete the last remaining assignment.");
-        return;
-      }
-
       await deleteAssignment(assignmentId);
       console.log('Assignment deleted successfully');
 
-      navigate(`/${currentAssignmentId} - 1`)
+      if ((currentIndex + 1) === assignmentsList.length) {
+        window.location.href = (`/${assignmentsList[currentIndex - 1].assignment_id}`)
+      } else {
+        window.location.href = (`/${assignmentsList[currentIndex + 1].assignment_id}`)
+      }
     } catch (error) {
       console.error('Error deleting assignment:', error);
     }
   };
 
-  const handleSelect = () => {
-    setSelectedAssignmentId(assignmentId);
-  };
 
 
   // const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
@@ -134,13 +133,12 @@ const SidebarItem = ({
           <div className="flex-grow"></div>
           <Ellipsis 
             className="text-neutral-700 selection:w-[18px] h-[18px] relative cursor-pointer" 
-            onClick={setIsOpen(true)} 
+            onClick={() => setIsOpen(true)} 
             ref={ref}/>
         </div>
       ) : (
         <Link
           to={`/${assignmentId}`}
-          onClick={handleSelect}
           className="rounded flex items-center justify-start gap-1.5 px-3.5 py-2.5 relative self-stretch w-full flex-[0_0_auto] overflow-hidden"
         >
           <img alt="dot" src={dotLight} className="h-2 w-2 relative" />
@@ -154,7 +152,8 @@ const SidebarItem = ({
         handleEditAssignment={handleEditAssignment} 
         handleDeleteAssignment={handleDeleteAssignment}
         isEdit={isEdit}
-        setIsEdit={setIsEdit}/>}
+        setIsEdit={setIsEdit}
+        setIsOpen={setIsOpen}/>}
     </div>
   );
 };
