@@ -8,7 +8,7 @@ const ReferenceMemo = ({ referenceId, referenceName }) => {
   useEffect(() => {
     const getMemoAPI = async () => {
       const memo = await getMemo(referenceId);
-      setMemoContent(memo);
+      setMemoContent(memo.content);
     };
     getMemoAPI();
   }, [referenceId]);

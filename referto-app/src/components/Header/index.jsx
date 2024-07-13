@@ -1,16 +1,17 @@
 import logo from "../../assets/images/logo.svg";
-import user from "../../assets/images/user.svg";
+import userprofile from "../../assets/images/user.svg";
 import { Link } from "react-router-dom";
 import LogInModal from "../Modals/LogIn";
 import SignUpModal from "../Modals/SignUp";
 import { useState, useEffect } from "react";
 import { getCookie, removeCookie } from "../../utils/cookie";
+import { getUser } from "../../apis/api";
 
 const Header = () => {
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("null");
+
 
   const openLogInModal = () => {
     console.log("openLogIn");
@@ -39,8 +40,6 @@ const Header = () => {
     if (loggedIn) {
       setShowLogIn(false);
       setShowSignUp(false);
-      const userEmail = 'email'; // 헤더에 이메일 띄우기 해결해야됨 ㅠㅠ
-      setEmail(userEmail);
     }
     console.log("useEffect loggedIn:", loggedIn);
   }, []);
@@ -51,7 +50,16 @@ const Header = () => {
     window.location.href = "/";
   };
 
-  
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      const getUserAPI = async () => {
+        const currUser = await getUser();
+        setUser(currUser.email);
+      };
+      getUserAPI();
+    }
+  }, [isUserLoggedIn]);
+
 
   return (
     <div className="flex w-full h-[65px] items-center justify-between px-10 py-0 relative bg-neutral-700">
@@ -74,9 +82,9 @@ const Header = () => {
           {isUserLoggedIn ? (
             <div className="flex flex-row">
               <div className="w-fit mx-3 [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center">
-                {email}
+                {user}
               </div>
-              <img alt="profile" src={user} className="mr-5" />
+              <img alt="profile" src={userprofile} className="mr-5" />
               <Link
                 to="/"
                 onClick={handleSignOut}

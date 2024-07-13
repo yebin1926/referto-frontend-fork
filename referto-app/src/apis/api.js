@@ -1,5 +1,4 @@
 import { instance, instanceWithToken } from "./axios";
-import { useNavigate } from "react-router-dom";
 
 // Account 관련 API들
 export const signIn = async (data) => {
@@ -98,12 +97,15 @@ export const deletePaper = async (id) => {
 // Memos 관련 API들
 
 export const getMemo = async (paperId) => {
-  const response = await instanceWithToken.get(`/papers/${paperId}/memo`);
+  const response = await instanceWithToken.get(`/papers/${paperId}/memo/`);
   return response.data;
 };
 
 export const updateMemo = async (paperId, data) => {
-  const response = await instanceWithToken.put(`/papers/${paperId}/memo`);
+  const response = await instanceWithToken.put(
+    `/papers/${paperId}/memo/`,
+    data
+  );
   if (response.status === 200) {
     console.log("MEMO UPDATE SUCCESS");
     window.location.reload();
