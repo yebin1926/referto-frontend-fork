@@ -113,6 +113,7 @@ const Header = () => {
                 <SignUpModal
                   onClose={closeSignUpModal}
                   onSwitch={openLogInModal}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
                 />
               )}
             </div>

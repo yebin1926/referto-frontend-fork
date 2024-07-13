@@ -118,7 +118,6 @@ export const updateMemo = async (paperId, data) => {
 
 //User 관련 API
 export const getUser = async () => {
-  console.log('aaa')
   const response = await instanceWithToken.get("account/info/");
   if (response.status === 200) {
     console.log("USER GET SUCCESS");

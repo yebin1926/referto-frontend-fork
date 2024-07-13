@@ -51,8 +51,7 @@ const SidebarList = () => {
     if (getCookie("access_token")) {
       fetchUser();
     }
-  }, []);
-  
+  }, []);  
 
   useEffect(() => {
     const fetchAssignments = async () => {
@@ -67,6 +66,8 @@ const SidebarList = () => {
     };
     fetchAssignments();
   }, [user]);
+
+  
 
   const addAssignment = async () => {
     try {
