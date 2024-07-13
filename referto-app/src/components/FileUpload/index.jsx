@@ -25,17 +25,18 @@ const FileUpload = () => {
 
     const formData = new FormData();
     formData.append('pdf', selectedFile);
+    formData.append('assignment', assignmentId)
 
     setUploadStatus('ing');
 
-    // const config = {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    // };
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
     
     try {
-        const response = await uploadPaper(formData, assignmentId);
+        const response = await uploadPaper(formData, config);
         console.log('File uploaded successfully:', response.data);
     } catch (error) {
         console.error('Error uploading file:', error);
