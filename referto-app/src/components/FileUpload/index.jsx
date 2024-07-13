@@ -2,6 +2,7 @@ import { Upload, Loader } from "lucide-react";
 import { useState, useRef } from "react";
 // import SelectStyleModal from "../Modals/SelectStyle";
 import { uploadPaper } from '../../apis/api';
+import { useParams } from "react-router-dom";
 
 const FileUpload = () => {
   const [uploadStatus, setUploadStatus] = useState('');
@@ -15,7 +16,10 @@ const FileUpload = () => {
   //   setIsOpen(false);
   // };
 
+  const { assignmentId } = useParams();
+
   const handleFileChange = async (e) => {
+    
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
 
@@ -24,14 +28,14 @@ const FileUpload = () => {
 
     setUploadStatus('ing');
 
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // };
     
     try {
-        const response = await uploadPaper(formData, config);
+        const response = await uploadPaper(formData, assignmentId);
         console.log('File uploaded successfully:', response.data);
     } catch (error) {
         console.error('Error uploading file:', error);
