@@ -11,6 +11,7 @@ const Header = () => {
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
   const [user, setUser] = useState("null");
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
 
 
   const openLogInModal = () => {
