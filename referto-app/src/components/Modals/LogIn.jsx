@@ -11,12 +11,16 @@ const LogInModal = ({ onClose, onSwitch }) => {
     const { id, value } = e.target;
     setLogInData({ ...logInData, [id]: value });
   };
-
-  const handleLogInSubmit = (e) => {
+  
+  const handleLogInSubmit = async (e) => {
     e.preventDefault();
-    signIn(logInData);
-    alert("로그인 되었습니다");
-    onClose();
+    try {
+      await signIn(logInData);
+      alert("로그인 되었습니다");
+      onClose();
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
 
   const handleSignUpSwitch = () => {
@@ -38,7 +42,7 @@ const LogInModal = ({ onClose, onSwitch }) => {
             <form onSubmit={handleLogInSubmit}>
               <input
                 required
-                type="text"
+                type="email"
                 placeholder="email"
                 id="email"
                 value={logInData.email}

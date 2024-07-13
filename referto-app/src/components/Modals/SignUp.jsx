@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { signUp } from "../../apis/api";
 
-const SignUpModal = ({ onClose, onSwitch }) => {
+const SignUpModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn }) => {
   const [signUpData, setSignUpData] = useState({
     email: "",
     password: "",
@@ -14,8 +14,13 @@ const SignUpModal = ({ onClose, onSwitch }) => {
 
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
-    signUp(signUpData);
-    onClose();
+    try {
+      await signUp(signUpData);
+      onClose();
+      setIsUserLoggedIn(!isUserLoggedIn)
+    } catch (error) {
+      console.error('Error signing up:', error);
+    }
   };
 
   const handleLogInSwitch = () => {
@@ -37,7 +42,7 @@ const SignUpModal = ({ onClose, onSwitch }) => {
             <form onSubmit={handleSignUpSubmit}>
               <input
                 required
-                type="text"
+                type="email"
                 placeholder="email"
                 id="email"
                 value={signUpData.email}

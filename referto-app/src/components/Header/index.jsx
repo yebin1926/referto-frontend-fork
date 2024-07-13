@@ -12,6 +12,7 @@ const Header = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [user, setUser] = useState("null");
 
+
   const openLogInModal = () => {
     console.log("openLogIn");
     setShowLogIn(true);
@@ -32,16 +33,15 @@ const Header = () => {
     setShowSignUp(false);
   };
 
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-
   useEffect(() => {
-    const loggedIn = getCookie("access_token") ? true : false;
+    const loggedIn = !!(getCookie("access_token"))
     setIsUserLoggedIn(loggedIn);
+    console.log(loggedIn)
     if (loggedIn) {
       setShowLogIn(false);
       setShowSignUp(false);
     }
-    console.log("useEffect " + loggedIn);
+    console.log("useEffect loggedIn:", loggedIn);
   }, []);
 
   const handleSignOut = () => {
@@ -59,6 +59,7 @@ const Header = () => {
       getUserAPI();
     }
   }, [isUserLoggedIn]);
+
 
   return (
     <div className="flex w-full h-[65px] items-center justify-between px-10 py-0 relative bg-neutral-700">
@@ -104,6 +105,7 @@ const Header = () => {
                 <LogInModal
                   onClose={closeLogInModal}
                   onSwitch={openSignUpModal}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
                 />
               )}
               {showSignUp && (
@@ -112,7 +114,6 @@ const Header = () => {
                   onSwitch={openLogInModal}
                 />
               )}
-              ;
             </div>
           )}
         </div>

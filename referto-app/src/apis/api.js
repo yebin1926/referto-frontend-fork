@@ -13,7 +13,7 @@ export const signIn = async (data) => {
 export const signUp = async (data) => {
   const response = await instance.post("/account/signup/", data);
   if (response.status === 200 || response.status === 201) {
-    window.location.href = "/";
+    return response.data;
   } else {
     console.log("[ERROR] error while signing up");
   }
@@ -23,7 +23,12 @@ export const signUp = async (data) => {
 // Assignments 관련 API들
 export const getAssignments = async () => {
   const response = await instance.get("/assignments/");
-  return response.data;
+  if (response.status === 201) {
+    console.log("ASSIGNMENT GET SUCCESS");
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting assignment");
+  }
 };
 
 //   export const getAssignment = async (id) => {
@@ -113,11 +118,12 @@ export const updateMemo = async (paperId, data) => {
 
 //User 관련 API
 export const getUser = async () => {
-  const response = await instanceWithToken.get("/account/info/");
+  console.log('aaa')
+  const response = await instanceWithToken.get("account/info/");
   if (response.status === 200) {
-    console.log("GET USER SUCCESS");
+    console.log("USER GET SUCCESS");
   } else {
-    console.log("[ERROR] error while updating comment");
+    console.log("[ERROR] error while getting user");
   }
   return response.data;
 };
