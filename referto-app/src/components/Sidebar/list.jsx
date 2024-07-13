@@ -41,18 +41,18 @@ const SidebarList = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (getCookie("access_token")) {
-        try {
-          const userData = await getUser();
-          setUser(userData);
-        } catch (error) {
-          console.error('Error fetching user:', error);
-        }
+      try {
+        const userData = await getUser();
+        setUser(userData);
+      } catch (error) {
+        console.error('Error fetching user:', error);
       }
     };
-    fetchUser();
+    if (getCookie("access_token")) {
+      fetchUser();
+    }
   }, []);
-
+  
 
   useEffect(() => {
     const fetchAssignments = async () => {

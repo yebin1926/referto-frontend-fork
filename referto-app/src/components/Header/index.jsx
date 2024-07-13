@@ -9,6 +9,8 @@ import { getCookie, removeCookie } from "../../utils/cookie";
 const Header = () => {
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
 
   const openLogInModal = () => {
     console.log("openLogIn");
@@ -30,24 +32,26 @@ const Header = () => {
     setShowSignUp(false);
   };
 
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-
   useEffect(() => {
-    const loggedIn = !!getCookie("access_token");
+    const loggedIn = !!(getCookie("access_token"))
     setIsUserLoggedIn(loggedIn);
+    console.log(loggedIn)
     if (loggedIn) {
       setShowLogIn(false);
       setShowSignUp(false);
+      const userEmail = 'email'; // 헤더에 이메일 띄우기 해결해야됨 ㅠㅠ
+      setEmail(userEmail);
     }
-    console.log("useEffect " + loggedIn);
+    console.log("useEffect loggedIn:", loggedIn);
   }, []);
 
   const handleSignOut = () => {
     removeCookie("access_token");
     removeCookie("refresh_token");
     window.location.href = "/";
-    setIsUserLoggedIn(!isUserLoggedIn)
   };
+
+  
 
   return (
     <div className="flex w-full h-[65px] items-center justify-between px-10 py-0 relative bg-neutral-700">
@@ -70,7 +74,7 @@ const Header = () => {
           {isUserLoggedIn ? (
             <div className="flex flex-row">
               <div className="w-fit mx-3 [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center">
-                {/*getCookie("user_email")*/}User 1
+                {email}
               </div>
               <img alt="profile" src={user} className="mr-5" />
               <Link
@@ -93,14 +97,13 @@ const Header = () => {
                 <LogInModal
                   onClose={closeLogInModal}
                   onSwitch={openSignUpModal}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
                 />
               )}
               {showSignUp && (
                 <SignUpModal
                   onClose={closeSignUpModal}
                   onSwitch={openLogInModal}
-                  isUserLoggedIn={isUserLoggedIn}
-                  setIsUserLoggedIn={setIsUserLoggedIn}
                 />
               )}
             </div>

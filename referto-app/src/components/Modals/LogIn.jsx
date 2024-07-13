@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { signIn } from "../../apis/api";
 
-const LogInModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn }) => {
+const LogInModal = ({ onClose, onSwitch }) => {
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
@@ -11,7 +11,6 @@ const LogInModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn }) =>
     const { id, value } = e.target;
     setLogInData({ ...logInData, [id]: value });
   };
-
   
   const handleLogInSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +18,6 @@ const LogInModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn }) =>
       await signIn(logInData);
       alert("로그인 되었습니다");
       onClose();
-      // setIsUserLoggedIn(!isUserLoggedIn)
     } catch (error) {
       console.error('Error logging in:', error);
     }
