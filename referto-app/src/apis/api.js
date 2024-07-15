@@ -73,6 +73,7 @@ export const getPaperInfos = async (assignment_id) => {
   );
   if (response.status === 200) {
     console.log("PAPERINFO GET SUCCESS");
+    //console.log("Response Data:", JSON.stringify(response.data, null, 2));
     return response.data;
   } else {
     console.log("[ERROR] error while getting PAPERINFO");
