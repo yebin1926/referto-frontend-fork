@@ -8,7 +8,7 @@ import { getCookie, removeCookie } from "../../utils/cookie";
 import { getUser } from "../../apis/api";
 
 const Header = (props) => {
-  const { isUserLoggedIn, setIsUserLoggedIn } = props
+  const { isUserLoggedIn, setIsUserLoggedIn } = props;
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
   const [user, setUser] = useState("null");
@@ -34,7 +34,7 @@ const Header = (props) => {
   };
 
   useEffect(() => {
-    const loggedIn = !!(getCookie("access_token"))
+    const loggedIn = !!getCookie("access_token");
     setIsUserLoggedIn(loggedIn);
     if (loggedIn) {
       setShowLogIn(false);
@@ -58,7 +58,6 @@ const Header = (props) => {
       getUserAPI();
     }
   }, [isUserLoggedIn]);
-
 
   return (
     <div className="flex w-full h-[65px] items-center justify-between px-10 py-0 relative bg-neutral-700">
