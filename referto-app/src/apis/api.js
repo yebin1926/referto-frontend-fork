@@ -40,7 +40,7 @@ export const createAssignment = async (data) => {
   const response = await instanceWithToken.post("/assignments/", data);
   if (response.status === 201) {
     console.log("ASSIGNMENT CREATE SUCCESS");
-    return response.data
+    return response.data;
   } else {
     console.log("[ERROR] error while creating assignment");
   }
@@ -50,7 +50,7 @@ export const updateAssignment = async (id, data) => {
   const response = await instanceWithToken.put(`/assignments/${id}/`, data);
   if (response.status === 200) {
     console.log("ASSIGNMENT UPDATE SUCCESS");
-    return response.data
+    return response.data;
   } else {
     console.log("[ERROR] error while updating assignment");
   }
@@ -67,11 +67,23 @@ export const deleteAssignment = async (id) => {
 
 // Papers 관련 API
 
+export const getPaperInfos = async (assignment_id) => {
+  const response = await instanceWithToken.get(
+    `/paperinfo/assignment/${assignment_id}/`
+  );
+  if (response.status === 200) {
+    console.log("PAPERINFO GET SUCCESS");
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting PAPERINFO");
+  }
+};
+
 export const uploadPaper = async (formData, config) => {
   const response = await instanceWithToken.post("/papers/", formData, config);
   if (response.status === 201) {
     console.log("PAPER UPLOAD SUCCESS");
-    return response.data
+    return response.data;
   } else {
     console.log("[ERROR] error while uploading paper");
   }
