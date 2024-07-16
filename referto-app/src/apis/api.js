@@ -22,6 +22,12 @@ export const signUp = async (data) => {
 
 // Assignments 관련 API들
 export const getAssignments = async () => {
+  try {
+    const response_user = await instanceWithToken.get("account/info/");
+  } catch (error) {
+    console.log("No access token");
+    return [];
+  }
   const response = await instanceWithToken.get("/assignments/");
   if (response.status === 200) {
     console.log("ASSIGNMENT GET SUCCESS");
@@ -68,6 +74,12 @@ export const deleteAssignment = async (id) => {
 // Papers 관련 API
 
 export const getPaperInfos = async (assignment_id) => {
+  try {
+    const response_user = await instanceWithToken.get("account/info/");
+  } catch (error) {
+    console.log("No access token");
+    return [];
+  }
   const response = await instanceWithToken.get(
     `/paperinfo/assignment/${assignment_id}/`
   );
