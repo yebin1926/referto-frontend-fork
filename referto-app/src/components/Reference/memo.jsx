@@ -5,13 +5,13 @@ import { getMemo, updateMemo } from "../../apis/api";
 const ReferenceMemo = ({ referenceId, referenceName }) => {
   const [memoContent, setMemoContent] = useState("");
 
-  useEffect(() => {
-    const getMemoAPI = async () => {
-      const memo = await getMemo(referenceId);
-      setMemoContent(memo.content);
-    };
-    getMemoAPI();
-  }, [referenceId]);
+  // useEffect(() => {
+  //   const getMemoAPI = async () => {
+  //     const memo = await getMemo(referenceId);
+  //     setMemoContent(memo.content);
+  //   };
+  //   getMemoAPI();
+  // }, [referenceId]);
 
   const handleContentChange = (e) => {
     setMemoContent(e.target.value);
