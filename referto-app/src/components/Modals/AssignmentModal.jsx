@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Pencil, Trash2, Check } from 'lucide-react';
 
-const AssignmentModal = ({ handleEditAssignment, handleDeleteAssignment, isEdit, setIsEdit, setIsOpen }) => {
+const AssignmentModal = ({ position, handleEditAssignment, handleDeleteAssignment, isEdit, setIsEdit, setIsOpen }) => {
   const modalRef = useRef(null);
   
   useEffect(() => {
@@ -18,7 +18,7 @@ const AssignmentModal = ({ handleEditAssignment, handleDeleteAssignment, isEdit,
 
   const MenuItem = ({ text, icon, onClick }) => {
     return (
-      <div className="px-8 py-2 bg-white justify-center items-center gap-2.5 flex cursor-pointer pointer-events-auto" onClick={onClick}>
+      <div className="px-8 py-2 bg-white hover:bg-neutral-300 justify-center items-center gap-2.5 flex cursor-pointer pointer-events-auto" onClick={onClick}>
         <div className="justify-center items-center gap-2.5 flex">
           {icon}
         </div>
@@ -33,7 +33,7 @@ const AssignmentModal = ({ handleEditAssignment, handleDeleteAssignment, isEdit,
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-start justify-end z-50 pointer-events-none" ref={modalRef} style={{ top: 0, left: 0 }}>
-      <div className="absolute modal-overlay rounded-lg overflow-hidden shadow-lg" >
+      <div className="absolute modal-overlay rounded-lg overflow-hidden shadow-lg" style={{ top: position.top, left: position.left }}>
       {isEdit? <MenuItem
         text={"save"}
         icon={<Check className="w-4 h-4"/>}

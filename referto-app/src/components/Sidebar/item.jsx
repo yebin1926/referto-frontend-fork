@@ -15,14 +15,33 @@ const SidebarItem = ({
 
   const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
-  const [content, setContent] = useState(assignmentName)
-  const [onChangeValue, setOnChangeValue] = useState(content)
-  const ref = useRef(null)
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+  const [content, setContent] = useState(assignmentName);
+  const [onChangeValue, setOnChangeValue] = useState(content);
+  const ref = useRef(null);
   const navigate = useNavigate()
   const { assignmentId: selectedAssignmentIdString } = useParams();
   const selectedAssignmentId = Number(selectedAssignmentIdString)
 
+  const handleAssignment = () => {
+    console.log("handleAssignment 함수가 호출됨");
+    if (ref.current) {
+      console.log("ref.current입니다.")
+      const rect = ref.current.getBoundingClientRect();
+      setModalPosition({top: rect.bottom, left: rect.left});
+      setIsOpen(true);
+      document.body.style.overflow = 'hidden';
+    } else {
+      console.log("ref.current가 아닙니다.");
+      console.log(ref.current);
+    }
+  }
+
   const handleEditAssignment = async() => {
+    if (onChangeValue.trim().length < 1) {
+      alert("Assignment name must be at least 1 character long!");
+      return;
+    }
     setIsEdit(false)
     setIsOpen(false)
     try {
@@ -122,7 +141,7 @@ const SidebarItem = ({
               className="border text-neutral-700 w-20 h-10 p-1"
               value={onChangeValue}
               onChange={(e) => setOnChangeValue(e.target.value)}
-              ref={ref}
+              // ref={ref}
               minLength="1"
               required
             />
@@ -133,7 +152,7 @@ const SidebarItem = ({
           <div className="flex-grow"></div>
           <Ellipsis 
             className="text-neutral-700 selection:w-[18px] h-[18px] relative cursor-pointer" 
-            onClick={() => setIsOpen(true)} 
+            onClick={handleAssignment} 
             ref={ref}/>
         </div>
       ) : (
@@ -149,6 +168,7 @@ const SidebarItem = ({
       )}
       {isOpen && <AssignmentModal 
         assignmentId={assignmentId} 
+        position={modalPosition}
         handleEditAssignment={handleEditAssignment} 
         handleDeleteAssignment={handleDeleteAssignment}
         isEdit={isEdit}
