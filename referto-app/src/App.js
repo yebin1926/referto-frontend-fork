@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import HomePage from "./routes/HomePage";
 import ReferenceDetailPage from "./routes/ReferenceDetailPage";
 import "./App.css";
+import { updatePaperInfo } from "./apis/api";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -29,14 +30,7 @@ function App() {
   };
 
   const handleReferenceUpdate = (referenceId, newContent) => {
-    setReferencesList(
-      referencesList.map((reference) => {
-        if (reference.paperInfo_id === referenceId) {
-          return { ...reference, reference: newContent };
-        }
-        return reference;
-      })
-    );
+    updatePaperInfo(referenceId, newContent);
   };
 
   const getAllReferences = useCallback(() => {

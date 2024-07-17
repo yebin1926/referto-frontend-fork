@@ -11,8 +11,7 @@ const ReferenceList = ({
       {referencesList.map((reference) => (
         <ReferenceItem
           key={reference.paperInfo_id}
-          referenceId={reference.paperInfo_id}
-          referenceName={reference.mla_reference}
+          reference={reference}
           isVisible={true} //view 버튼 없어지게 하는 것
           handleReferenceDelete={handleReferenceDelete}
           handleReferenceUpdate={handleReferenceUpdate}
