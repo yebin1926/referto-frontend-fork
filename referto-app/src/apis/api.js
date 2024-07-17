@@ -25,7 +25,7 @@ export const getAssignments = async () => {
   try {
     const response_user = await instanceWithToken.get("account/info/");
   } catch (error) {
-    console.log("No access token");
+    console.log("No Access Token");
     return [];
   }
   const response = await instanceWithToken.get("/assignments/");
@@ -73,25 +73,6 @@ export const deleteAssignment = async (id) => {
 
 // Papers 관련 API
 
-export const getPaperInfos = async (assignment_id) => {
-  try {
-    const response_user = await instanceWithToken.get("account/info/");
-  } catch (error) {
-    console.log("No access token");
-    return [];
-  }
-  const response = await instanceWithToken.get(
-    `/paperinfo/assignment/${assignment_id}/`
-  );
-  if (response.status === 200) {
-    console.log("PAPERINFO GET SUCCESS");
-    //console.log("Response Data:", JSON.stringify(response.data, null, 2));
-    return response.data;
-  } else {
-    console.log("[ERROR] error while getting PAPERINFO");
-  }
-};
-
 export const uploadPaper = async (formData, config) => {
   const response = await instanceWithToken.post("/papers/", formData, config);
   if (response.status === 201) {
@@ -121,6 +102,46 @@ export const deletePaper = async (id) => {
   }
 };
 
+// PaperInfos 관련 API들
+
+export const getPaperInfos = async (assignment_id) => {
+  try {
+    const response_user = await instanceWithToken.get("account/info/");
+  } catch (error) {
+    console.log("No Access Token");
+    return [];
+  }
+  const response = await instanceWithToken.get(
+    `/paperinfo/assignment/${assignment_id}/`
+  );
+  if (response.status === 200) {
+    console.log("PAPERINFO GET SUCCESS");
+    //console.log("Response Data:", JSON.stringify(response.data, null, 2));
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting PAPERINFO");
+  }
+};
+
+export const uploadPaperInfo = async (paper_id) => {
+  const response = await instanceWithToken.post(`/paperinfo/${paper_id}/`);
+  if (response.status === 200) {
+    console.log("PAPERINFO UPLOAD SUCCESS");
+    return response.data;
+  } else {
+    console.log("[ERROR] error while uploading paperinfo");
+  }
+};
+
+export const updatePaperInfo = async (paper_id, data) => {
+  const response = await instanceWithToken.put(`/paperinfo/${paper_id}/`, data);
+  if (response.status === 200) {
+    console.log("PAPERINFO UPDATE SUCCESS");
+  } else {
+    console.log("[ERROR] error while updating paperinfo");
+  }
+};
+
 // Memos 관련 API들
 
 export const getMemo = async (paperId) => {
@@ -140,8 +161,6 @@ export const updateMemo = async (paperId, data) => {
     console.log("[ERROR] error while updating memo");
   }
 };
-
-// PaperInfos 관련 API들
 
 //User 관련 API
 export const getUser = async () => {
