@@ -9,11 +9,10 @@ const ReferenceItem = ({
   handleReferenceUpdate,
   findIndexofReference,
 }) => {
-  const referenceId = reference.paperinfo_id;
-  const referenceName = reference.mla_reference;
+  const referenceId = reference.paperInfo_id;
 
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
-  const [content, setContent] = useState(referenceName);
+  const [content, setContent] = useState(reference.mla_reference);
   const [isEdit, setIsEdit] = useState(false);
 
   const handleEditContent = () => {
@@ -23,7 +22,9 @@ const ReferenceItem = ({
     setContent(event.target.value);
   };
   const handleContentUpdate = () => {
-    //handleReferenceUpdate(referenceId, content);
+    //change later
+    reference.mla_reference = content;
+    handleReferenceUpdate(referenceId, reference);
     setIsEdit(!isEdit);
   };
   const handleCopy = () => {

@@ -17,7 +17,7 @@ function App() {
     return index;
   };
 
-  const handleReferenceDelete = (referenceId, event) => {
+  const handleReferenceDelete = (referenceId, e) => {
     if (window.confirm("Do you really want to delete?")) {
       setReferencesList(
         referencesList.filter(
@@ -25,12 +25,12 @@ function App() {
         )
       );
     } else {
-      event.preventDefault();
+      e.preventDefault();
     }
   };
 
-  const handleReferenceUpdate = (referenceId, newContent) => {
-    updatePaperInfo(referenceId, newContent);
+  const handleReferenceUpdate = (referenceId, newReference) => {
+    const response = updatePaperInfo(referenceId, newReference);
   };
 
   const getAllReferences = useCallback(() => {
