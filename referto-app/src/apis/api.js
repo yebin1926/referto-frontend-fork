@@ -2,7 +2,7 @@ import { instance, instanceWithToken } from "./axios";
 
 // Account 관련 API들
 export const signIn = async (data) => {
-  const response = await instance.post("/account/signin/", data);
+  const response = await instance.post("api/account/signin/", data);
   if (response.status === 200) {
     window.location.href = "/";
   } else {
@@ -11,7 +11,7 @@ export const signIn = async (data) => {
 };
 
 export const signUp = async (data) => {
-  const response = await instance.post("/account/signup/", data);
+  const response = await instance.post("api/account/signup/", data);
   if (response.status === 200 || response.status === 201) {
     return response.data;
   } else {
@@ -20,15 +20,21 @@ export const signUp = async (data) => {
   return response;
 };
 
+export const naverSignIn = async() => {
+  window.location.href = 'http://localhost:8000/accounts/naver/login/'
+  const response = await instance.get("accounts/naver/login/");
+  return response;
+}
+
 // Assignments 관련 API들
 export const getAssignments = async () => {
   try {
-    const response_user = await instanceWithToken.get("account/info/");
+    const response_user = await instanceWithToken.get("api/account/info/");
   } catch (error) {
     console.log("No Access Token");
     return [];
   }
-  const response = await instanceWithToken.get("/assignments/");
+  const response = await instanceWithToken.get("api/assignments/");
   if (response.status === 200) {
     console.log("ASSIGNMENT GET SUCCESS");
     return response.data;
@@ -43,7 +49,7 @@ export const getAssignments = async () => {
 //   };
 
 export const createAssignment = async (data) => {
-  const response = await instanceWithToken.post("/assignments/", data);
+  const response = await instanceWithToken.post("api/assignments/", data);
   if (response.status === 201) {
     console.log("ASSIGNMENT CREATE SUCCESS");
     return response.data;
@@ -53,7 +59,7 @@ export const createAssignment = async (data) => {
 };
 
 export const updateAssignment = async (id, data) => {
-  const response = await instanceWithToken.put(`/assignments/${id}/`, data);
+  const response = await instanceWithToken.put(`api/assignments/${id}/`, data);
   if (response.status === 200) {
     console.log("ASSIGNMENT UPDATE SUCCESS");
     return response.data;
@@ -63,7 +69,7 @@ export const updateAssignment = async (id, data) => {
 };
 
 export const deleteAssignment = async (id) => {
-  const response = await instanceWithToken.delete(`/assignments/${id}/`);
+  const response = await instanceWithToken.delete(`api/assignments/${id}/`);
   if (response.status === 200) {
     console.log("ASSIGNMENT DELETE SUCCESS");
   } else {
@@ -74,7 +80,7 @@ export const deleteAssignment = async (id) => {
 // Papers 관련 API
 
 export const uploadPaper = async (formData, config) => {
-  const response = await instanceWithToken.post("/papers/", formData, config);
+  const response = await instanceWithToken.post("api/papers/", formData, config);
   if (response.status === 201) {
     console.log("PAPER UPLOAD SUCCESS");
     return response.data;
@@ -94,7 +100,7 @@ export const uploadPaper = async (formData, config) => {
 //   };
 
 export const deletePaper = async (id) => {
-  const response = await instanceWithToken.delete(`/papers/${id}/`);
+  const response = await instanceWithToken.delete(`api/papers/${id}/`);
   if (response.status === 200) {
     console.log("PAPER DELETE SUCCESS");
   } else {
@@ -106,13 +112,13 @@ export const deletePaper = async (id) => {
 
 export const getPaperInfos = async (assignment_id) => {
   try {
-    const response_user = await instanceWithToken.get("account/info/");
+    const response_user = await instanceWithToken.get("api/account/info/");
   } catch (error) {
     console.log("No Access Token");
     return [];
   }
   const response = await instanceWithToken.get(
-    `/paperinfo/assignment/${assignment_id}/`
+    `api/paperinfo/assignment/${assignment_id}/`
   );
   if (response.status === 200) {
     console.log("PAPERINFO GET SUCCESS");
@@ -124,7 +130,7 @@ export const getPaperInfos = async (assignment_id) => {
 };
 
 export const uploadPaperInfo = async (paper_id) => {
-  const response = await instanceWithToken.post(`/paperinfo/${paper_id}/`);
+  const response = await instanceWithToken.post(`api/paperinfo/${paper_id}/`);
   if (response.status === 200) {
     console.log("PAPERINFO UPLOAD SUCCESS");
     return response.data;
@@ -134,7 +140,7 @@ export const uploadPaperInfo = async (paper_id) => {
 };
 
 export const updatePaperInfo = async (paper_id, data) => {
-  const response = await instanceWithToken.put(`/paperinfo/${paper_id}/`, data);
+  const response = await instanceWithToken.put(`api/paperinfo/${paper_id}/`, data);
   if (response.status === 200) {
     console.log("PAPERINFO UPDATE SUCCESS");
   } else {
@@ -145,7 +151,7 @@ export const updatePaperInfo = async (paper_id, data) => {
 // Memos 관련 API들
 
 export const getMemo = async (paperId) => {
-  const response = await instanceWithToken.get(`/papers/${paperId}/memo/`);
+  const response = await instanceWithToken.get(`api/papers/${paperId}/memo/`);
   return response.data;
 };
 
@@ -164,7 +170,7 @@ export const updateMemo = async (paperId, data) => {
 
 //User 관련 API
 export const getUser = async () => {
-  const response = await instanceWithToken.get("account/info/");
+  const response = await instanceWithToken.get("api/account/info/");
   if (response.status === 200) {
     console.log("USER GET SUCCESS");
   } else {
