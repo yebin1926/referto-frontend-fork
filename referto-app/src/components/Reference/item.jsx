@@ -10,6 +10,7 @@ const ReferenceItem = ({
   findIndexofReference,
 }) => {
   const referenceId = reference.paperInfo_id;
+  const paper_id = reference.paper.paper_id;
 
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(reference.mla_reference);
@@ -92,7 +93,7 @@ const ReferenceItem = ({
       >
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          onClick={(event) => handleReferenceDelete(referenceId, event)}
+          onClick={(event) => handleReferenceDelete(paper_id, event)}
         />
       </Link>
     </div>

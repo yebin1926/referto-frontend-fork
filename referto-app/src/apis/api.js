@@ -93,9 +93,9 @@ export const uploadPaper = async (formData, config) => {
 //     }
 //   };
 
-export const deletePaper = async (id) => {
-  const response = await instanceWithToken.delete(`/papers/${id}/`);
-  if (response.status === 200) {
+export const deletePaper = async (paper_id) => {
+  const response = await instanceWithToken.delete(`/papers/${paper_id}/`);
+  if (response.status === 204) {
     console.log("PAPER DELETE SUCCESS");
   } else {
     console.log("[ERROR] error while deleting paper");

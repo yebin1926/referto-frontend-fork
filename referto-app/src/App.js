@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import HomePage from "./routes/HomePage";
 import ReferenceDetailPage from "./routes/ReferenceDetailPage";
 import "./App.css";
-import { updatePaperInfo } from "./apis/api";
+import { updatePaperInfo, deletePaper } from "./apis/api";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -17,20 +17,21 @@ function App() {
     return index;
   };
 
-  const handleReferenceDelete = (referenceId, e) => {
+  const handleReferenceDelete = async (referenceId, e) => {
+    console.log("********" + referenceId);
     if (window.confirm("Do you really want to delete?")) {
-      setReferencesList(
-        referencesList.filter(
-          (reference) => reference.paperInfo_id !== referenceId
-        )
-      );
+      try {
+        await deletePaper(referenceId);
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       e.preventDefault();
     }
   };
 
-  const handleReferenceUpdate = (referenceId, newReference) => {
-    const response = updatePaperInfo(referenceId, newReference);
+  const handleReferenceUpdate = async (referenceId, newReference) => {
+    const response = await updatePaperInfo(referenceId, newReference);
   };
 
   const getAllReferences = useCallback(() => {
