@@ -52,6 +52,24 @@ export const createAssignment = async (data) => {
   }
 };
 
+export const getAssignment = async (id) => {
+  try {
+    const response_user = await instanceWithToken.get("account/info/");
+  } catch (error) {
+    console.log("No Access Token");
+    return [];
+  }
+  const response = await instanceWithToken.get(
+    `/assignments/${id}/`
+  );
+  if (response.status === 200) {
+    console.log("ASSIGNMENTSTYLE GET SUCCESS");
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting ASSIGNMENTSTYLE");
+  }
+};
+
 export const updateAssignment = async (id, data) => {
   const response = await instanceWithToken.put(`/assignments/${id}/`, data);
   if (response.status === 200) {
@@ -95,7 +113,7 @@ export const uploadPaper = async (formData, config) => {
 
 export const deletePaper = async (id) => {
   const response = await instanceWithToken.delete(`/papers/${id}/`);
-  if (response.status === 200) {
+  if (response.status === 204) {
     console.log("PAPER DELETE SUCCESS");
   } else {
     console.log("[ERROR] error while deleting paper");

@@ -4,8 +4,8 @@ import SidebarList from "../components/Sidebar/list";
 import FileUpload from "../components/FileUpload";
 import StyleList from "../components/Style/list";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { getPaperInfos } from "../apis/api.js";
+import { useEffect, useState } from "react";
+import { getPaperInfos, getAssignment } from "../apis/api.js";
 
 const HomePage = ({
   referencesList,
@@ -15,7 +15,12 @@ const HomePage = ({
   getAllReferences,
   findIndexofReference,
   isUserLoggedIn,
+  selectedStyleName,
+  setSelectedStyleName,
 }) => {
+  
+  // const [selectedStyleId, setSelectedStyleId] = useState(1);
+
   const handleCopyAll = () => {
     const allReferencesText = getAllReferences().join("\n");
     const textarea = document.createElement("textarea");
@@ -28,6 +33,7 @@ const HomePage = ({
   };
 
   const { assignmentId } = useParams();
+  const selectedAssignmentId = Number(assignmentId)
 
   useEffect(() => {
     if (assignmentId) {
@@ -36,17 +42,24 @@ const HomePage = ({
         setReferencesList(references);
       };
       getReferencesAPI();
+      const getAssignmentAPI = async () => {
+        const assignment = await getAssignment(assignmentId);
+        console.log('get 잘 가져왔어용', assignment)
+        setSelectedStyleName(assignment.reference_type);
+      };
+      getAssignmentAPI();
     }
-  }, [setReferencesList, assignmentId]);
+  }, [assignmentId]);
+  
 
   return (
     <div className="w-full flex flex-row justify-between">
       <div className="flex flex-col w-[280px] h-[850px] items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">
-        <SidebarList isUserLoggedIn={isUserLoggedIn} />
+        <SidebarList isUserLoggedIn={isUserLoggedIn}/>
       </div>
       <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
         <div className="self-stretch justify-end items-center inline-flex">
-          <StyleList />
+          <StyleList selectedAssignmentId={selectedAssignmentId} selectedStyleName={selectedStyleName} setSelectedStyleName={setSelectedStyleName}/>
           <FileUpload />
         </div>
         <div className="w-full h-[241px] flex-col justify-start items-center inline-flex">
@@ -73,6 +86,7 @@ const HomePage = ({
             handleReferenceDelete={handleReferenceDelete}
             handleReferenceUpdate={handleReferenceUpdate}
             findIndexofReference={findIndexofReference}
+            selectedStyleName={selectedStyleName}
           />
         </div>
       </div>
