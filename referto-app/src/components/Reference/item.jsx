@@ -10,7 +10,6 @@ const ReferenceItem = ({
   findIndexofReference,
 }) => {
   const referenceId = reference.paperInfo_id;
-  const paper_id = reference.paper.paper_id;
 
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(reference.mla_reference);
@@ -25,7 +24,7 @@ const ReferenceItem = ({
   const handleContentUpdate = () => {
     //change later
     reference.mla_reference = content;
-    handleReferenceUpdate(referenceId, reference);
+    handleReferenceUpdate(reference.paperInfo_id, reference);
     setIsEdit(!isEdit);
   };
   const handleCopy = () => {
@@ -41,7 +40,7 @@ const ReferenceItem = ({
     <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
-          {parseInt(findIndexofReference(referenceId)) + 1}
+          {parseInt(findIndexofReference(reference.paperInfo_id)) + 1}
         </div>
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
@@ -75,7 +74,9 @@ const ReferenceItem = ({
         </div>
       </div>
       <Link
-        to={`/${assignmentId}/${referenceId}`}
+        to={{
+          pathname: `/${assignmentId}/${referenceId}`,
+        }}
         className={`px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex ${
           isVisible ? "block" : "hidden"
         }`}
@@ -93,7 +94,7 @@ const ReferenceItem = ({
       >
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          onClick={(event) => handleReferenceDelete(paper_id, event)}
+          onClick={(event) => handleReferenceDelete(reference.paper, event)}
         />
       </Link>
     </div>

@@ -105,7 +105,7 @@ export const uploadPaper = async (formData, config) => {
 
 export const deletePaper = async (id) => {
   const response = await instanceWithToken.delete(`api/papers/${id}/`);
-  if (response.status === 200) {
+  if (response.status === 204) {
     console.log("PAPER DELETE SUCCESS");
   } else {
     console.log("[ERROR] error while deleting paper");
@@ -160,6 +160,20 @@ export const updatePaperInfo = async (paper_id, data) => {
 export const getMemo = async (paperId) => {
   const response = await instanceWithToken.get(`api/papers/${paperId}/memo/`);
   return response.data;
+};
+
+export const createMemo = async (paperId, data) => {
+  const response = await instanceWithToken.post(
+    `api/papers/${paperId}/memo/`,
+    data
+  );
+  if (response.status == 201) {
+    console.log("MEMO SUCCESS");
+    window.location.reload();
+    return response.data;
+  } else {
+    console.log("[ERROR] error while creating memo");
+  }
 };
 
 export const updateMemo = async (paperId, data) => {

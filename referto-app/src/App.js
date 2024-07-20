@@ -1,14 +1,27 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "./components/Header";
 import HomePage from "./routes/HomePage";
 import ReferenceDetailPage from "./routes/ReferenceDetailPage";
 import "./App.css";
-import { updatePaperInfo, deletePaper } from "./apis/api";
+import { updatePaperInfo, deletePaper, getPaperInfos } from "./apis/api";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [referencesList, setReferencesList] = useState([]);
+
+  useEffect(() => {
+    const fetchReferences = async () => {
+      try {
+        const references = await getPaperInfos(0);
+        setReferencesList(references);
+      } catch (error) {
+        console.error("Error fetching references:", error);
+      }
+    };
+
+    fetchReferences();
+  }, []);
 
   const findIndexofReference = (referenceId) => {
     const index = referencesList.findIndex(
@@ -18,7 +31,6 @@ function App() {
   };
 
   const handleReferenceDelete = async (referenceId, e) => {
-    console.log("********" + referenceId);
     if (window.confirm("Do you really want to delete?")) {
       try {
         await deletePaper(referenceId);
@@ -52,6 +64,7 @@ function App() {
             element={
               <ReferenceDetailPage
                 referencesList={referencesList}
+                setReferencesList={setReferencesList}
                 handleReferenceDelete={handleReferenceDelete}
                 handleReferenceUpdate={handleReferenceUpdate}
                 findIndexofReference={findIndexofReference}

@@ -1,26 +1,47 @@
 import ReferenceItem from "../components/Reference/item";
 import { useParams } from "react-router-dom";
-import references from "../data/references";
+//import references from "../data/references";
 import PDFViewer from "../components/PDFView";
 import PDF1 from "../data/PDFs/PDF1.pdf";
 import ReferenceMemo from "../components/Reference/memo";
+import { getPaperInfos } from "../apis/api";
+import { useState, useEffect } from "react";
 
 const ReferenceDetailPage = ({
+  referencesList,
+  setReferencesList,
   handleReferenceDelete,
   handleReferenceUpdate,
   findIndexofReference,
 }) => {
   const { referenceId } = useParams();
-  const reference = references.find((ref) => ref.paperInfo_id === referenceId);
-  const referenceName = reference.reference;
+  const [referencesList2, setReferencesList2] = useState(referencesList);
+
+  useEffect(() => {
+    console.log("ReferencesList Length: " + referencesList2.length);
+    if (referencesList2.length === 0) {
+      const getReferencesAPI = async () => {
+        const references = await getPaperInfos(0);
+        setReferencesList2(references);
+        setReferencesList(references);
+      };
+      getReferencesAPI();
+    }
+  }, []);
+
+  console.log("References List: " + referencesList2);
+
+  const reference = referencesList2.find(
+    (ref) => ref.paperInfo_id === Number(referenceId)
+  );
+
+  const referenceName = reference.mla_reference;
 
   const pdfUrl = PDF1;
-
   return (
     <div className="w-full h-[959px] px-[100px] pt-[50px] pb-[100px] flex-col justify-start items-center inline-flex">
       <ReferenceItem
-        referenceId={referenceId}
-        referenceName={referenceName}
+        reference={reference}
         isVisible={false}
         handleReferenceDelete={handleReferenceDelete}
         handleReferenceUpdate={handleReferenceUpdate}
