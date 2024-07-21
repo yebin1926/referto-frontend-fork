@@ -7,10 +7,12 @@ const ReferenceMemo = ({ referenceId, referenceName }) => {
 
   // useEffect(() => {
   //   const getMemoAPI = async () => {
-  //     const memo = await getMemo(referenceId);
+  //     const memo = await getMemo();
   //     setMemoContent(memo.content);
+  //     console.log(memo);
   //   };
   //   getMemoAPI();
+    
   // }, [referenceId]);
 
   const handleContentChange = (e) => {

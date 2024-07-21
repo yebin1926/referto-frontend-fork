@@ -20,7 +20,7 @@ const LogInModal = ({ onClose, onSwitch }) => {
       alert("로그인 되었습니다");
       onClose();
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.error('Error logging in:', error.message);
     }
   };
 
@@ -28,7 +28,6 @@ const LogInModal = ({ onClose, onSwitch }) => {
     onClose();
     onSwitch();
   };
-
 
   const handleNaverLogin = async(e) => {
     e.preventDefault();
@@ -39,9 +38,6 @@ const LogInModal = ({ onClose, onSwitch }) => {
       console.error('Error logging in:', error);
     }
   }
-
-
-
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-70 z-10">

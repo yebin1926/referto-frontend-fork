@@ -58,6 +58,24 @@ export const createAssignment = async (data) => {
   }
 };
 
+export const getAssignment = async (id) => {
+  try {
+    const response_user = await instanceWithToken.get("api/account/info/");
+  } catch (error) {
+    console.log("No Access Token");
+    return [];
+  }
+  const response = await instanceWithToken.get(
+    `api/assignments/${id}/`
+  );
+  if (response.status === 200) {
+    console.log("ASSIGNMENTSTYLE GET SUCCESS");
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting ASSIGNMENTSTYLE");
+  }
+};
+
 export const updateAssignment = async (id, data) => {
   const response = await instanceWithToken.put(`api/assignments/${id}/`, data);
   if (response.status === 200) {
@@ -90,6 +108,22 @@ export const uploadPaper = async (formData, config) => {
     return response.data;
   } else {
     console.log("[ERROR] error while uploading paper");
+  }
+};
+
+export const getPaper = async (paper_id) => {
+  try{
+    const response_user = await instanceWithToken.get("api/account/info/");
+  } catch (error) {
+    console.log("No Access Token");   
+    return [];
+  }
+  const response = await instanceWithToken.get(`api/papers/${paper_id}/`);
+  if (response.status === 200) {
+    console.log("PAPER GET SUCCESS");
+    return response.data; 
+  } else {
+    console.log("[ERROR] error while getting PAPER")
   }
 };
 
@@ -178,7 +212,7 @@ export const createMemo = async (paperId, data) => {
 
 export const updateMemo = async (paperId, data) => {
   const response = await instanceWithToken.put(
-    `/papers/${paperId}/memo/`,
+    `api/papers/${paperId}/memo/`,
     data
   );
   if (response.status === 200) {

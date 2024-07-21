@@ -2,28 +2,9 @@ import { useState, useEffect } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-const ReferenceItem = ({
-  reference,
-  isVisible,
-  // handleReferenceDelete,
-  // handleReferenceUpdate,
-  // findIndexofReference,
-  selectedStyleName,
-  index,
-}) => {
-  // console.log('reference item에서 보는 참고문헌 :', JSON.stringify(reference, null, 2));
-  const referenceId = reference["paperInfo_id"];
-  const referenceName = reference[selectedStyleName];
-  // console.log(`reference item에서 보는 ${selectedStyleName} 스타일에 따른 참고문헌 각주 : ${referenceName}`);
-
-  const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
+const ReferenceItemDetail = ({ index, referenceId, referenceName, assignmentId }) => {
   const [content, setContent] = useState(referenceName);
-  // 컴포넌트가 다시 렌더링될 때마다 상태를 초기화하는 useEffect
-  useEffect(() => {
-    setContent(referenceName);
-  });
-  // setContent(referenceName);
-  // console.log('content', content);
+  useEffect(() => { setContent(referenceName); });
   const [isEdit, setIsEdit] = useState(false);
 
   const handleEditContent = () => {
@@ -33,9 +14,7 @@ const ReferenceItem = ({
     setContent(event.target.value);
   };
   const handleContentUpdate = () => {
-    //change later
-    reference.mla_reference = content;
-    handleReferenceUpdate(reference.paperInfo_id, reference);
+    //handleReferenceUpdate(referenceId, content);
     setIsEdit(!isEdit);
   };
   const handleCopy = () => {
@@ -48,26 +27,10 @@ const ReferenceItem = ({
     alert("Your reference copied to clipboard!");
   };
 
-  const navigate = useNavigate();
-
-  const handleClickView = () => {
-    navigate(`/${assignmentId}/${referenceId}`, {
-      state: {
-        reference,
-        selectedStyleName,
-        index,
-        referenceId,
-        referenceName,
-        assignmentId,
-      },
-    });
-  };
-
   return (
     <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
-          {/* {parseInt(findIndexofReference(referenceId)) + 1} */}
           {index}
         </div>
       </div>
@@ -101,20 +64,6 @@ const ReferenceItem = ({
           />
         </div>
       </div>
-      <div
-        onClick={handleClickView}
-        className={`px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer`}
-        //  ${
-        //   isVisible ? "block" : "hidden"
-        // }`}
-      >
-        <div className="justify-center items-center gap-2.5 flex">
-          <Eye className="text-white w-[18px] h-[18px] relative" />
-        </div>
-        <div className="text-right text-white text-lg font-light font-['Pretendard'] leading-normal">
-          View
-        </div>
-      </div>
       <Link
         to="/1" //고쳐야됨
         className="w-11 self-stretch px-2.5 justify-center items-center gap-2.5 flex cursor-pointer"
@@ -128,4 +77,4 @@ const ReferenceItem = ({
   );
 };
 
-export default ReferenceItem;
+export default ReferenceItemDetail;

@@ -2,54 +2,42 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import Header from "./components/Header";
 import HomePage from "./routes/HomePage";
-import ReferenceDetailPage from "./routes/ReferenceDetailPage";
+import DetailPage from "./routes/DetailPage";
 import "./App.css";
 import { updatePaperInfo, deletePaper, getPaperInfos } from "./apis/api";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [referencesList, setReferencesList] = useState([]);
+  // const [referencesList, setReferencesList] = useState([]);
+  // const [selectedStyleName, setSelectedStyleName] = useState("APA")
 
-  useEffect(() => {
-    const fetchReferences = async () => {
-      try {
-        const references = await getPaperInfos(0);
-        setReferencesList(references);
-      } catch (error) {
-        console.error("Error fetching references:", error);
-      }
-    };
+  // const findIndexofReference = (referenceId) => {
+  //   const index = referencesList.findIndex(
+  //     (reference) => reference.paperInfo_id === referenceId
+  //   );
+  //   return index;
+  // };
 
-    fetchReferences();
-  }, []);
+  // const handleReferenceDelete = (referenceId, event) => {
+  //   if (window.confirm("Do you really want to delete?")) {
+  //     setReferencesList(
+  //       referencesList.filter(
+  //         (reference) => reference.paperInfo_id !== referenceId
+  //       )
+  //     );
+  //   } else {
+  //     event.preventDefault();
+  //   }
+  // };
 
-  const findIndexofReference = (referenceId) => {
-    const index = referencesList.findIndex(
-      (reference) => reference.paperInfo_id === referenceId
-    );
-    return index;
-  };
+  // const handleReferenceUpdate = (referenceId, newContent) => {
+  //   updatePaperInfo(referenceId, newContent);
+  // };
 
-  const handleReferenceDelete = async (referenceId, e) => {
-    if (window.confirm("Do you really want to delete?")) {
-      try {
-        await deletePaper(referenceId);
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      e.preventDefault();
-    }
-  };
-
-  const handleReferenceUpdate = async (referenceId, newReference) => {
-    const response = await updatePaperInfo(referenceId, newReference);
-  };
-
-  const getAllReferences = useCallback(() => {
-    return referencesList.map((ref) => ref.reference);
-  }, [referencesList]);
-  //referencesList에서 reference각주부분만 가져와서 리스트로 만듦.
+  // const getAllReferences = useCallback(() => {
+  //   return referencesList.map((ref) => ref.reference);
+  // }, [referencesList]);
+  // //referencesList에서 reference각주부분만 가져와서 리스트로 만듦.
 
   return (
     <div className="App">
@@ -62,12 +50,12 @@ function App() {
           <Route
             path="/:assignmentId/:referenceId"
             element={
-              <ReferenceDetailPage
-                referencesList={referencesList}
-                setReferencesList={setReferencesList}
-                handleReferenceDelete={handleReferenceDelete}
-                handleReferenceUpdate={handleReferenceUpdate}
-                findIndexofReference={findIndexofReference}
+              <DetailPage
+              // referencesList={referencesList}
+              // handleReferenceDelete={handleReferenceDelete}
+              // handleReferenceUpdate={handleReferenceUpdate}
+              // findIndexofReference={findIndexofReference}
+              // selectedStyleName={selectedStyleName}
               />
             }
           />
@@ -75,13 +63,15 @@ function App() {
             path="/:assignmentId"
             element={
               <HomePage
-                referencesList={referencesList}
-                setReferencesList={setReferencesList}
-                handleReferenceDelete={handleReferenceDelete}
-                handleReferenceUpdate={handleReferenceUpdate}
-                getAllReferences={getAllReferences}
-                findIndexofReference={findIndexofReference}
+                // referencesList={referencesList}
+                // setReferencesList={setReferencesList}
+                // handleReferenceDelete={handleReferenceDelete}
+                // handleReferenceUpdate={handleReferenceUpdate}
+                // getAllReferences={getAllReferences}
+                // findIndexofReference={findIndexofReference}
                 isUserLoggedIn={isUserLoggedIn}
+                // selectedStyleName={selectedStyleName}
+                // setSelectedStyleName={setSelectedStyleName}
               />
             }
           />
