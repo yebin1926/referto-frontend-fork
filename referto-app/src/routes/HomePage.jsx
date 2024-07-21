@@ -7,18 +7,21 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPaperInfos, getAssignment } from "../apis/api.js";
 
-const HomePage = ({
+const HomePage = (
   // referencesList,
   // setReferencesList,
   // handleReferenceDelete,
   // handleReferenceUpdate,
   // getAllReferences,
   // findIndexofReference,
-  isUserLoggedIn,
-  selectedStyleName,
-  setSelectedStyleName,
-}) => {
+  // isUserLoggedIn,
+  // selectedStyleName,
+  // setSelectedStyleName,
+  props
+) => {
   const [referencesList, setReferencesList] = useState([]);
+  const [selectedStyleName, setSelectedStyleName] = useState("APA")
+  const { isUserLoggedIn } = props
   // const [selectedStyleId, setSelectedStyleId] = useState(1);
 
   // 전체 복사 고치기
