@@ -8,36 +8,35 @@ import { updatePaperInfo } from "./apis/api";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [referencesList, setReferencesList] = useState([]);
-  const [selectedStyleName, setSelectedStyleName] = useState("APA")
+  // const [selectedStyleName, setSelectedStyleName] = useState("APA")
 
-  const findIndexofReference = (referenceId) => {
-    const index = referencesList.findIndex(
-      (reference) => reference.paperInfo_id === referenceId
-    );
-    return index;
-  };
+  // const findIndexofReference = (referenceId) => {
+  //   const index = referencesList.findIndex(
+  //     (reference) => reference.paperInfo_id === referenceId
+  //   );
+  //   return index;
+  // };
 
-  const handleReferenceDelete = (referenceId, event) => {
-    if (window.confirm("Do you really want to delete?")) {
-      setReferencesList(
-        referencesList.filter(
-          (reference) => reference.paperInfo_id !== referenceId
-        )
-      );
-    } else {
-      event.preventDefault();
-    }
-  };
+  // const handleReferenceDelete = (referenceId, event) => {
+  //   if (window.confirm("Do you really want to delete?")) {
+  //     setReferencesList(
+  //       referencesList.filter(
+  //         (reference) => reference.paperInfo_id !== referenceId
+  //       )
+  //     );
+  //   } else {
+  //     event.preventDefault();
+  //   }
+  // };
 
-  const handleReferenceUpdate = (referenceId, newContent) => {
-    updatePaperInfo(referenceId, newContent);
-  };
+  // const handleReferenceUpdate = (referenceId, newContent) => {
+  //   updatePaperInfo(referenceId, newContent);
+  // };
 
-  const getAllReferences = useCallback(() => {
-    return referencesList.map((ref) => ref.reference);
-  }, [referencesList]);
-  //referencesList에서 reference각주부분만 가져와서 리스트로 만듦.
+  // const getAllReferences = useCallback(() => {
+  //   return referencesList.map((ref) => ref.reference);
+  // }, [referencesList]);
+  // //referencesList에서 reference각주부분만 가져와서 리스트로 만듦.
 
   return (
     <div className="App">
@@ -51,11 +50,11 @@ function App() {
             path="/:assignmentId/:referenceId"
             element={
               <ReferenceDetailPage
-                referencesList={referencesList}
-                handleReferenceDelete={handleReferenceDelete}
-                handleReferenceUpdate={handleReferenceUpdate}
-                findIndexofReference={findIndexofReference}
-                selectedStyleName={selectedStyleName}
+                // referencesList={referencesList}
+                // handleReferenceDelete={handleReferenceDelete}
+                // handleReferenceUpdate={handleReferenceUpdate}
+                // findIndexofReference={findIndexofReference}
+                // selectedStyleName={selectedStyleName}
               />
             }
           />
@@ -63,15 +62,15 @@ function App() {
             path="/:assignmentId"
             element={
               <HomePage
-                referencesList={referencesList}
-                setReferencesList={setReferencesList}
-                handleReferenceDelete={handleReferenceDelete}
-                handleReferenceUpdate={handleReferenceUpdate}
-                getAllReferences={getAllReferences}
-                findIndexofReference={findIndexofReference}
+                // referencesList={referencesList}
+                // setReferencesList={setReferencesList}
+                // handleReferenceDelete={handleReferenceDelete}
+                // handleReferenceUpdate={handleReferenceUpdate}
+                // getAllReferences={getAllReferences}
+                // findIndexofReference={findIndexofReference}
                 isUserLoggedIn={isUserLoggedIn}
-                selectedStyleName={selectedStyleName}
-                setSelectedStyleName={setSelectedStyleName}
+                // selectedStyleName={selectedStyleName}
+                // setSelectedStyleName={setSelectedStyleName}
               />
             }
           />
