@@ -7,30 +7,35 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPaperInfos, getAssignment } from "../apis/api.js";
 
-const HomePage = ({
-  referencesList,
-  setReferencesList,
-  handleReferenceDelete,
-  handleReferenceUpdate,
-  getAllReferences,
-  findIndexofReference,
-  isUserLoggedIn,
-  selectedStyleName,
-  setSelectedStyleName,
-}) => {
+const HomePage = (
+  // referencesList,
+  // setReferencesList,
+  // handleReferenceDelete,
+  // handleReferenceUpdate,
+  // getAllReferences,
+  // findIndexofReference,
+  // isUserLoggedIn,
+  // selectedStyleName,
+  // setSelectedStyleName,
+  props
+) => {
   
-  // const [selectedStyleId, setSelectedStyleId] = useState(1);
+  const [selectedStyleName, setSelectedStyleName] = useState("APA");
+  const [referencesList, setReferencesList] = useState([]);
 
-  const handleCopyAll = () => {
-    const allReferencesText = getAllReferences().join("\n");
-    const textarea = document.createElement("textarea");
-    document.body.appendChild(textarea);
-    textarea.value = allReferencesText;
-    textarea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textarea);
-    alert("All references copied to clipboard!");
-  };
+  const { isUserLoggedIn } = props;
+
+  // 전체 복사 고치기
+  // const handleCopyAll = () => {
+  //   const allReferencesText = getAllReferences().join("\n");
+  //   const textarea = document.createElement("textarea");
+  //   document.body.appendChild(textarea);
+  //   textarea.value = allReferencesText;
+  //   textarea.select();
+  //   document.execCommand("copy");
+  //   document.body.removeChild(textarea);
+  //   alert("All references copied to clipboard!");
+  // };
 
   const { assignmentId } = useParams();
   const selectedAssignmentId = Number(assignmentId)
@@ -77,15 +82,15 @@ const HomePage = ({
             <div className="w-11 self-stretch px-2.5 justify-start items-center gap-[15px] flex">
               <Copy
                 className="text-neutral-500 w-6 h-6 relative cursor-pointer"
-                onClick={handleCopyAll}
+                // onClick={handleCopyAll}
               />
             </div>
           </div>
           <ReferenceList
             referencesList={referencesList}
-            handleReferenceDelete={handleReferenceDelete}
-            handleReferenceUpdate={handleReferenceUpdate}
-            findIndexofReference={findIndexofReference}
+            // handleReferenceDelete={handleReferenceDelete}
+            // handleReferenceUpdate={handleReferenceUpdate}
+            // findIndexofReference={findIndexofReference}
             selectedStyleName={selectedStyleName}
           />
         </div>

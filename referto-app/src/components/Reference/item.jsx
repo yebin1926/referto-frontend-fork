@@ -5,10 +5,11 @@ import { Link, useParams } from "react-router-dom";
 const ReferenceItem = ({
   reference,
   isVisible,
-  handleReferenceDelete,
-  handleReferenceUpdate,
-  findIndexofReference,
+  // handleReferenceDelete,
+  // handleReferenceUpdate,
+  // findIndexofReference,
   selectedStyleName,
+  index
 }) => {
   console.log('reference item에서 보는 참고문헌 :', JSON.stringify(reference, null, 2));
   const referenceId = reference.paperInfo_id;
@@ -42,11 +43,12 @@ const ReferenceItem = ({
     document.body.removeChild($textarea);
     alert("Your reference copied to clipboard!");
   };
+
   return (
     <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
-          {parseInt(findIndexofReference(referenceId)) + 1}
+          {index}
         </div>
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
@@ -98,7 +100,7 @@ const ReferenceItem = ({
       >
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          onClick={(event) => handleReferenceDelete(referenceId, event)}
+          // onClick={(event) => handleReferenceDelete(referenceId, event)}
         />
       </Link>
     </div>
