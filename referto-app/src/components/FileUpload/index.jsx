@@ -1,7 +1,7 @@
 import { Upload, Loader } from "lucide-react";
 import { useState, useRef } from "react";
 // import SelectStyleModal from "../Modals/SelectStyle";
-import { uploadPaper, uploadPaperInfo } from "../../apis/api";
+import { createMemo, uploadPaper, uploadPaperInfo } from "../../apis/api";
 import { useParams } from "react-router-dom";
 
 const FileUpload = () => {
@@ -35,13 +35,16 @@ const FileUpload = () => {
     };
 
     try {
-      const response = await uploadPaper(formData, config);
-      const response2 = await uploadPaperInfo(response.data.paper_id);
+      const response_paper = await uploadPaper(formData, config);
+      const response_paperinfo = await uploadPaperInfo(
+        response_paper.data.paper_id
+      );
+      const response_memo = await createMemo(response_paper.data.paper_id, "");
       window.location.reload();
-      console.log("파일 업로드시 paper정보 확인하기: ", response.data);
+      console.log("파일 업로드시 paper정보 확인하기: ", response_paper.data);
       console.log(
         "File uploaded successfully:",
-        JSON.stringify(response2.paper_info, null, 2)
+        JSON.stringify(response_paperinfo.paper_info, null, 2)
       );
       //response2.paper_info 안에 paperinfo_id, mla_reference, apa_reference, 등이 있음.
       //위 console.log() 코드를 돌리면 계속 어떤 형식으로 response 가 나오는지 보여줄거야!
@@ -51,7 +54,7 @@ const FileUpload = () => {
     } catch (error) {
       console.error(
         "Error uploading file:",
-        error.response ? error.response.data : error.message
+        error.response ? error.response : error.message
       );
     }
   };

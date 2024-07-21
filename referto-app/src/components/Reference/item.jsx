@@ -35,7 +35,7 @@ const ReferenceItem = ({
   const handleContentUpdate = () => {
     //change later
     reference.mla_reference = content;
-    handleReferenceUpdate(reference.paperInfo_id, reference);
+    //handleReferenceUpdate(reference.paperInfo_id, reference);
     setIsEdit(!isEdit);
   };
   const handleCopy = () => {
