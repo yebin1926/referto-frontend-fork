@@ -28,12 +28,12 @@ export const naverSignIn = async () => {
 
 // Assignments 관련 API들
 export const getAssignments = async () => {
-  try {
-    const response_user = await instanceWithToken.get("api/account/info/");
-  } catch (error) {
-    console.log("No Access Token");
-    return [];
-  }
+//   try {
+//     const response_user = await instanceWithToken.get("api/account/info/");
+//   } catch (error) {
+//     console.log("No Access Token");
+//     return [];
+//   }
   const response = await instanceWithToken.get("api/assignments/");
   if (response.status === 200) {
     console.log("ASSIGNMENT GET SUCCESS");
@@ -58,24 +58,6 @@ export const createAssignment = async (data) => {
   }
 };
 
-export const getAssignment = async (id) => {
-  try {
-    const response_user = await instanceWithToken.get("api/account/info/");
-  } catch (error) {
-    console.log("No Access Token");
-    return [];
-  }
-  const response = await instanceWithToken.get(
-    `api/assignments/${id}/`
-  );
-  if (response.status === 200) {
-    console.log("ASSIGNMENTSTYLE GET SUCCESS");
-    return response.data;
-  } else {
-    console.log("[ERROR] error while getting ASSIGNMENTSTYLE");
-  }
-};
-
 export const updateAssignment = async (id, data) => {
   const response = await instanceWithToken.put(`api/assignments/${id}/`, data);
   if (response.status === 200) {
@@ -95,6 +77,27 @@ export const deleteAssignment = async (id) => {
   }
 };
 
+
+
+export const getAssignment = async (id) => {
+  // try {
+  //   const response_user = await instanceWithToken.get("api/account/info/");
+  // } catch (error) {
+  //   console.log("No Access Token");
+  //   return [];
+  // }
+  const response = await instanceWithToken.get(
+    `api/assignments/${id}/`
+  );
+  if (response.status === 200) {
+    console.log("ASSIGNMENTSTYLE GET SUCCESS");
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting ASSIGNMENTSTYLE");
+  }
+};
+
+
 // Papers 관련 API
 
 export const uploadPaper = async (formData, config) => {
@@ -111,19 +114,23 @@ export const uploadPaper = async (formData, config) => {
   }
 };
 
-export const getPaper = async (paper_id) => {
-  try{
-    const response_user = await instanceWithToken.get("api/account/info/");
+export const getPaper = async (paperId) => {
+  try {
+    const response = await instanceWithToken.get(`api/papers/${paperId}/`, {
+      responseType: 'blob' // Specify the response type as blob
+    });
+
+    if (response.status === 200) {
+      console.log("PAPER GET SUCCESS");
+      const blobUrl = URL.createObjectURL(response.data);
+      return blobUrl;
+    } else {
+      console.log("[ERROR] error while getting PAPER");
+      return null;
+    }
   } catch (error) {
-    console.log("No Access Token");   
-    return [];
-  }
-  const response = await instanceWithToken.get(`api/papers/${paper_id}/`);
-  if (response.status === 200) {
-    console.log("PAPER GET SUCCESS");
-    return response.data; 
-  } else {
-    console.log("[ERROR] error while getting PAPER")
+    console.error('Failed to fetch the paper:', error);
+    throw error;
   }
 };
 
@@ -137,8 +144,8 @@ export const getPaper = async (paper_id) => {
 //     }
 //   };
 
-export const deletePaper = async (id) => {
-  const response = await instanceWithToken.delete(`api/papers/${id}/`);
+export const deletePaper = async (paper_id) => {
+  const response = await instanceWithToken.delete(`api/papers/${paper_id}/`);
   if (response.status === 204) {
     console.log("PAPER DELETE SUCCESS");
   } else {
@@ -146,26 +153,8 @@ export const deletePaper = async (id) => {
   }
 };
 
-// PaperInfos 관련 API들
 
-export const getPaperInfos = async (assignment_id) => {
-  try {
-    const response_user = await instanceWithToken.get("api/account/info/");
-  } catch (error) {
-    console.log("No Access Token");
-    return [];
-  }
-  const response = await instanceWithToken.get(
-    `api/paperinfo/assignment/${assignment_id}/`
-  );
-  if (response.status === 200) {
-    console.log("PAPERINFO GET SUCCESS");
-    //console.log("Response Data:", JSON.stringify(response.data, null, 2));
-    return response.data;
-  } else {
-    console.log("[ERROR] error while getting PAPERINFO");
-  }
-};
+// PaperInfos AI 생성 관련 API들
 
 export const uploadPaperInfo = async (paper_id) => {
   const response = await instanceWithToken.post(`api/paperinfo/${paper_id}/`);
@@ -188,6 +177,31 @@ export const updatePaperInfo = async (paper_id, data) => {
     console.log("[ERROR] error while updating paperinfo");
   }
 };
+
+
+// PaperInfos 사람이 조회, 수정, 삭제 관련 API들
+
+export const getPaperInfos = async (assignment_id) => {
+  // try {
+  //   const response_user = await instanceWithToken.get("api/account/info/");
+  // } catch (error) {
+  //   console.log("No Access Token");
+  //   return [];
+  // }
+  const response = await instanceWithToken.get(
+    `api/paperinfo/assignment/${assignment_id}/`
+  );
+  if (response.status === 200) {
+    console.log("PAPERINFO GET SUCCESS");
+    //console.log("Response Data:", JSON.stringify(response.data, null, 2));
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting PAPERINFO");
+  }
+};
+
+
+
 
 // Memos 관련 API들
 

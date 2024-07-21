@@ -48,7 +48,7 @@ const HomePage = (
       getReferencesAPI();
       const getAssignmentAPI = async () => {
         const assignment = await getAssignment(assignmentId);
-        console.log('get 잘 가져왔어용', assignment)
+        // console.log('get 잘 가져왔어용', assignment)
         setSelectedStyleName(assignment.reference_type);
       };
       getAssignmentAPI();
