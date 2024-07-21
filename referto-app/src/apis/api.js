@@ -2,7 +2,7 @@ import { instance, instanceWithToken } from "./axios";
 
 // Account 관련 API들
 export const signIn = async (data) => {
-  const response = await instance.post("apiapi/account/signin/", data);
+  const response = await instance.post("api/account/signin/", data);
   if (response.status === 200) {
     window.location.href = "/";
   } else {
@@ -118,8 +118,8 @@ export const uploadPaper = async (formData, config) => {
 //   };
 
 export const deletePaper = async (id) => {
-  const response = await instanceWithToken.delete(`/papers/${id}/`);
-  if (response.status === 200) {
+  const response = await instanceWithToken.delete(`api/papers/${id}/`);
+  if (response.status === 204) {
     console.log("PAPER DELETE SUCCESS");
   } else {
     console.log("[ERROR] error while deleting paper");

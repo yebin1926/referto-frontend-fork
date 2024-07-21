@@ -29,6 +29,16 @@ const LogInModal = ({ onClose, onSwitch }) => {
     onSwitch();
   };
 
+  const handleNaverLogin = async(e) => {
+    e.preventDefault();
+    try {
+      await naverSignIn()
+      onClose();
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
+  }
+
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-70 z-10">
       <div className="w-[400px] h-100% px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex-col justify-center items-center gap-[7px] inline-flex">
