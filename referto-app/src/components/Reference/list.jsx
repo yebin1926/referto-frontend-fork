@@ -2,11 +2,12 @@ import ReferenceItem from "./item";
 
 const ReferenceList = ({
   referencesList,
-  handleReferenceDelete,
-  handleReferenceUpdate,
-  findIndexofReference,
+  // handleReferenceDelete,
+  // handleReferenceUpdate,
+  // findIndexofReference,
   selectedStyleName,
 }) => {
+
   return (
     <div className="w-full">
       {console.log("referencesList:", referencesList)}
@@ -16,9 +17,9 @@ const ReferenceList = ({
           key={reference.paperInfo_id}
           reference={reference}
           isVisible={true} //view 버튼 없어지게 하는 것
-          handleReferenceDelete={handleReferenceDelete}
-          handleReferenceUpdate={handleReferenceUpdate}
-          findIndexofReference={findIndexofReference}
+          // handleReferenceDelete={handleReferenceDelete}
+          // handleReferenceUpdate={handleReferenceUpdate}
+          // findIndexofReference={findIndexofReference}
           selectedStyleName={selectedStyleName}
           index={index + 1}
         />

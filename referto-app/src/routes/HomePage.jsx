@@ -21,6 +21,7 @@ const HomePage = ({
   const [referencesList, setReferencesList] = useState([]);
   // const [selectedStyleId, setSelectedStyleId] = useState(1);
 
+  // 전체 복사 고치기
   // const handleCopyAll = () => {
   //   const allReferencesText = getAllReferences().join("\n");
   //   const textarea = document.createElement("textarea");

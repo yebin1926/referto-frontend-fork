@@ -9,7 +9,7 @@ const ReferenceItem = ({
   // handleReferenceUpdate,
   // findIndexofReference,
   selectedStyleName,
-  index,
+  index
 }) => {
   console.log('reference item에서 보는 참고문헌 :', JSON.stringify(reference, null, 2));
   const referenceId = reference.paperInfo_id;
@@ -43,6 +43,7 @@ const ReferenceItem = ({
     document.body.removeChild($textarea);
     alert("Your reference copied to clipboard!");
   };
+
   return (
     <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">

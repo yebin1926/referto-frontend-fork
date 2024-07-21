@@ -11,6 +11,7 @@ function App() {
   // const [referencesList, setReferencesList] = useState([]);
   const [selectedStyleName, setSelectedStyleName] = useState("APA")
 
+
   // const findIndexofReference = (referenceId) => {
   //   const index = referencesList.findIndex(
   //     (reference) => reference.paperInfo_id === referenceId
@@ -70,8 +71,8 @@ function App() {
                 // getAllReferences={getAllReferences}
                 // findIndexofReference={findIndexofReference}
                 isUserLoggedIn={isUserLoggedIn}
-                selectedStyleName={selectedStyleName}
-                setSelectedStyleName={setSelectedStyleName}
+                // selectedStyleName={selectedStyleName}
+                // setSelectedStyleName={setSelectedStyleName}
               />
             }
           />

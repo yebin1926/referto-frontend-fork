@@ -6,7 +6,6 @@ import SignUpModal from "../Modals/SignUp";
 import { useState, useEffect } from "react";
 import { getCookie, removeCookie } from "../../utils/cookie";
 import { getUser } from "../../apis/api";
-import SidebarList from "../Sidebar/list"
 
 const Header = (props) => {
   const { isUserLoggedIn, setIsUserLoggedIn } = props;
