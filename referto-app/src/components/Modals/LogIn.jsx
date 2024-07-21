@@ -20,7 +20,7 @@ const LogInModal = ({ onClose, onSwitch }) => {
       alert("로그인 되었습니다");
       onClose();
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.error('Error logging in:', error.message);
     }
   };
 

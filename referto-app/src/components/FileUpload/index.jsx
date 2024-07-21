@@ -37,11 +37,12 @@ const FileUpload = () => {
     try {
       const response = await uploadPaper(formData, config);
       const response2 = await uploadPaperInfo(response.data.paper_id);
+      window.location.reload();
+      console.log("파일 업로드시 paper정보 확인하기: ", response.data);
       console.log(
         "File uploaded successfully:",
         JSON.stringify(response2.paper_info, null, 2)
       );
-      window.location.reload();
       //response2.paper_info 안에 paperinfo_id, mla_reference, apa_reference, 등이 있음.
       //위 console.log() 코드를 돌리면 계속 어떤 형식으로 response 가 나오는지 보여줄거야!
       //mla 만 나오도록 한거는 components -> reference -> item.jsx 에 있어 (const referenceName = reference.mla_reference;)

@@ -48,6 +48,7 @@ const ReferenceItem = ({
     <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
+          {/* {parseInt(findIndexofReference(referenceId)) + 1} */}
           {index}
         </div>
       </div>

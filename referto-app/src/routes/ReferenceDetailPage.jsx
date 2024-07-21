@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import PDFViewer from "../components/PDFView";
 import PDF1 from "../data/PDFs/PDF1.pdf";
 import ReferenceMemo from "../components/Reference/memo";
-import { getPaperInfos } from "../apis/api";
+import { getPaperInfos, getPaper } from "../apis/api";
 import { useState, useEffect } from "react";
 
 const ReferenceDetailPage = ({
@@ -16,19 +16,6 @@ const ReferenceDetailPage = ({
   const { assignmentId, referenceId } = useParams();
   console.log('assignmentId:', assignmentId )
   console.log('referenceId:', referenceId )
-  // const [reference, setReference] = useState(null);
-
-  // const getReferencesAPI = async () => {
-  //   try {
-  //     const references = await getPaperInfos(assignmentId);
-  //     const reference = references.find((r) => r.paperInfo_id === parseInt(referenceId));
-  //     console.log('detail page에서 보는 reference', reference);
-  //     return reference;
-  //   } catch (error) {
-  //     console.error('Error getting references:', error);
-  //   } 
-  // };
-  // const reference = getReferencesAPI();
   const [reference, setReference] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -57,9 +44,15 @@ const ReferenceDetailPage = ({
   if (!reference) {
     return <div>Reference not found</div>; // reference가 없는 경우 메시지 표시
   }
-
+  console.log(reference.paper_id);
 
   const pdfUrl = PDF1;
+
+  const getPaperAPI = async () => {
+    const paper = await getPaper(reference.paper_id);
+    console.log(paper);
+  };
+  getPaperAPI();  
 
   return (
     <div className="w-full h-[959px] px-[100px] pt-[50px] pb-[100px] flex-col justify-start items-center inline-flex">
