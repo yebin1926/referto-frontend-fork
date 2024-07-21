@@ -38,7 +38,7 @@ const SidebarList = (props) => {
   const [user, setUser] = useState()
   const [assignmentsList, setAssignmentsList] = useState([]);
   const { isUserLoggedIn } = props
-  console.log('과제 리스트: ', assignmentsList)
+  // console.log('과제 리스트: ', assignmentsList)
   useEffect(() => {
     const fetchUser = async () => {
       try {

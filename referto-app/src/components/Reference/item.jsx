@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 
 const ReferenceItem = ({
   reference,
-  isVisible,
+  // isVisible,
   // handleReferenceDelete,
   // handleReferenceUpdate,
   // findIndexofReference,
@@ -15,7 +15,7 @@ const ReferenceItem = ({
   const referenceId = reference['paperInfo_id'];
   const referenceName = reference[selectedStyleName];
   // console.log(`reference item에서 보는 ${selectedStyleName} 스타일에 따른 참고문헌 각주 : ${referenceName}`);  
-
+  const paperId = reference['paper'];
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
   // 컴포넌트가 다시 렌더링될 때마다 상태를 초기화하는 useEffect 
@@ -54,7 +54,8 @@ const ReferenceItem = ({
         index,
         referenceId,
         referenceName,
-        assignmentId
+        assignmentId,
+        paperId
       }
     });
   };

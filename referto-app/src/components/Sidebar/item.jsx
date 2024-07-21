@@ -24,16 +24,16 @@ const SidebarItem = ({
   const selectedAssignmentId = Number(selectedAssignmentIdString)
 
   const handleAssignment = () => {
-    console.log("handleAssignment 함수가 호출됨");
+    // console.log("handleAssignment 함수가 호출됨");
     if (ref.current) {
-      console.log("ref.current입니다.")
+      // console.log("ref.current입니다.")
       const rect = ref.current.getBoundingClientRect();
       setModalPosition({top: rect.bottom, left: rect.left});
       setIsOpen(true);
       document.body.style.overflow = 'hidden';
     } else {
-      console.log("ref.current가 아닙니다.");
-      console.log(ref.current);
+      // console.log("ref.current가 아닙니다.");
+      // console.log(ref.current);
     }
   }
 

@@ -38,7 +38,7 @@ const FileUpload = () => {
       const response = await uploadPaper(formData, config);
       const response2 = await uploadPaperInfo(response.data.paper_id);
       window.location.reload();
-      console.log("파일 업로드시 paper정보 확인하기: ", response.data);
+      // console.log("파일 업로드시 paper정보 확인하기: ", response.data);
       console.log(
         "File uploaded successfully:",
         JSON.stringify(response2.paper_info, null, 2)
