@@ -2,7 +2,7 @@ import { instance, instanceWithToken } from "./axios";
 
 // Account 관련 API들
 export const signIn = async (data) => {
-  const response = await instance.post("api/account/signin/", data);
+  const response = await instance.post("apiapi/account/signin/", data);
   if (response.status === 200) {
     window.location.href = "/";
   } else {
@@ -58,6 +58,24 @@ export const createAssignment = async (data) => {
   }
 };
 
+export const getAssignment = async (id) => {
+  try {
+    const response_user = await instanceWithToken.get("api/account/info/");
+  } catch (error) {
+    console.log("No Access Token");
+    return [];
+  }
+  const response = await instanceWithToken.get(
+    `api/assignments/${id}/`
+  );
+  if (response.status === 200) {
+    console.log("ASSIGNMENTSTYLE GET SUCCESS");
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting ASSIGNMENTSTYLE");
+  }
+};
+
 export const updateAssignment = async (id, data) => {
   const response = await instanceWithToken.put(`api/assignments/${id}/`, data);
   if (response.status === 200) {
@@ -100,7 +118,7 @@ export const uploadPaper = async (formData, config) => {
 //   };
 
 export const deletePaper = async (id) => {
-  const response = await instanceWithToken.delete(`api/papers/${id}/`);
+  const response = await instanceWithToken.delete(`/papers/${id}/`);
   if (response.status === 200) {
     console.log("PAPER DELETE SUCCESS");
   } else {
@@ -155,9 +173,23 @@ export const getMemo = async (paperId) => {
   return response.data;
 };
 
+export const createMemo = async (paperId, data) => {
+  const response = await instanceWithToken.post(
+    `api/papers/${paperId}/memo/`,
+    data
+  );
+  if (response.status == 201) {
+    console.log("MEMO SUCCESS");
+    window.location.reload();
+    return response.data;
+  } else {
+    console.log("[ERROR] error while creating memo");
+  }
+};
+
 export const updateMemo = async (paperId, data) => {
   const response = await instanceWithToken.put(
-    `/papers/${paperId}/memo/`,
+    `api/papers/${paperId}/memo/`,
     data
   );
   if (response.status === 200) {

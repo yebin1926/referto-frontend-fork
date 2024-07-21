@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
@@ -8,12 +8,19 @@ const ReferenceItem = ({
   handleReferenceDelete,
   handleReferenceUpdate,
   findIndexofReference,
+  selectedStyleName,
 }) => {
-  const referenceId = reference.paperinfo_id;
-  const referenceName = reference.mla_reference;
+  console.log('reference item에서 보는 참고문헌 :', JSON.stringify(reference, null, 2));
+  const referenceId = reference.paperInfo_id;
+  const referenceName = reference[selectedStyleName];
+  console.log(`reference item에서 보는 ${selectedStyleName} 스타일에 따른 참고문헌 각주 : ${referenceName}`);  
 
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
+  // 컴포넌트가 다시 렌더링될 때마다 상태를 초기화하는 useEffect 
+  useEffect(() => { setContent(referenceName); });
+  // setContent(referenceName);
+  console.log('content', content);
   const [isEdit, setIsEdit] = useState(false);
 
   const handleEditContent = () => {
@@ -43,7 +50,7 @@ const ReferenceItem = ({
         </div>
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
-        <div className="grow shrink basis-0 text-neutral-700 text-lg font-medium font-['Pretendard'] leading-[27px]">
+        <div className="grow shrink basis-0 text-neutral-700 text-sm font-medium font-['Pretendard'] leading-[27px]">
           {isEdit ? (
             <input
               value={content}

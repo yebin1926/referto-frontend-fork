@@ -5,9 +5,12 @@ const ReferenceList = ({
   handleReferenceDelete,
   handleReferenceUpdate,
   findIndexofReference,
+  selectedStyleName,
 }) => {
   return (
     <div className="w-full">
+      {console.log("referencesList:", referencesList)}
+      {console.log('reference list에서 확인하는 스타일 이름:', selectedStyleName)}
       {referencesList.map((reference) => (
         <ReferenceItem
           key={reference.paperInfo_id}
@@ -16,6 +19,7 @@ const ReferenceList = ({
           handleReferenceDelete={handleReferenceDelete}
           handleReferenceUpdate={handleReferenceUpdate}
           findIndexofReference={findIndexofReference}
+          selectedStyleName={selectedStyleName}
         />
       ))}
     </div>

@@ -6,13 +6,14 @@ import SignUpModal from "../Modals/SignUp";
 import { useState, useEffect } from "react";
 import { getCookie, removeCookie } from "../../utils/cookie";
 import { getUser } from "../../apis/api";
+import SidebarList from "../Sidebar/list"
 
 const Header = (props) => {
   const { isUserLoggedIn, setIsUserLoggedIn } = props;
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
   const [user, setUser] = useState("null");
-
+  // console.log('헤더에서 확인하는 과제 리스트', assignmentsList)
   const openLogInModal = () => {
     console.log("openLogIn");
     setShowLogIn(true);

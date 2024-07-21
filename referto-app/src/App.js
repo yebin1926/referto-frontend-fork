@@ -9,6 +9,7 @@ import { updatePaperInfo } from "./apis/api";
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [referencesList, setReferencesList] = useState([]);
+  const [selectedStyleName, setSelectedStyleName] = useState("APA")
 
   const findIndexofReference = (referenceId) => {
     const index = referencesList.findIndex(
@@ -54,6 +55,7 @@ function App() {
                 handleReferenceDelete={handleReferenceDelete}
                 handleReferenceUpdate={handleReferenceUpdate}
                 findIndexofReference={findIndexofReference}
+                selectedStyleName={selectedStyleName}
               />
             }
           />
@@ -68,6 +70,8 @@ function App() {
                 getAllReferences={getAllReferences}
                 findIndexofReference={findIndexofReference}
                 isUserLoggedIn={isUserLoggedIn}
+                selectedStyleName={selectedStyleName}
+                setSelectedStyleName={setSelectedStyleName}
               />
             }
           />
