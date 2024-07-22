@@ -42,7 +42,7 @@ const ReferenceItem = ({
       reference_type: selectedStyleName,
       new_reference: content,
     };
-    const response = await updatePaperInfo(paperId, newContent);
+    const response = await updatePaperInfo(referenceId, newContent);
     setIsEdit(!isEdit);
   };
 
