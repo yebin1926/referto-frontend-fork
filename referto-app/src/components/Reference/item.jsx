@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { deletePaper, updatePaperInfo } from "../../apis/api";
 
 const ReferenceItem = ({
   reference,
@@ -18,10 +19,11 @@ const ReferenceItem = ({
   const paperId = reference["paper"];
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
+
   // 컴포넌트가 다시 렌더링될 때마다 상태를 초기화하는 useEffect
   useEffect(() => {
     setContent(referenceName);
-  });
+  }, []);
   // setContent(referenceName);
   // console.log('content', content);
   const [isEdit, setIsEdit] = useState(false);
@@ -29,15 +31,26 @@ const ReferenceItem = ({
   const handleEditContent = () => {
     setIsEdit(!isEdit);
   };
+
   const handleChange = (event) => {
+    console.log("Current Value: " + event.target.value);
     setContent(event.target.value);
   };
-  const handleContentUpdate = () => {
-    //change later
-    reference.mla_reference = content;
-    //handleReferenceUpdate(reference.paperInfo_id, reference);
+
+  const handleContentUpdate = async () => {
+    const newContent = {
+      reference_type: selectedStyleName,
+      new_reference: content,
+    };
+    const response = await updatePaperInfo(paperId, newContent);
     setIsEdit(!isEdit);
   };
+
+  const handleReferenceDelete = async (paperId) => {
+    const response = await deletePaper(paperId);
+    window.location.reload();
+  };
+
   const handleCopy = () => {
     const $textarea = document.createElement("textarea");
     document.body.appendChild($textarea);
@@ -75,10 +88,10 @@ const ReferenceItem = ({
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
         <div className="grow shrink basis-0 text-neutral-700 text-sm font-medium font-['Pretendard'] leading-[27px]">
           {isEdit ? (
-            <input
+            <textarea
               value={content}
               onChange={handleChange}
-              className="border border-gray-300 rounded-md"
+              className="border border-gray-300 rounded-md w-11/12"
             />
           ) : (
             content
@@ -122,7 +135,7 @@ const ReferenceItem = ({
       >
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          // onClick={(event) => handleReferenceDelete(referenceId, event)}
+          onClick={(event) => handleReferenceDelete(paperId)}
         />
       </Link>
     </div>

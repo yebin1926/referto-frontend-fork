@@ -21,8 +21,6 @@ const DetailPage = (
   const { index, referenceId, referenceName, assignmentId, paperId } =
     location.state || {};
 
-  console.log("Detail Page Ref Name: " + referenceName);
-
   // console.log('assignmentId:', assignmentId )
   // console.log('referenceId:', referenceId )
   // const [reference, setReference] = useState(null);

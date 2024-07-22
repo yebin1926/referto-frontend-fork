@@ -4,7 +4,6 @@ import { getMemo, updateMemo } from "../../apis/api";
 
 const ReferenceMemo = ({ referenceName, paperId }) => {
   const [memoContent, setMemoContent] = useState("");
-  console.log("ReferenceMemo Ref Name: " + referenceName);
 
   useEffect(() => {
     const getMemoAPI = async () => {
