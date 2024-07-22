@@ -68,18 +68,17 @@ const DetailPage = (
   const [paperUrl, setPaperUrl] = useState(null);
 
   useEffect(() => {
-    const getPaperAPI = async () => {
+    const fetchPaper = async () => {
       try {
         const paperBlobUrl = await getPaper(paperId);
-        console.log(paperBlobUrl);
-
         setPaperUrl(paperBlobUrl);
       } catch (error) {
-        console.error("Failed to fetch the paper:", error);
+        console.error("Error fetching paper:", error);
       }
     };
+
     if (paperId) {
-      getPaperAPI();
+      fetchPaper();
     }
   }, [paperId]);
 

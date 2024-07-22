@@ -112,20 +112,19 @@ export const uploadPaper = async (formData, config) => {
 export const getPaper = async (paperId) => {
   try {
     const response = await instanceWithToken.get(`api/papers/${paperId}/`, {
-      responseType: "blob", // Specify the response type as blob
+      responseType: "blob", // Tell Axios to handle the response as a blob
     });
 
     if (response.status === 200) {
       console.log("PAPER GET SUCCESS");
-      const blobUrl = URL.createObjectURL(response.data);
-      return blobUrl;
+      const blob = response.data; // The response data is the blob
+      return URL.createObjectURL(blob); // Create a URL for the blob
     } else {
-      console.log("[ERROR] error while getting PAPER");
-      return null;
+      console.log("[ERROR] Error while getting PAPER");
     }
   } catch (error) {
     console.error("Failed to fetch the paper:", error);
-    throw error;
+    throw error; // Ensure to rethrow the error for proper handling
   }
 };
 
