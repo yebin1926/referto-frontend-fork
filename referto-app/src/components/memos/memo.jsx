@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { NotepadText, Save, Copy } from "lucide-react";
 import { getMemo, updateMemo } from "../../apis/api";
 
-const ReferenceMemo = ({ referenceId, referenceName, paperId }) => {
+const ReferenceMemo = ({ referenceName, paperId }) => {
   const [memoContent, setMemoContent] = useState("");
-  console.log("ReferenceMemo Paper ID: " + paperId);
+  console.log("ReferenceMemo Ref Name: " + referenceName);
 
   useEffect(() => {
     const getMemoAPI = async () => {

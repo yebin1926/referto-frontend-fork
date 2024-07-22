@@ -21,7 +21,7 @@ const DetailPage = (
   const { index, referenceId, referenceName, assignmentId, paperId } =
     location.state || {};
 
-  console.log("Detail Page Paper ID: " + paperId);
+  console.log("Detail Page Ref Name: " + referenceName);
 
   // console.log('assignmentId:', assignmentId )
   // console.log('referenceId:', referenceId )
@@ -105,7 +105,7 @@ const DetailPage = (
         </div>
 
         <div className="w-[413px] h-full px-6 py-5 border-neutral-400 flex-col justify-start items-center gap-[15px] inline-flex">
-          <ReferenceMemo referenceId={referenceId} paperId={paperId} />
+          <ReferenceMemo referenceName={referenceName} paperId={paperId} />
         </div>
       </div>
     </div>
