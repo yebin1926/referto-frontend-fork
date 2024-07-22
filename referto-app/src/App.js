@@ -1,16 +1,15 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "./components/Header";
 import HomePage from "./routes/HomePage";
 import DetailPage from "./routes/DetailPage";
 import "./App.css";
-import { updatePaperInfo } from "./apis/api";
+import { updatePaperInfo, deletePaper, getPaperInfos } from "./apis/api";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   // const [referencesList, setReferencesList] = useState([]);
   // const [selectedStyleName, setSelectedStyleName] = useState("APA")
-
 
   // const findIndexofReference = (referenceId) => {
   //   const index = referencesList.findIndex(
@@ -52,11 +51,11 @@ function App() {
             path="/:assignmentId/:referenceId"
             element={
               <DetailPage
-                // referencesList={referencesList}
-                // handleReferenceDelete={handleReferenceDelete}
-                // handleReferenceUpdate={handleReferenceUpdate}
-                // findIndexofReference={findIndexofReference}
-                // selectedStyleName={selectedStyleName}
+              // referencesList={referencesList}
+              // handleReferenceDelete={handleReferenceDelete}
+              // handleReferenceUpdate={handleReferenceUpdate}
+              // findIndexofReference={findIndexofReference}
+              // selectedStyleName={selectedStyleName}
               />
             }
           />

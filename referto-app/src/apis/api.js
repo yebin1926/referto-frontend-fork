@@ -20,20 +20,20 @@ export const signUp = async (data) => {
   return response;
 };
 
-export const naverSignIn = async() => {
-  window.location.href = 'http://localhost:8000/accounts/naver/login/'
+export const naverSignIn = async () => {
+  window.location.href = "http://localhost:8000/accounts/naver/login/";
   const response = await instance.get("accounts/naver/login/");
   return response;
-}
+};
 
 // Assignments 관련 API들
 export const getAssignments = async () => {
-//   try {
-//     const response_user = await instanceWithToken.get("api/account/info/");
-//   } catch (error) {
-//     console.log("No Access Token");
-//     return [];
-//   }
+  //   try {
+  //     const response_user = await instanceWithToken.get("api/account/info/");
+  //   } catch (error) {
+  //     console.log("No Access Token");
+  //     return [];
+  //   }
   const response = await instanceWithToken.get("api/assignments/");
   if (response.status === 200) {
     console.log("ASSIGNMENT GET SUCCESS");
@@ -77,8 +77,6 @@ export const deleteAssignment = async (id) => {
   }
 };
 
-
-
 export const getAssignment = async (id) => {
   // try {
   //   const response_user = await instanceWithToken.get("api/account/info/");
@@ -86,9 +84,7 @@ export const getAssignment = async (id) => {
   //   console.log("No Access Token");
   //   return [];
   // }
-  const response = await instanceWithToken.get(
-    `api/assignments/${id}/`
-  );
+  const response = await instanceWithToken.get(`api/assignments/${id}/`);
   if (response.status === 200) {
     console.log("ASSIGNMENTSTYLE GET SUCCESS");
     return response.data;
@@ -97,11 +93,14 @@ export const getAssignment = async (id) => {
   }
 };
 
-
 // Papers 관련 API
 
 export const uploadPaper = async (formData, config) => {
-  const response = await instanceWithToken.post("api/papers/", formData, config);
+  const response = await instanceWithToken.post(
+    "api/papers/",
+    formData,
+    config
+  );
   if (response.status === 201) {
     console.log("PAPER UPLOAD SUCCESS");
     return response.data;
@@ -113,7 +112,7 @@ export const uploadPaper = async (formData, config) => {
 export const getPaper = async (paperId) => {
   try {
     const response = await instanceWithToken.get(`api/papers/${paperId}/`, {
-      responseType: 'blob' // Tell Axios to handle the response as a blob
+      responseType: "blob", // Tell Axios to handle the response as a blob
     });
 
     if (response.status === 200) {
@@ -124,7 +123,7 @@ export const getPaper = async (paperId) => {
       console.log("[ERROR] Error while getting PAPER");
     }
   } catch (error) {
-    console.error('Failed to fetch the paper:', error);
+    console.error("Failed to fetch the paper:", error);
     throw error; // Ensure to rethrow the error for proper handling
   }
 };
@@ -148,7 +147,6 @@ export const deletePaper = async (paper_id) => {
   }
 };
 
-
 // PaperInfos AI 생성 관련 API들
 
 export const uploadPaperInfo = async (paper_id) => {
@@ -162,14 +160,16 @@ export const uploadPaperInfo = async (paper_id) => {
 };
 
 export const updatePaperInfo = async (paper_id, data) => {
-  const response = await instanceWithToken.put(`api/paperinfo/${paper_id}/`, data);
+  const response = await instanceWithToken.put(
+    `api/paperinfo/${paper_id}/`,
+    data
+  );
   if (response.status === 200) {
     console.log("PAPERINFO UPDATE SUCCESS");
   } else {
     console.log("[ERROR] error while updating paperinfo");
   }
 };
-
 
 // PaperInfos 사람이 조회, 수정, 삭제 관련 API들
 
@@ -192,9 +192,6 @@ export const getPaperInfos = async (assignment_id) => {
   }
 };
 
-
-
-
 // Memos 관련 API들
 
 export const getMemo = async (paperId) => {
@@ -202,11 +199,8 @@ export const getMemo = async (paperId) => {
   return response.data;
 };
 
-export const createMemo = async (paperId, data) => {
-  const response = await instanceWithToken.post(
-    `api/papers/${paperId}/memo/`,
-    data
-  );
+export const createMemo = async (paperId) => {
+  const response = await instanceWithToken.post(`api/papers/${paperId}/memo/`);
   if (response.status == 201) {
     console.log("MEMO SUCCESS");
     window.location.reload();
@@ -223,7 +217,7 @@ export const updateMemo = async (paperId, data) => {
   );
   if (response.status === 200) {
     console.log("MEMO UPDATE SUCCESS");
-    window.location.reload();
+    return response.data;
   } else {
     console.log("[ERROR] error while updating memo");
   }
