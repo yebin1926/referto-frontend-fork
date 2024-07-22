@@ -7,11 +7,13 @@ const ReferenceList = ({
   // findIndexofReference,
   selectedStyleName,
 }) => {
-
   return (
     <div className="w-full">
       {console.log("referencesList:", referencesList)}
-      {console.log('reference list에서 확인하는 스타일 이름:', selectedStyleName)}
+      {console.log(
+        "reference list에서 확인하는 스타일 이름:",
+        selectedStyleName
+      )}
       {referencesList.map((reference, index) => (
         <ReferenceItem
           key={reference.paperInfo_id}
