@@ -6,16 +6,22 @@ import PDF1 from "../data/PDFs/PDF1.pdf";
 import ReferenceMemo from "../components/memos/memo";
 import { getPaper } from "../apis/api";
 import { useState, useEffect } from "react";
+import { PackagePlus } from "lucide-react";
 
-const DetailPage = ({
-  // handleReferenceDelete,
-  // handleReferenceUpdate,
-  // findIndexofReference,
-  // selectedStyleName,
-}) => {
+const DetailPage = (
+  {
+    // handleReferenceDelete,
+    // handleReferenceUpdate,
+    // findIndexofReference,
+    // selectedStyleName,
+  }
+) => {
   // const { assignmentId, referenceId } = useParams();
   const location = useLocation();
-  const { index, referenceId, referenceName, assignmentId, paperId } = location.state || {};
+  const { index, referenceId, referenceName, assignmentId, paperId } =
+    location.state || {};
+
+  console.log("Detail Page Paper ID: " + paperId);
 
   // console.log('assignmentId:', assignmentId )
   // console.log('referenceId:', referenceId )
@@ -29,7 +35,7 @@ const DetailPage = ({
   //     return reference;
   //   } catch (error) {
   //     console.error('Error getting references:', error);
-  //   } 
+  //   }
   // };
   // const reference = getReferencesAPI();
   // const [reference, setReference] = useState(null);
@@ -61,17 +67,17 @@ const DetailPage = ({
   //   return <div>Reference not found</div>; // reference가 없는 경우 메시지 표시
   // }
 
-  const [ paperUrl, setPaperUrl ] = useState(null)
+  const [paperUrl, setPaperUrl] = useState(null);
 
   useEffect(() => {
     const getPaperAPI = async () => {
       try {
         const paperBlobUrl = await getPaper(paperId);
-        console.log(paperBlobUrl)
+        console.log(paperBlobUrl);
 
         setPaperUrl(paperBlobUrl);
       } catch (error) {
-        console.error('Failed to fetch the paper:', error);
+        console.error("Failed to fetch the paper:", error);
       }
     };
     if (paperId) {
@@ -90,14 +96,16 @@ const DetailPage = ({
       <div className="w-full h-full justify-start items-start inline-flex">
         <div className="w-full h-full p-5 flex-row justify-start items-start inline-flex">
           <div className="w-full h-full self-stretch px-2.5 py-3 rounded-lg border border-neutral-400 justify-center items-start gap-4 inline-flex">
-          {paperUrl ? <PDFViewer pdfUrl={paperUrl} /> : <div>Loading PDF...</div>}
+            {paperUrl ? (
+              <PDFViewer pdfUrl={paperUrl} />
+            ) : (
+              <div>Loading PDF...</div>
+            )}
           </div>
         </div>
 
         <div className="w-[413px] h-full px-6 py-5 border-neutral-400 flex-col justify-start items-center gap-[15px] inline-flex">
-          <ReferenceMemo
-            referenceId={referenceId}
-          />
+          <ReferenceMemo referenceId={referenceId} paperId={paperId} />
         </div>
       </div>
     </div>

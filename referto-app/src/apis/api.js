@@ -28,12 +28,12 @@ export const naverSignIn = async () => {
 
 // Assignments 관련 API들
 export const getAssignments = async () => {
-//   try {
-//     const response_user = await instanceWithToken.get("api/account/info/");
-//   } catch (error) {
-//     console.log("No Access Token");
-//     return [];
-//   }
+  //   try {
+  //     const response_user = await instanceWithToken.get("api/account/info/");
+  //   } catch (error) {
+  //     console.log("No Access Token");
+  //     return [];
+  //   }
   const response = await instanceWithToken.get("api/assignments/");
   if (response.status === 200) {
     console.log("ASSIGNMENT GET SUCCESS");
@@ -77,8 +77,6 @@ export const deleteAssignment = async (id) => {
   }
 };
 
-
-
 export const getAssignment = async (id) => {
   // try {
   //   const response_user = await instanceWithToken.get("api/account/info/");
@@ -86,9 +84,7 @@ export const getAssignment = async (id) => {
   //   console.log("No Access Token");
   //   return [];
   // }
-  const response = await instanceWithToken.get(
-    `api/assignments/${id}/`
-  );
+  const response = await instanceWithToken.get(`api/assignments/${id}/`);
   if (response.status === 200) {
     console.log("ASSIGNMENTSTYLE GET SUCCESS");
     return response.data;
@@ -96,7 +92,6 @@ export const getAssignment = async (id) => {
     console.log("[ERROR] error while getting ASSIGNMENTSTYLE");
   }
 };
-
 
 // Papers 관련 API
 
@@ -117,7 +112,7 @@ export const uploadPaper = async (formData, config) => {
 export const getPaper = async (paperId) => {
   try {
     const response = await instanceWithToken.get(`api/papers/${paperId}/`, {
-      responseType: 'blob' // Specify the response type as blob
+      responseType: "blob", // Specify the response type as blob
     });
 
     if (response.status === 200) {
@@ -129,7 +124,7 @@ export const getPaper = async (paperId) => {
       return null;
     }
   } catch (error) {
-    console.error('Failed to fetch the paper:', error);
+    console.error("Failed to fetch the paper:", error);
     throw error;
   }
 };
@@ -152,7 +147,6 @@ export const deletePaper = async (paper_id) => {
     console.log("[ERROR] error while deleting paper");
   }
 };
-
 
 // PaperInfos AI 생성 관련 API들
 
@@ -178,7 +172,6 @@ export const updatePaperInfo = async (paper_id, data) => {
   }
 };
 
-
 // PaperInfos 사람이 조회, 수정, 삭제 관련 API들
 
 export const getPaperInfos = async (assignment_id) => {
@@ -200,9 +193,6 @@ export const getPaperInfos = async (assignment_id) => {
   }
 };
 
-
-
-
 // Memos 관련 API들
 
 export const getMemo = async (paperId) => {
@@ -210,11 +200,8 @@ export const getMemo = async (paperId) => {
   return response.data;
 };
 
-export const createMemo = async (paperId, data) => {
-  const response = await instanceWithToken.post(
-    `api/papers/${paperId}/memo/`,
-    data
-  );
+export const createMemo = async (paperId) => {
+  const response = await instanceWithToken.post(`api/papers/${paperId}/memo/`);
   if (response.status == 201) {
     console.log("MEMO SUCCESS");
     window.location.reload();
@@ -231,7 +218,7 @@ export const updateMemo = async (paperId, data) => {
   );
   if (response.status === 200) {
     console.log("MEMO UPDATE SUCCESS");
-    window.location.reload();
+    return response.data;
   } else {
     console.log("[ERROR] error while updating memo");
   }

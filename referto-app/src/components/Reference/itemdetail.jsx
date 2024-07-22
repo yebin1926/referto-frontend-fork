@@ -2,9 +2,16 @@ import { useState, useEffect } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-const ReferenceItemDetail = ({ index, referenceId, referenceName, assignmentId }) => {
+const ReferenceItemDetail = ({
+  index,
+  referenceId,
+  referenceName,
+  assignmentId,
+}) => {
   const [content, setContent] = useState(referenceName);
-  useEffect(() => { setContent(referenceName); });
+  useEffect(() => {
+    setContent(referenceName);
+  });
   const [isEdit, setIsEdit] = useState(false);
 
   const handleEditContent = () => {
