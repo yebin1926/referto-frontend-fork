@@ -33,7 +33,6 @@ const ReferenceItem = ({
   };
 
   const handleChange = (event) => {
-    console.log("Current Value: " + event.target.value);
     setContent(event.target.value);
   };
 

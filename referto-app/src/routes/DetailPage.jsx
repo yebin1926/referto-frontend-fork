@@ -18,8 +18,15 @@ const DetailPage = (
 ) => {
   // const { assignmentId, referenceId } = useParams();
   const location = useLocation();
-  const { index, referenceId, referenceName, assignmentId, paperId } =
-    location.state || {};
+  const {
+    index,
+    reference,
+    referenceId,
+    referenceName,
+    assignmentId,
+    paperId,
+    selectedStyleName,
+  } = location.state || {};
 
   // console.log('assignmentId:', assignmentId )
   // console.log('referenceId:', referenceId )
@@ -86,9 +93,12 @@ const DetailPage = (
     <div className="w-full h-[959px] px-[100px] pt-[50px] pb-[100px] flex-col justify-start items-center inline-flex">
       <ReferenceItemDetail
         index={index}
+        reference={reference}
         referenceId={referenceId}
         referenceName={referenceName}
+        selectedStyleName={selectedStyleName}
         assignmentId={assignmentId}
+        paperId={paperId}
       />
       <div className="w-full h-full justify-start items-start inline-flex">
         <div className="w-full h-full p-5 flex-row justify-start items-start inline-flex">
