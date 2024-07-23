@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { updatePaperInfo, deletePaper } from "../../apis/api";
 
 const ReferenceItemDetail = ({
   index,
@@ -11,7 +12,7 @@ const ReferenceItemDetail = ({
   const [content, setContent] = useState(referenceName);
   useEffect(() => {
     setContent(referenceName);
-  });
+  }, []);
   const [isEdit, setIsEdit] = useState(false);
 
   const handleEditContent = () => {
@@ -20,10 +21,20 @@ const ReferenceItemDetail = ({
   const handleChange = (event) => {
     setContent(event.target.value);
   };
-  const handleContentUpdate = () => {
-    //handleReferenceUpdate(referenceId, content);
+  const handleContentUpdate = async () => {
+    const newContent = {
+      reference_type: selectedStyleName,
+      new_reference: content,
+    };
+    const response = await updatePaperInfo(referenceId, newContent);
     setIsEdit(!isEdit);
   };
+
+  const handleReferenceDelete = async (paperId) => {
+    const response = await deletePaper(paperId);
+    //window.location.reload();
+  };
+
   const handleCopy = () => {
     const $textarea = document.createElement("textarea");
     document.body.appendChild($textarea);
@@ -35,7 +46,7 @@ const ReferenceItemDetail = ({
   };
 
   return (
-    <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
+    <div className="w-full h-[80px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
           {index}
@@ -44,10 +55,10 @@ const ReferenceItemDetail = ({
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
         <div className="grow shrink basis-0 text-neutral-700 text-sm font-medium font-['Pretendard'] leading-[27px]">
           {isEdit ? (
-            <input
+            <textarea
               value={content}
               onChange={handleChange}
-              className="border border-gray-300 rounded-md"
+              className="border border-gray-300 rounded-md w-full"
             />
           ) : (
             content
@@ -77,7 +88,7 @@ const ReferenceItemDetail = ({
       >
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          // onClick={(event) => handleReferenceDelete(referenceId, event)}
+          onClick={(event) => handleReferenceDelete(referenceId, event)}
         />
       </Link>
     </div>
