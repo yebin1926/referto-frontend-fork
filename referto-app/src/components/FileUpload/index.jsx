@@ -36,14 +36,12 @@ const FileUpload = () => {
         formData.append("pdf", selectedFiles[i]);
         formData.append("assignment", assignmentId);
   
-        const response = await uploadPaper(formData, config);
-        const response2 = await uploadPaperInfo(response.data.paper_id);
+        const response_paper = await uploadPaper(formData, config);
+        console.log("File uploaded successfully");
 
-        const response_memo = await createMemo(response_paper.data.paper_id);
-
-  
-        console.log(
-          "File uploaded successfully"        );
+        await uploadPaperInfo(response_paper.data.paper_id);
+        // const response_memo = await createMemo(response_paper.data.paper_id);
+        console.log("Paper info uploaded successfully");
       }
       window.location.reload();
       // console.log("파일 업로드시 paper정보 확인하기: ", response.data);
