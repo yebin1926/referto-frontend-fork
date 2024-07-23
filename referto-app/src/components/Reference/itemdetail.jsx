@@ -22,11 +22,11 @@ const ReferenceItemDetail = ({
     setContent(event.target.value);
   };
   const handleContentUpdate = async () => {
-    const newContent = {
-      reference_type: selectedStyleName,
-      new_reference: content,
-    };
-    const response = await updatePaperInfo(referenceId, newContent);
+    // const newContent = {
+    //   reference_type: selectedStyleName,
+    //   new_reference: content,
+    // };
+    // const response = await updatePaperInfo(referenceId, newContent);
     setIsEdit(!isEdit);
   };
 
