@@ -29,13 +29,11 @@ export const getUser = async () => {
   return response.data;
 };
 
-
 // export const naverSignIn = async() => {
 //   window.location.href = 'http://localhost:8000/naverlogin/'
 //   const response = await instance.get("naverlogin/");
 //   return response;
 // }
-
 
 // Assignments 관련 API들
 export const getAssignments = async () => {
@@ -77,7 +75,6 @@ export const deleteAssignment = async (id) => {
   }
 };
 
-
 export const getAssignment = async (id) => {
   const response = await instanceWithToken.get(`api/assignments/${id}/`);
   if (response.status === 200) {
@@ -107,7 +104,7 @@ export const uploadPaper = async (formData, config) => {
 export const getPaper = async (paperId) => {
   try {
     const response = await instanceWithToken.get(`api/papers/${paperId}/`, {
-      responseType: 'blob'
+      responseType: "blob",
     });
 
     if (response.status === 200) {
@@ -118,7 +115,7 @@ export const getPaper = async (paperId) => {
       console.log("[ERROR] Error while getting PAPER");
     }
   } catch (error) {
-    console.error('Failed to fetch the paper:', error);
+    console.error("Failed to fetch the paper:", error);
   }
 };
 
@@ -160,6 +157,7 @@ export const updatePaperInfo = async (paper_id, data) => {
   );
   if (response.status === 200) {
     console.log("PAPERINFO UPDATE SUCCESS");
+    return response.data;
   } else {
     console.log("[ERROR] error while updating paperinfo");
   }
@@ -172,13 +170,25 @@ export const getPaperInfos = async (assignment_id) => {
     `api/paperinfo/assignment/${assignment_id}/`
   );
   if (response.status === 200) {
+    console.log("PAPERINFOS GET SUCCESS");
+    //console.log("Response Data:", JSON.stringify(response.data, null, 2));
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting PAPERINFOS");
+  }
+};
+
+export const getPaperInfo = async (assignment_id, paper_id) => {
+  const response = await instanceWithToken.get(
+    `api/paperinfo/assignment/${assignment_id}/${paper_id}/`
+  );
+  if (response.status === 200) {
     console.log("PAPERINFO GET SUCCESS");
     return response.data;
   } else {
     console.log("[ERROR] error while getting PAPERINFO");
   }
 };
-
 
 // Memos 관련 API들
 
