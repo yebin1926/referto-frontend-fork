@@ -8,7 +8,7 @@ import LogInModal from "./components/Modals/LogIn";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  
+
   // const [firstAssignmentId, setFirstAssignmentId] = useState('')
 
   // useEffect(() => {
@@ -22,7 +22,6 @@ function App() {
   //     }
   //   fetchAssignments()
   // }, [isUserLoggedIn]);
-
 
   // const [referencesList, setReferencesList] = useState([]);
   // const [selectedStyleName, setSelectedStyleName] = useState("APA")
@@ -91,11 +90,15 @@ function App() {
               />
             }
           />
-          <Route path="/" element={
-            <LogInModal
-              isUserLoggedIn={isUserLoggedIn} 
-              setIsUserLoggedIn={setIsUserLoggedIn}
-            />} />
+          <Route
+            path="/"
+            element={
+              <LogInModal
+                isUserLoggedIn={isUserLoggedIn}
+                setIsUserLoggedIn={setIsUserLoggedIn}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
