@@ -1,19 +1,29 @@
 import { useState, useEffect } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { updatePaperInfo, deletePaper } from "../../apis/api";
+import { updatePaperInfo, deletePaper, getPaperInfo } from "../../apis/api";
 
 const ReferenceItemDetail = ({
   index,
+  reference,
   referenceId,
   referenceName,
-  assignmentId,
+  selectedStyleName,
+  //assignmentId,
+  paperId,
 }) => {
   const [content, setContent] = useState(referenceName);
-  useEffect(() => {
-    setContent(referenceName);
-  }, []);
   const [isEdit, setIsEdit] = useState(false);
+  const { assignmentId } = useParams();
+
+  useEffect(() => {
+    const fetchPaperInfo = async () => {
+      const response = await getPaperInfo(assignmentId, paperId);
+      const newContent = response[selectedStyleName];
+      setContent(newContent);
+    };
+    fetchPaperInfo();
+  }, []);
 
   const handleEditContent = () => {
     setIsEdit(!isEdit);
@@ -22,17 +32,16 @@ const ReferenceItemDetail = ({
     setContent(event.target.value);
   };
   const handleContentUpdate = async () => {
-    // const newContent = {
-    //   reference_type: selectedStyleName,
-    //   new_reference: content,
-    // };
-    // const response = await updatePaperInfo(referenceId, newContent);
+    const newContent = {
+      reference_type: selectedStyleName,
+      new_reference: content,
+    };
+    const response = await updatePaperInfo(referenceId, newContent);
     setIsEdit(!isEdit);
   };
 
   const handleReferenceDelete = async (paperId) => {
     const response = await deletePaper(paperId);
-    //window.location.reload();
   };
 
   const handleCopy = () => {
@@ -58,7 +67,7 @@ const ReferenceItemDetail = ({
             <textarea
               value={content}
               onChange={handleChange}
-              className="border border-gray-300 rounded-md w-full"
+              className="border border-gray-300 rounded-m w-full"
             />
           ) : (
             content
@@ -83,12 +92,12 @@ const ReferenceItemDetail = ({
         </div>
       </div>
       <Link
-        to="/1" //고쳐야됨
+        to={`/${assignmentId}`}
         className="w-11 self-stretch px-2.5 justify-center items-center gap-2.5 flex cursor-pointer"
       >
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          onClick={(event) => handleReferenceDelete(referenceId, event)}
+          onClick={(event) => handleReferenceDelete(paperId)}
         />
       </Link>
     </div>
