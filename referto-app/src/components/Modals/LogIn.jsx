@@ -89,7 +89,7 @@ const LogInModal = ( props ) => {
     const fetchAssignments = async (email) => {
       try {
         const assignments = await getAssignments(email);
-        return assignments[0]['number']; // Return the first number
+        return assignments[0]['assignment_id']; // Return the first id
       } catch (error) {
         console.error('Error fetching assignments:', error);
       }
@@ -170,7 +170,6 @@ const LogInModal = ( props ) => {
         <SignUpModal
           onClose={closeSignUpModal}
           onSwitch={openLogInModal}
-          isUserLoggedIn={isUserLoggedIn}
           setIsUserLoggedIn={setIsUserLoggedIn}
           handleRedirect={handleRedirect}
         />

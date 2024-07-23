@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { signUp } from "../../apis/api";
 
-const SignUpModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn, handleRedirect }) => {
+const SignUpModal = ({ onClose, onSwitch, setIsUserLoggedIn, handleRedirect }) => {
   const [signUpData, setSignUpData] = useState({
     email: "",
     password: "",
@@ -17,7 +17,7 @@ const SignUpModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn, han
     try {
       await signUp(signUpData);
       onClose();
-      setIsUserLoggedIn(!isUserLoggedIn)
+      setIsUserLoggedIn(true)
     } catch (error) {
       console.error('Error signing up:', error);
     }
