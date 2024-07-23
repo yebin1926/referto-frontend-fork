@@ -21,6 +21,7 @@ const LogInModal = ({ onClose, onSwitch }) => {
       onClose();
     } catch (error) {
       console.error('Error logging in:', error.message);
+      alert('이메일 주소와 비밀번호를 확인해주세요.');
     }
   };
 

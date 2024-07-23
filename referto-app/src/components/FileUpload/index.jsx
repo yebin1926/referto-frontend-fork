@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 // import SelectStyleModal from "../Modals/SelectStyle";
 import { createMemo, uploadPaper, uploadPaperInfo } from "../../apis/api";
 import { useParams } from "react-router-dom";
+import Loading from "./loading";
 
 const FileUpload = () => {
   const [uploadStatus, setUploadStatus] = useState("");
@@ -56,6 +57,8 @@ const FileUpload = () => {
         "Error uploading file:",
         error.response ? error.response : error.message
       );
+      alert('적절한 파일형식이 아닙니다.');
+      window.location.reload();
     }
   };
 
@@ -77,7 +80,7 @@ const FileUpload = () => {
       >
         <div className="justify-center items-center gap-2.5 flex">
           {uploadStatus === "ing" ? (
-            <Loader className="text-white selection:w-[18px] h-[18px] relative" />
+            <Loader className="text-white selection:w-[18px] h-[18px] relative" /> 
           ) : (
             <Upload className="text-white selection:w-[18px] h-[18px] relative" />
           )}
@@ -86,8 +89,8 @@ const FileUpload = () => {
           Upload
         </div>
       </div>
+      {uploadStatus === "ing" && <Loading />}
     </>
-    //{isOpen && <SelectStyleModal onClose={handleCloseClick} onClick={handleUpload} />}
   );
 };
 

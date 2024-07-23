@@ -20,6 +20,7 @@ const SignUpModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn }) =
       setIsUserLoggedIn(!isUserLoggedIn)
     } catch (error) {
       console.error('Error signing up:', error);
+      alert('이미 가입되어 있는 이메일 주소입니다.');
     }
   };
 

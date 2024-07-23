@@ -2,6 +2,7 @@ import ReferenceItem from "./item";
 
 const ReferenceList = ({
   referencesList,
+  setReferencesList,
   // handleReferenceDelete,
   // handleReferenceUpdate,
   // findIndexofReference,
@@ -24,6 +25,8 @@ const ReferenceList = ({
           // findIndexofReference={findIndexofReference}
           selectedStyleName={selectedStyleName}
           index={index + 1}
+          referencesList = {referencesList}
+          setReferencesList={setReferencesList}
         />
       ))}
     </div>
