@@ -2,18 +2,17 @@ import { useState, useEffect } from "react";
 import { NotepadText, Save, Copy } from "lucide-react";
 import { getMemo, updateMemo } from "../../apis/api";
 
-const ReferenceMemo = ({ referenceId, referenceName }) => {
+const ReferenceMemo = ({ referenceName, paperId }) => {
   const [memoContent, setMemoContent] = useState("");
 
-  // useEffect(() => {
-  //   const getMemoAPI = async () => {
-  //     const memo = await getMemo();
-  //     setMemoContent(memo.content);
-  //     console.log(memo);
-  //   };
-  //   getMemoAPI();
-    
-  // }, [referenceId]);
+  useEffect(() => {
+    const getMemoAPI = async () => {
+      const memo = await getMemo(paperId);
+      setMemoContent(memo.content);
+      console.log(memo);
+    };
+    getMemoAPI();
+  }, [paperId]);
 
   const handleContentChange = (e) => {
     setMemoContent(e.target.value);
@@ -29,14 +28,14 @@ const ReferenceMemo = ({ referenceId, referenceName }) => {
     document.body.removeChild($textarea);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    updateMemo({ paperId: referenceId, data: memoContent });
-    setMemoContent("");
+    const response = await updateMemo(paperId, { content: memoContent });
+    //setMemoContent(response);
   };
 
   return (
-    <form className="form bg-white">
+    <form className="form bsg-white">
       <div className="self-stretch justify-start items-center inline-flex ">
         <div className="grow shrink basis-0 h-100% justify-start items-center gap-[7px] flex">
           <NotepadText className="w-6 h-6 relative" />
@@ -60,7 +59,6 @@ const ReferenceMemo = ({ referenceId, referenceName }) => {
       <div className="self-stretch justify-end items-center gap-[15px] inline-flex w-full">
         <div className="grow shrink basis-0 h-10 justify-end items-center gap-[18px] flex">
           <button
-            type="submit"
             onClick={onSubmit}
             className="px-4 py-2 rounded-md border border-neutral-700 justify-center items-center gap-2.5 flex"
           >

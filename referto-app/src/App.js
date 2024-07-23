@@ -27,7 +27,6 @@ function App() {
   // const [referencesList, setReferencesList] = useState([]);
   // const [selectedStyleName, setSelectedStyleName] = useState("APA")
 
-
   // const findIndexofReference = (referenceId) => {
   //   const index = referencesList.findIndex(
   //     (reference) => reference.paperInfo_id === referenceId
@@ -68,11 +67,11 @@ function App() {
             path="/:assignmentId/:referenceId"
             element={
               <DetailPage
-                // referencesList={referencesList}
-                // handleReferenceDelete={handleReferenceDelete}
-                // handleReferenceUpdate={handleReferenceUpdate}
-                // findIndexofReference={findIndexofReference}
-                // selectedStyleName={selectedStyleName}
+              // referencesList={referencesList}
+              // handleReferenceDelete={handleReferenceDelete}
+              // handleReferenceUpdate={handleReferenceUpdate}
+              // findIndexofReference={findIndexofReference}
+              // selectedStyleName={selectedStyleName}
               />
             }
           />

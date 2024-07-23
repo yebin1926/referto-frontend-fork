@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { deletePaper, updatePaperInfo } from "../../apis/api";
 
 const ReferenceItem = ({
   reference,
@@ -9,17 +10,20 @@ const ReferenceItem = ({
   // handleReferenceUpdate,
   // findIndexofReference,
   selectedStyleName,
-  index
+  index,
 }) => {
   // console.log('reference item에서 보는 참고문헌 :', JSON.stringify(reference, null, 2));
-  const referenceId = reference['paperInfo_id'];
+  const referenceId = reference["paperInfo_id"];
   const referenceName = reference[selectedStyleName];
-  // console.log(`reference item에서 보는 ${selectedStyleName} 스타일에 따른 참고문헌 각주 : ${referenceName}`);  
-  const paperId = reference['paper'];
+  // console.log(`reference item에서 보는 ${selectedStyleName} 스타일에 따른 참고문헌 각주 : ${referenceName}`);
+  const paperId = reference["paper"];
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
-  // 컴포넌트가 다시 렌더링될 때마다 상태를 초기화하는 useEffect 
-  useEffect(() => { setContent(referenceName); });
+
+  // 컴포넌트가 다시 렌더링될 때마다 상태를 초기화하는 useEffect
+  useEffect(() => {
+    setContent(referenceName);
+  }, []);
   // setContent(referenceName);
   // console.log('content', content);
   const [isEdit, setIsEdit] = useState(false);
@@ -27,13 +31,26 @@ const ReferenceItem = ({
   const handleEditContent = () => {
     setIsEdit(!isEdit);
   };
+
   const handleChange = (event) => {
+    console.log("Current Value: " + event.target.value);
     setContent(event.target.value);
   };
-  const handleContentUpdate = () => {
-    //handleReferenceUpdate(referenceId, content);
+
+  const handleContentUpdate = async () => {
+    const newContent = {
+      reference_type: selectedStyleName,
+      new_reference: content,
+    };
+    const response = await updatePaperInfo(referenceId, newContent);
     setIsEdit(!isEdit);
   };
+
+  const handleReferenceDelete = async (paperId) => {
+    const response = await deletePaper(paperId);
+    window.location.reload();
+  };
+
   const handleCopy = () => {
     const $textarea = document.createElement("textarea");
     document.body.appendChild($textarea);
@@ -44,7 +61,7 @@ const ReferenceItem = ({
     alert("Your reference copied to clipboard!");
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleClickView = () => {
     navigate(`/${assignmentId}/${referenceId}`, {
@@ -55,14 +72,13 @@ const ReferenceItem = ({
         referenceId,
         referenceName,
         assignmentId,
-        paperId
-      }
+        paperId,
+      },
     });
   };
 
-
   return (
-    <div className="w-full h-[60px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
+    <div className="w-full h-2/5 py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
           {/* {parseInt(findIndexofReference(referenceId)) + 1} */}
@@ -72,10 +88,10 @@ const ReferenceItem = ({
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
         <div className="grow shrink basis-0 text-neutral-700 text-sm font-medium font-['Pretendard'] leading-[27px]">
           {isEdit ? (
-            <input
+            <textarea
               value={content}
               onChange={handleChange}
-              className="border border-gray-300 rounded-md"
+              className="border border-gray-300 rounded-md w-full"
             />
           ) : (
             content
@@ -119,7 +135,7 @@ const ReferenceItem = ({
       >
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          // onClick={(event) => handleReferenceDelete(referenceId, event)}
+          onClick={(event) => handleReferenceDelete(paperId)}
         />
       </Link>
     </div>

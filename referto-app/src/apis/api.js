@@ -88,11 +88,14 @@ export const getAssignment = async (id) => {
   }
 };
 
-
 // Papers 관련 API
 
 export const uploadPaper = async (formData, config) => {
-  const response = await instanceWithToken.post("api/papers/", formData, config);
+  const response = await instanceWithToken.post(
+    "api/papers/",
+    formData,
+    config
+  );
   if (response.status === 201) {
     console.log("PAPER UPLOAD SUCCESS");
     return response.data;
@@ -138,7 +141,6 @@ export const deletePaper = async (paper_id) => {
   }
 };
 
-
 // PaperInfos AI 생성 관련 API들
 
 export const uploadPaperInfo = async (paper_id) => {
@@ -152,14 +154,16 @@ export const uploadPaperInfo = async (paper_id) => {
 };
 
 export const updatePaperInfo = async (paper_id, data) => {
-  const response = await instanceWithToken.put(`api/paperinfo/${paper_id}/`, data);
+  const response = await instanceWithToken.put(
+    `api/paperinfo/${paper_id}/`,
+    data
+  );
   if (response.status === 200) {
     console.log("PAPERINFO UPDATE SUCCESS");
   } else {
     console.log("[ERROR] error while updating paperinfo");
   }
 };
-
 
 // PaperInfos 사람이 조회, 수정, 삭제 관련 API들
 
@@ -204,7 +208,7 @@ export const updateMemo = async (paperId, data) => {
   );
   if (response.status === 200) {
     console.log("MEMO UPDATE SUCCESS");
-    window.location.reload();
+    return response.data;
   } else {
     console.log("[ERROR] error while updating memo");
   }
