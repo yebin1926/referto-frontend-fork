@@ -65,7 +65,7 @@ const ReferenceItemDetail = ({ index, referenceId, referenceName, assignmentId }
         </div>
       </div>
       <Link
-        to="/1" //고쳐야됨
+        to={`/${assignmentId}`}
         className="w-11 self-stretch px-2.5 justify-center items-center gap-2.5 flex cursor-pointer"
       >
         <Trash2

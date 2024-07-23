@@ -1,13 +1,29 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "./components/Header";
 import HomePage from "./routes/HomePage";
 import DetailPage from "./routes/DetailPage";
 import "./App.css";
-import { updatePaperInfo } from "./apis/api";
+import LogInModal from "./components/Modals/LogIn";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  
+  // const [firstAssignmentId, setFirstAssignmentId] = useState('')
+
+  // useEffect(() => {
+  //   const fetchAssignments = async () => {
+  //       try {
+  //         const assignments = await getAssignments(user);
+  //         setFirstAssignmentId(assignments[0]['assignment_id'])
+  //       } catch (error) {
+  //         console.error('Error fetching assignments:', error);
+  //       }
+  //     }
+  //   fetchAssignments()
+  // }, [isUserLoggedIn]);
+
+
   // const [referencesList, setReferencesList] = useState([]);
   // const [selectedStyleName, setSelectedStyleName] = useState("APA")
 
@@ -45,7 +61,7 @@ function App() {
       <BrowserRouter>
         <Header
           isUserLoggedIn={isUserLoggedIn}
-          setIsUserLoggedIn={setIsUserLoggedIn}
+          // setIsUserLoggedIn={setIsUserLoggedIn}
         />
         <Routes>
           <Route
@@ -76,7 +92,11 @@ function App() {
               />
             }
           />
-          <Route path="/" element={<Navigate to="1" />} />
+          <Route path="/" element={
+            <LogInModal
+              isUserLoggedIn={isUserLoggedIn} 
+              setIsUserLoggedIn={setIsUserLoggedIn}
+            />} />
         </Routes>
       </BrowserRouter>
     </div>
