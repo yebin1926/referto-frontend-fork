@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { signUp } from "../../apis/api";
 
-const SignUpModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn }) => {
+const SignUpModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn, handleRedirect }) => {
   const [signUpData, setSignUpData] = useState({
     email: "",
     password: "",
@@ -21,12 +21,14 @@ const SignUpModal = ({ onClose, onSwitch, isUserLoggedIn, setIsUserLoggedIn }) =
     } catch (error) {
       console.error('Error signing up:', error);
     }
+    handleRedirect();
   };
 
   const handleLogInSwitch = () => {
     onClose();
     onSwitch();
   };
+
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-70 z-10">
