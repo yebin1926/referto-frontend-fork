@@ -20,8 +20,8 @@ const HomePage = (
   props
 ) => {
   const [referencesList, setReferencesList] = useState([]);
-  const [selectedStyleName, setSelectedStyleName] = useState("APA")
-  const { isUserLoggedIn } = props
+  const [selectedStyleName, setSelectedStyleName] = useState("APA");
+  const { isUserLoggedIn } = props;
   // const [selectedStyleId, setSelectedStyleId] = useState(1);
 
   // 전체 복사 고치기
@@ -37,7 +37,7 @@ const HomePage = (
   // };
 
   const { assignmentId } = useParams();
-  const selectedAssignmentId = Number(assignmentId)
+  const selectedAssignmentId = Number(assignmentId);
 
   useEffect(() => {
     if (assignmentId) {
@@ -54,16 +54,19 @@ const HomePage = (
       getAssignmentAPI();
     }
   }, [assignmentId]);
-  
 
   return (
     <div className="w-full flex flex-row justify-between">
       <div className="flex flex-col w-[280px] h-[850px] items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">
-        <SidebarList isUserLoggedIn={isUserLoggedIn}/>
+        <SidebarList isUserLoggedIn={isUserLoggedIn} />
       </div>
       <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
         <div className="self-stretch justify-end items-center inline-flex">
-          <StyleList selectedAssignmentId={selectedAssignmentId} selectedStyleName={selectedStyleName} setSelectedStyleName={setSelectedStyleName}/>
+          <StyleList
+            selectedAssignmentId={selectedAssignmentId}
+            selectedStyleName={selectedStyleName}
+            setSelectedStyleName={setSelectedStyleName}
+          />
           <FileUpload />
         </div>
         <div className="w-full h-[241px] flex-col justify-start items-center inline-flex">
