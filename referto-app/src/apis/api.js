@@ -1,17 +1,16 @@
 import { instance, instanceWithToken } from "./axios";
 
-// Account 관련 API들
+// User 관련 API들
 export const signIn = async (data) => {
-  const response = await instance.post("api/account/signin/", data);
+  const response = await instance.post("api/user/auth/", data);
   if (response.status === 200) {
-    window.location.href = "/";
   } else {
     console.log("[ERROR] error while signing in");
   }
 };
 
 export const signUp = async (data) => {
-  const response = await instance.post("api/account/signup/", data);
+  const response = await instance.post("api/user/register/", data);
   if (response.status === 200 || response.status === 201) {
     return response.data;
   } else {
@@ -20,33 +19,32 @@ export const signUp = async (data) => {
   return response;
 };
 
-export const naverSignIn = async () => {
-  window.location.href = "http://localhost:8000/accounts/naver/login/";
-  const response = await instance.get("accounts/naver/login/");
-  return response;
+export const getUser = async () => {
+  const response = await instanceWithToken.get("api/user/auth/");
+  if (response.status === 200) {
+    console.log("USER GET SUCCESS");
+  } else {
+    console.log("[ERROR] error while getting user");
+  }
+  return response.data;
 };
+
+// export const naverSignIn = async() => {
+//   window.location.href = 'http://localhost:8000/naverlogin/'
+//   const response = await instance.get("naverlogin/");
+//   return response;
+// }
 
 // Assignments 관련 API들
 export const getAssignments = async () => {
-  //   try {
-  //     const response_user = await instanceWithToken.get("api/account/info/");
-  //   } catch (error) {
-  //     console.log("No Access Token");
-  //     return [];
-  //   }
   const response = await instanceWithToken.get("api/assignments/");
   if (response.status === 200) {
-    console.log("ASSIGNMENT GET SUCCESS");
+    console.log("ASSIGNMENTS GET SUCCESS");
     return response.data;
   } else {
-    console.log("[ERROR] error while getting assignment");
+    console.log("[ERROR] error while getting assignments");
   }
 };
-
-//   export const getAssignment = async (id) => {
-//     const response = await instance.get(`/assignments/${id}/`);
-//     return response.data;
-//   };
 
 export const createAssignment = async (data) => {
   const response = await instanceWithToken.post("api/assignments/", data);
@@ -78,12 +76,6 @@ export const deleteAssignment = async (id) => {
 };
 
 export const getAssignment = async (id) => {
-  // try {
-  //   const response_user = await instanceWithToken.get("api/account/info/");
-  // } catch (error) {
-  //   console.log("No Access Token");
-  //   return [];
-  // }
   const response = await instanceWithToken.get(`api/assignments/${id}/`);
   if (response.status === 200) {
     console.log("ASSIGNMENTSTYLE GET SUCCESS");
@@ -112,19 +104,18 @@ export const uploadPaper = async (formData, config) => {
 export const getPaper = async (paperId) => {
   try {
     const response = await instanceWithToken.get(`api/papers/${paperId}/`, {
-      responseType: "blob", // Tell Axios to handle the response as a blob
+      responseType: "blob",
     });
 
     if (response.status === 200) {
       console.log("PAPER GET SUCCESS");
-      const blob = response.data; // The response data is the blob
+      const blob = response.data;
       return URL.createObjectURL(blob); // Create a URL for the blob
     } else {
       console.log("[ERROR] Error while getting PAPER");
     }
   } catch (error) {
     console.error("Failed to fetch the paper:", error);
-    throw error; // Ensure to rethrow the error for proper handling
   }
 };
 
@@ -166,6 +157,7 @@ export const updatePaperInfo = async (paper_id, data) => {
   );
   if (response.status === 200) {
     console.log("PAPERINFO UPDATE SUCCESS");
+    return response.data;
   } else {
     console.log("[ERROR] error while updating paperinfo");
   }
@@ -174,18 +166,24 @@ export const updatePaperInfo = async (paper_id, data) => {
 // PaperInfos 사람이 조회, 수정, 삭제 관련 API들
 
 export const getPaperInfos = async (assignment_id) => {
-  // try {
-  //   const response_user = await instanceWithToken.get("api/account/info/");
-  // } catch (error) {
-  //   console.log("No Access Token");
-  //   return [];
-  // }
   const response = await instanceWithToken.get(
     `api/paperinfo/assignment/${assignment_id}/`
   );
   if (response.status === 200) {
-    console.log("PAPERINFO GET SUCCESS");
+    console.log("PAPERINFOS GET SUCCESS");
     //console.log("Response Data:", JSON.stringify(response.data, null, 2));
+    return response.data;
+  } else {
+    console.log("[ERROR] error while getting PAPERINFOS");
+  }
+};
+
+export const getPaperInfo = async (assignment_id, paper_id) => {
+  const response = await instanceWithToken.get(
+    `api/paperinfo/assignment/${assignment_id}/${paper_id}/`
+  );
+  if (response.status === 200) {
+    console.log("PAPERINFO GET SUCCESS");
     return response.data;
   } else {
     console.log("[ERROR] error while getting PAPERINFO");
@@ -199,9 +197,12 @@ export const getMemo = async (paperId) => {
   return response.data;
 };
 
-export const createMemo = async (paperId) => {
-  const response = await instanceWithToken.post(`api/papers/${paperId}/memo/`);
-  if (response.status == 201) {
+export const createMemo = async (paperId, data) => {
+  const response = await instanceWithToken.post(
+    `api/papers/${paperId}/memo/`,
+    data
+  );
+  if (response.status === 201) {
     console.log("MEMO SUCCESS");
     window.location.reload();
     return response.data;
@@ -221,15 +222,4 @@ export const updateMemo = async (paperId, data) => {
   } else {
     console.log("[ERROR] error while updating memo");
   }
-};
-
-//User 관련 API
-export const getUser = async () => {
-  const response = await instanceWithToken.get("api/account/info/");
-  if (response.status === 200) {
-    console.log("USER GET SUCCESS");
-  } else {
-    console.log("[ERROR] error while getting user");
-  }
-  return response.data;
 };

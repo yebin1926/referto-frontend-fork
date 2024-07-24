@@ -20,12 +20,8 @@ const FileUpload = () => {
   const { assignmentId } = useParams();
 
   const handleFileChange = async (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
-
-    const formData = new FormData();
-    formData.append("pdf", selectedFile);
-    formData.append("assignment", assignmentId);
+    const selectedFiles = e.target.files;
+    if (!selectedFiles) return;
 
     setUploadStatus("ing");
 
@@ -36,17 +32,20 @@ const FileUpload = () => {
     };
 
     try {
-      const response_paper = await uploadPaper(formData, config);
-      const response_paperinfo = await uploadPaperInfo(
-        response_paper.data.paper_id
-      );
-      const response_memo = await createMemo(response_paper.data.paper_id);
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const formData = new FormData();
+        formData.append("pdf", selectedFiles[i]);
+        formData.append("assignment", assignmentId);
+  
+        const response_paper = await uploadPaper(formData, config);
+        console.log("File uploaded successfully");
+
+        await uploadPaperInfo(response_paper.data.paper_id);
+        // const response_memo = await createMemo(response_paper.data.paper_id);
+        console.log("Paper info uploaded successfully");
+      }
       window.location.reload();
-      console.log("파일 업로드시 paper정보 확인하기: ", response_paper.data);
-      console.log(
-        "File uploaded successfully:",
-        JSON.stringify(response_paperinfo.paper_info, null, 2)
-      );
+      // console.log("파일 업로드시 paper정보 확인하기: ", response.data);
       //response2.paper_info 안에 paperinfo_id, mla_reference, apa_reference, 등이 있음.
       //위 console.log() 코드를 돌리면 계속 어떤 형식으로 response 가 나오는지 보여줄거야!
       //mla 만 나오도록 한거는 components -> reference -> item.jsx 에 있어 (const referenceName = reference.mla_reference;)
@@ -70,6 +69,7 @@ const FileUpload = () => {
     <>
       <input
         type="file"
+        multiple 
         ref={fileInputRef}
         style={{ display: "none" }}
         onChange={handleFileChange}
