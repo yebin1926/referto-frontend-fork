@@ -148,7 +148,7 @@ const SidebarItem = ({
           className="rounded flex items-center justify-start gap-1.5 px-3.5 py-2.5 relative self-stretch w-full flex-[0_0_auto] overflow-hidden"
         >
           <img alt="dot" src={dotLight} className="h-1.5 w-1.5 relative" />
-          <div className="font-medium text-neutral-400 leading-6 text-lg tracking-0">
+          <div className="font-medium text-neutral-400 leading-6 text-lg tracking-0 truncate max-w-[calc(100%-40px)]">
             {content}
           </div>
         </Link>
