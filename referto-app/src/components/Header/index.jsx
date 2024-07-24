@@ -16,8 +16,10 @@ const Header = (props) => {
   const navigate = useNavigate();
   const { isUserLoggedIn } = props;
   const [user, setUser] = useState("null");
+  console.log("is user logged in? : body " + isUserLoggedIn);
 
   useEffect(() => {
+    console.log("is user logged in? : use effect " + isUserLoggedIn);
     if (isUserLoggedIn) {
       const getUserAPI = async () => {
         const currUser = await getUser();
