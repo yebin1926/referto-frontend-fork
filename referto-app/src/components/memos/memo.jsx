@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { NotepadText, Save, Copy } from "lucide-react";
 import { getMemo, updateMemo } from "../../apis/api";
 
-const ReferenceMemo = ({ referenceName, paperId }) => {
+const ReferenceMemo = ({ content, paperId }) => {
   const [memoContent, setMemoContent] = useState("");
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const ReferenceMemo = ({ referenceName, paperId }) => {
     e.preventDefault();
     const $textarea = document.createElement("textarea");
     document.body.appendChild($textarea);
-    $textarea.value = memoContent + "\n" + referenceName;
+    $textarea.value = memoContent + "\n" + content;
     $textarea.select();
     document.execCommand("copy");
     document.body.removeChild($textarea);

@@ -36,15 +36,11 @@ const AssignmentModal = ({ position, handleEditAssignment, handleDeleteAssignmen
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-start justify-end z-50 pointer-events-none" ref={modalRef} style={{ top: 0, left: 0 }}>
       <div className="absolute modal-overlay rounded-lg overflow-hidden shadow-lg" style={{ top: position.top, left: position.left }}>
-      {isEdit? <MenuItem
-        text={"save"}
-        icon={<Check className="w-4 h-4"/>}
-        onClick={handleEditAssignment}
-      /> : <MenuItem
+      <MenuItem
       text={"edit"}
       icon={<Pencil className="w-4 h-4"/>}
-      onClick={() => setIsEdit(true)}
-    />}
+      onClick={() => {setIsEdit(true); setIsOpen(false);}}
+    />
       <MenuItem
         text="delete"
         icon={<Trash2 className="w-4 h-4"/>}
