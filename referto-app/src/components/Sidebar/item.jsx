@@ -1,7 +1,7 @@
 import dotDark from "../../assets/images/dot-dark.svg";
 import dotLight from "../../assets/images/dot-light.svg";
 import { Link, useParams, useNavigate} from "react-router-dom";
-import { Ellipsis } from 'lucide-react';
+import { EllipsisVertical  } from 'lucide-react';
 import { useState, useRef, useEffect } from "react";
 import AssignmentModal from "../Modals/AssignmentModal";
 import { updateAssignment, deleteAssignment } from '../../apis/api';
@@ -19,6 +19,7 @@ const SidebarItem = ({
   const [content, setContent] = useState(assignmentName);
   const [onChangeValue, setOnChangeValue] = useState(content);
   const ref = useRef(null);
+  const renameRef = useRef(null);
   const navigate = useNavigate()
   const { assignmentId: selectedAssignmentIdString } = useParams();
   const selectedAssignmentId = Number(selectedAssignmentIdString)
@@ -40,6 +41,11 @@ const SidebarItem = ({
   const handleEditAssignment = async() => {
     if (onChangeValue.trim().length < 1) {
       alert("Assignment name must be at least 1 character long!");
+      setTimeout(() => {
+        if (renameRef.current) {
+          renameRef.current.focus();
+        }
+      }, 0); // Set a timeout to ensure it runs after the alert is dismissed
       return;
     }
     setIsEdit(false)
@@ -60,7 +66,7 @@ const SidebarItem = ({
 
     if (assignmentsList.length === 1) {
       alert("Cannot delete the last remaining assignment.");
-      return;
+      return ;
     } else {
     const confirmDelete = window.confirm('Do you really want to delete?')
     if (!confirmDelete) return; 
@@ -80,52 +86,30 @@ const SidebarItem = ({
     }
   };
 
+  useEffect(() => {
+    const handleClickOutsideRename = (event) => {
+      if (renameRef.current && !renameRef.current.contains(event.target)) {
+        handleEditAssignment();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutsideRename);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideRename);
+    }
+  },);
 
+  useEffect(() => {
+    if (isEdit && renameRef.current) {
+      renameRef.current.focus();
+      renameRef.current.select();
+    }
+  }, [isEdit]);
 
-  // const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
-  // const [name, setName] = useState(assignmentName);
-  // const [isRename, setIsRename] = useState(false);
-  // const buttonRef = useRef(null);
-  // const editRef = useRef(null);
-  // const setIsRenameTrue = () => {
-  //   setIsRename(true);
-  // };
-  // const handleAssignment = () => {
-  //   if (buttonRef.current) {
-  //     const rect = buttonRef.current.getBoundingClientRect();
-  //     setModalPosition({top: rect.bottom, left: rect.left});
-  //     setIsOpen(true);
-  //     document.body.style.overflow = 'hidden';
-  //   }
-  // };
-  // const handleCloseClick = () => {
-  //   setIsOpen(false);
-  //   document.body.style.overflow = 'auto';
-  // };
-  // const handleNameChange = (event) => {
-  //   setName(event.target.value);
-  // };
-  // const handleNameUpdate = () => {
-  //   if (name.length < 1) {
-  //     alert("Assignment name must be at least 1 character long!")
-  //   } else {
-  //     handleAssignmentUpdate(assignmentId, name);
-  //     setIsRename(!isRename);
-  //   }
-  // };
-  // useEffect(() => {
-  //   const handleClickOutsideRename = (event) => {
-  //     if (editRef.current && !editRef.current.contains(event.target)) {
-  //       handleNameUpdate();
-  //     }
-  //   };
-  //   document.addEventListener('mousedown', handleClickOutsideRename);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutsideRename);
-  //   }
-  // },);
-
-
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleEditAssignment();
+    }
+  };
 
   return (
     <div
@@ -134,14 +118,15 @@ const SidebarItem = ({
     >
       {selectedAssignmentId === assignmentId ? (
         <div className="bg-neutral-300 rounded-[20px] flex items-center justify-start gap-1.5 px-3.5 py-2.5 relative self-stretch w-full flex-[0_0_auto] overflow-hidden">
-          <img alt="dot" src={dotDark} className="h-1.5 w-1.5 relative" />
-          <div className="font-medium text-neutral-700 leading-6 text-lg tracking-0">
+          <img alt="dot" src={dotDark} className="h-1.5 w-1.5 relative flex-none" />
+          <div className="font-medium text-neutral-700 leading-6 text-lg tracking-0 truncate">
           {isEdit ? (
             <input
               className="border text-neutral-700 w-20 h-10 p-1"
               value={onChangeValue}
               onChange={(e) => setOnChangeValue(e.target.value)}
-              // ref={ref}
+              onKeyDown={handleKeyDown}
+              ref={renameRef}
               minLength="1"
               required
             />
@@ -150,10 +135,12 @@ const SidebarItem = ({
           )}
           </div>
           <div className="flex-grow"></div>
-          <Ellipsis 
-            className="text-neutral-700 selection:w-[18px] h-[18px] relative cursor-pointer" 
-            onClick={handleAssignment} 
-            ref={ref}/>
+          <div className="flex-none">
+            <EllipsisVertical  
+              className="text-neutral-700 selection:w-[18px] h-[18px] relative cursor-pointer" 
+              onClick={handleAssignment} 
+              ref={ref}/>
+          </div>
         </div>
       ) : (
         <Link

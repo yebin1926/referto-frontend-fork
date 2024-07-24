@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { deletePaper, updatePaperInfo } from "../../apis/api";
@@ -21,6 +21,7 @@ const ReferenceItem = ({
   const paperId = reference["paper"];
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
+  const inputRef = useRef(null);
 
   // 컴포넌트가 다시 렌더링될 때마다 상태를 초기화하는 useEffect
   useEffect(() => {
@@ -29,6 +30,13 @@ const ReferenceItem = ({
   // setContent(referenceName);
   // console.log('content', content);
   const [isEdit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    if (isEdit && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEdit]);
 
   const handleEditContent = () => {
     setIsEdit(!isEdit);
@@ -39,6 +47,15 @@ const ReferenceItem = ({
   };
 
   const handleContentUpdate = async () => {
+    if (content.trim().length < 1) {
+      alert("Reference Content must be at least 1 character long!");
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 0); // Set a timeout to ensure it runs after the alert is dismissed
+      return;
+    }
     const newContent = {
       reference_type: selectedStyleName,
       new_reference: content,
@@ -52,6 +69,8 @@ const ReferenceItem = ({
   };
 
   const handleReferenceDelete = async (paperId) => {
+    const confirmDelete = window.confirm('Do you really want to delete?')
+    if (!confirmDelete) return; 
     const response = await deletePaper(paperId);
     window.location.reload();
   };
@@ -82,6 +101,12 @@ const ReferenceItem = ({
     });
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleContentUpdate();
+    }
+  };
+
   return (
     <div className="w-full h-100% py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
@@ -97,6 +122,8 @@ const ReferenceItem = ({
               value={content}
               onChange={handleChange}
               className="border border-gray-300 rounded-md w-full"
+              ref={inputRef}
+              onKeyDown={handleKeyDown}
             />
           ) : (
             content

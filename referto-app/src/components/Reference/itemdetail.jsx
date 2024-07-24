@@ -1,20 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { updatePaperInfo, deletePaper, getPaperInfo } from "../../apis/api";
 
 const ReferenceItemDetail = ({
   index,
-  reference,
   referenceId,
-  referenceName,
+  content,
+  setContent,
   selectedStyleName,
   //assignmentId,
   paperId,
 }) => {
-  const [content, setContent] = useState(referenceName);
   const [isEdit, setIsEdit] = useState(false);
   const { assignmentId } = useParams();
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (isEdit && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEdit]);
 
   useEffect(() => {
     const fetchPaperInfo = async () => {
@@ -32,6 +39,15 @@ const ReferenceItemDetail = ({
     setContent(event.target.value);
   };
   const handleContentUpdate = async () => {
+    if (content.trim().length < 1) {
+      alert("Reference Content must be at least 1 character long!");
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 0); // Set a timeout to ensure it runs after the alert is dismissed
+      return;
+    }
     const newContent = {
       reference_type: selectedStyleName,
       new_reference: content,
@@ -40,7 +56,12 @@ const ReferenceItemDetail = ({
     setIsEdit(!isEdit);
   };
 
-  const handleReferenceDelete = async (paperId) => {
+  const handleReferenceDelete = async (paperId, event) => {
+    const confirmDelete = window.confirm('Do you really want to delete?')
+    if (!confirmDelete) {
+      event.preventDefault();
+      return; 
+    } 
     const response = await deletePaper(paperId);
   };
 
@@ -52,6 +73,12 @@ const ReferenceItemDetail = ({
     document.execCommand("copy");
     document.body.removeChild($textarea);
     alert("Your reference copied to clipboard!");
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleContentUpdate();
+    }
   };
 
   return (
@@ -68,6 +95,8 @@ const ReferenceItemDetail = ({
               value={content}
               onChange={handleChange}
               className="border border-gray-300 rounded-m w-full"
+              ref={inputRef}
+              onKeyDown={handleKeyDown}
             />
           ) : (
             content
@@ -97,7 +126,7 @@ const ReferenceItemDetail = ({
       >
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          onClick={(event) => handleReferenceDelete(paperId)}
+          onClick={(event) => handleReferenceDelete(paperId, event)}
         />
       </Link>
     </div>
