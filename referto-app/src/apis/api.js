@@ -204,7 +204,6 @@ export const createMemo = async (paperId, data) => {
   );
   if (response.status === 201) {
     console.log("MEMO SUCCESS");
-    window.location.reload();
     return response.data;
   } else {
     console.log("[ERROR] error while creating memo");
