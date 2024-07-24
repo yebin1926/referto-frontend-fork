@@ -73,13 +73,9 @@ const FileUpload = () => {
         onClick={handleUploadClick}
       >
         <div className="justify-center items-center gap-2.5 flex">
-          {uploadStatus === "ing" ? (
-            <Loader className="text-white selection:w-[18px] h-[18px] relative" /> 
-          ) : (
-            <Upload className="text-white selection:w-[18px] h-[18px] relative" />
-          )}
+          <Upload className="text-white selection:w-[18px] h-[18px] relative" />
         </div>
-        <div className="text-right text-white text-lg font-light font-['Pretendard'] leading-normal">
+        <div className="text-right text-white text-lg font-medium font-['Pretendard'] leading-normal">
           Upload
         </div>
       </div>

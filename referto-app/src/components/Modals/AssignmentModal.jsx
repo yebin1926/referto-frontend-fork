@@ -18,13 +18,15 @@ const AssignmentModal = ({ position, handleEditAssignment, handleDeleteAssignmen
 
   const MenuItem = ({ text, icon, onClick }) => {
     return (
-      <div className="px-8 py-2 bg-white hover:bg-neutral-300 justify-center items-center gap-2.5 flex cursor-pointer pointer-events-auto" onClick={onClick}>
-        <div className="justify-center items-center gap-2.5 flex">
-          {icon}
-        </div>
-        <div className="px-2.5 justify-center items-center gap-2.5 flex">
-          <div className="text-black text-xs font-['Pretendard'] font-inter text-center">
-            {text}
+      <div className="px-1.5 py-1.5 bg-white justify-center items-center gap-2.5 flex cursor-pointer pointer-events-auto" onClick={onClick}>
+        <div className="flex flex-column w-full px-1.5 py-1.5 hover:bg-neutral-100 rounded-md ">
+          <div className="w-100% justify-center items-center gap-2.5 flex text-neutral-700">
+            {icon}
+          </div>
+          <div className="px-2.5 justify-center items-center gap-2.5 flex flex-1">
+            <div className="text-xs font-['Pretendard'] font-medium text-center text-neutral-700">
+              {text}
+            </div>
           </div>
         </div>
       </div>

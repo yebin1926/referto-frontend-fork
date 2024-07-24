@@ -83,7 +83,7 @@ const ReferenceItem = ({
   };
 
   return (
-    <div className="w-full h-2/5 py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
+    <div className="w-full h-100% py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
           {/* {parseInt(findIndexofReference(referenceId)) + 1} */}
@@ -130,7 +130,7 @@ const ReferenceItem = ({
         <div className="justify-center items-center gap-2.5 flex">
           <Eye className="text-white w-[18px] h-[18px] relative" />
         </div>
-        <div className="text-right text-white text-lg font-light font-['Pretendard'] leading-normal">
+        <div className="text-right text-white text-lg font-medium font-['Pretendard'] leading-normal">
           View
         </div>
       </div>
