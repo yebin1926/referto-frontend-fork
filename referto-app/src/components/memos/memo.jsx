@@ -26,11 +26,13 @@ const ReferenceMemo = ({ referenceName, paperId }) => {
     $textarea.select();
     document.execCommand("copy");
     document.body.removeChild($textarea);
+    alert("Memo copied to clipboard!");
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const response = await updateMemo(paperId, { content: memoContent });
+    alert("Memo saved!");
     //setMemoContent(response);
   };
 
