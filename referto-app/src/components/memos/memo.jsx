@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { NotepadText, Save, Copy } from "lucide-react";
 import { getMemo, updateMemo } from "../../apis/api";
+//import { useLocation } from "react-router-dom";
 
-const ReferenceMemo = ({ referenceName, paperId }) => {
+const ReferenceMemo = ({ paperId, referenceName }) => {
   const [memoContent, setMemoContent] = useState("");
+  //const location = useLocation();
 
   useEffect(() => {
     const getMemoAPI = async () => {
@@ -32,7 +34,7 @@ const ReferenceMemo = ({ referenceName, paperId }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const response = await updateMemo(paperId, { content: memoContent });
-    alert("Memo saved!");
+    window.location.reload();
     //setMemoContent(response);
   };
 

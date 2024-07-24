@@ -14,7 +14,6 @@ export const instanceWithToken = axios.create();
 
 // instanceWithToken에는 쿠키에서 토큰을 찾고 담아줍시다!
 instanceWithToken.interceptors.request.use(
-  
   (config) => {
     const accessToken = getCookie("access_token");
 

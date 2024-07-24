@@ -37,6 +37,7 @@ const ReferenceItemDetail = ({
       new_reference: content,
     };
     const response = await updatePaperInfo(referenceId, newContent);
+    window.location.reload();
     setIsEdit(!isEdit);
   };
 
