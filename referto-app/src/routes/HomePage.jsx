@@ -21,6 +21,7 @@ const HomePage = (
 ) => {
   const [referencesList, setReferencesList] = useState([]);
   const [selectedStyleName, setSelectedStyleName] = useState("APA");
+  const [currAssignment, setCurrAssignment] = useState([]);
   const { isUserLoggedIn } = props;
   // const [selectedStyleId, setSelectedStyleId] = useState(1);
 
@@ -36,17 +37,17 @@ const HomePage = (
       getReferencesAPI();
       const getAssignmentAPI = async () => {
         const assignment = await getAssignment(assignmentId);
-        // console.log('get 잘 가져왔어용', assignment)
+        setCurrAssignment(assignment);
         setSelectedStyleName(assignment.reference_type);
       };
       getAssignmentAPI();
     }
   }, [assignmentId]);
-  
+
   const handleCopyAll = () => {
     const referencesListText = [];
-    referencesList.forEach(item => {
-      if(item[selectedStyleName]) {  
+    referencesList.forEach((item) => {
+      if (item[selectedStyleName]) {
         referencesListText.push(item[selectedStyleName]);
       }
     });
@@ -56,7 +57,7 @@ const HomePage = (
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-    alert("All references copied to clipboard!")
+    alert("All references copied to clipboard!");
   };
 
   return (
@@ -65,6 +66,9 @@ const HomePage = (
         <SidebarList isUserLoggedIn={isUserLoggedIn} />
       </div>
       <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
+        <div className="font-['Pretendard'] font-black text-3xl">
+          {currAssignment.name}
+        </div>
         <div className="self-stretch justify-end items-center inline-flex">
           <StyleList
             selectedAssignmentId={selectedAssignmentId}

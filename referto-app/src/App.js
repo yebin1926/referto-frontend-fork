@@ -9,7 +9,6 @@ import { getUser } from "./apis/api";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  console.log("******is user logged in? " + isUserLoggedIn);
 
   useEffect(() => {
     const getUserAPI = async () => {

@@ -34,12 +34,54 @@ instanceWithToken.interceptors.request.use(
 instanceWithToken.interceptors.response.use(
   (response) => {
     // 서버 응답 데이터를 프론트에 넘겨주기 전 수행할 일
-    console.log("Interceptor Response:", response);
     return response;
   },
-  (error) => {
-    // 서버가 오류를 응답했을 때 처리 - 콘솔 찍어주고, 프론트에게 보내지 않고 오류를 발생시킴
-    console.log("Response Error!!");
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const refreshToken = getCookie("refresh_token");
+
+        if (!refreshToken) {
+          return Promise.reject(new Error("No refresh token found"));
+        }
+
+        const response = await axios.post("/api/user/auth/refresh/", {
+          refresh: refreshToken,
+        });
+
+        if (response.status === 200) {
+          const newAccessToken = response.data.access_token;
+
+          // Update the Authorization header with the new access token
+          axios.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${newAccessToken}`;
+          originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+
+          return axios(originalRequest);
+        }
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
+      }
+    }
+
     return Promise.reject(error);
   }
 );
+
+// instanceWithToken.interceptors.response.use(
+//   (response) => {
+//     // 서버 응답 데이터를 프론트에 넘겨주기 전 수행할 일
+//     console.log("Interceptor Response:", response);
+//     return response;
+//   },
+//   (error) => {
+//     // 서버가 오류를 응답했을 때 처리 - 콘솔 찍어주고, 프론트에게 보내지 않고 오류를 발생시킴
+//     console.log("Response Error!!");
+//     return Promise.reject(error);
+//   }
+// );

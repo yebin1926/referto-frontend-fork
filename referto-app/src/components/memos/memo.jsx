@@ -16,8 +16,10 @@ const ReferenceMemo = ({ paperId, referenceName }) => {
     getMemoAPI();
   }, [paperId]);
 
-  const handleContentChange = (e) => {
+  const handleContentChange = async (e) => {
+    e.preventDefault();
     setMemoContent(e.target.value);
+    const response = await updateMemo(paperId, { content: memoContent });
   };
 
   const handleCopy = (e) => {
