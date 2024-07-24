@@ -11,6 +11,8 @@ const ReferenceItem = ({
   // findIndexofReference,
   selectedStyleName,
   index,
+  referencesList, 
+  setReferencesList,
 }) => {
   // console.log('reference item에서 보는 참고문헌 :', JSON.stringify(reference, null, 2));
   const referenceId = reference["paperInfo_id"];
@@ -43,6 +45,10 @@ const ReferenceItem = ({
     };
     const response = await updatePaperInfo(referenceId, newContent);
     setIsEdit(!isEdit);
+    const updatedReferencesList = referencesList;
+    updatedReferencesList[index - 1][selectedStyleName] = content; 
+    console.log(updatedReferencesList);
+    setReferencesList(updatedReferencesList);
   };
 
   const handleReferenceDelete = async (paperId) => {

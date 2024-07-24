@@ -24,18 +24,6 @@ const HomePage = (
   const { isUserLoggedIn } = props;
   // const [selectedStyleId, setSelectedStyleId] = useState(1);
 
-  // 전체 복사 고치기
-  // const handleCopyAll = () => {
-  //   const allReferencesText = getAllReferences().join("\n");
-  //   const textarea = document.createElement("textarea");
-  //   document.body.appendChild(textarea);
-  //   textarea.value = allReferencesText;
-  //   textarea.select();
-  //   document.execCommand("copy");
-  //   document.body.removeChild(textarea);
-  //   alert("All references copied to clipboard!");
-  // };
-
   const { assignmentId } = useParams();
   const selectedAssignmentId = Number(assignmentId);
 
@@ -54,6 +42,22 @@ const HomePage = (
       getAssignmentAPI();
     }
   }, [assignmentId]);
+  
+  const handleCopyAll = () => {
+    const referencesListText = [];
+    referencesList.forEach(item => {
+      if(item[selectedStyleName]) {  
+        referencesListText.push(item[selectedStyleName]);
+      }
+    });
+    const textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    textarea.value = referencesListText.join("\n\n");
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+    alert("All references copied to clipboard!")
+  };
 
   return (
     <div className="w-full flex flex-row justify-between">
@@ -84,12 +88,13 @@ const HomePage = (
             <div className="w-11 self-stretch px-2.5 justify-start items-center gap-[15px] flex">
               <Copy
                 className="text-neutral-500 w-6 h-6 relative cursor-pointer"
-                // onClick={handleCopyAll}
+                onClick={handleCopyAll}
               />
             </div>
           </div>
           <ReferenceList
             referencesList={referencesList}
+            setReferencesList={setReferencesList}
             // handleReferenceDelete={handleReferenceDelete}
             // handleReferenceUpdate={handleReferenceUpdate}
             // findIndexofReference={findIndexofReference}
