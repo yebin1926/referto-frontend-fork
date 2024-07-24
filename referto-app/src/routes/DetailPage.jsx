@@ -28,51 +28,9 @@ const DetailPage = (
     selectedStyleName,
   } = location.state || {};
 
-  // console.log('assignmentId:', assignmentId )
-  // console.log('referenceId:', referenceId )
-  // const [reference, setReference] = useState(null);
-
-  // const getReferencesAPI = async () => {
-  //   try {
-  //     const references = await getPaperInfos(assignmentId);
-  //     const reference = references.find((r) => r.paperInfo_id === parseInt(referenceId));
-  //     console.log('detail page에서 보는 reference', reference);
-  //     return reference;
-  //   } catch (error) {
-  //     console.error('Error getting references:', error);
-  //   }
-  // };
-  // const reference = getReferencesAPI();
-  // const [reference, setReference] = useState(null);
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const getReferencesAPI = async () => {
-  //     try {
-  //       const references = await getPaperInfos(assignmentId);
-  //       const reference = references.find((r) => r.paperInfo_id === parseInt(referenceId));
-  //       console.log('detail page에서 보는 reference', reference);
-  //       setReference(reference);
-  //       console.log('paper 찾기', reference.paper)
-  //     } catch (error) {
-  //       console.error('Error getting references:', error);
-  //     } finally {
-  //       setLoading(false); // 데이터 로드가 완료되면 로딩 상태를 false로 설정
-  //     }
-  //   };
-
-  //   getReferencesAPI();
-  // }, [assignmentId, referenceId]);
-
-  // if (loading) {
-  //   return <div>Loading...</div>; // 데이터가 로드될 때까지 로딩 메시지 표시
-  // }
-
-  // if (!reference) {
-  //   return <div>Reference not found</div>; // reference가 없는 경우 메시지 표시
-  // }
 
   const [paperUrl, setPaperUrl] = useState(null);
+  const [content, setContent] = useState(referenceName);
 
   useEffect(() => {
     const fetchPaper = async () => {
@@ -93,9 +51,9 @@ const DetailPage = (
     <div className="w-full h-[959px] px-[100px] pt-[50px] pb-[100px] flex-col justify-start items-center inline-flex">
       <ReferenceItemDetail
         index={index}
-        reference={reference}
         referenceId={referenceId}
-        referenceName={referenceName}
+        content={content}
+        setContent={setContent}
         selectedStyleName={selectedStyleName}
         assignmentId={assignmentId}
         paperId={paperId}
@@ -112,7 +70,7 @@ const DetailPage = (
         </div>
 
         <div className="w-[413px] h-full px-6 py-5 border-neutral-400 flex-col justify-start items-center gap-[15px] inline-flex">
-          <ReferenceMemo referenceName={referenceName} paperId={paperId} />
+          <ReferenceMemo paperId={paperId} content={content}/>
         </div>
       </div>
     </div>
