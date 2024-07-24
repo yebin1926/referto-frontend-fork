@@ -60,11 +60,11 @@ const HomePage = (
   };
 
   return (
-    <div className="w-full flex flex-row justify-between">
-      <div className="flex flex-col w-[280px] h-[850px] items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">
+    <div className="w-full h-screen flex flex-row justify-between">
+      <div className="flex flex-col w-[280px] h-full items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">
         <SidebarList isUserLoggedIn={isUserLoggedIn} />
       </div>
-      <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
+      <div className="w-full h-full px-[100px] py-[70px] flex-col flex-1 justify-start items-center gap-[50px] inline-flex overflow-auto">
         <div className="self-stretch justify-end items-center inline-flex">
           <StyleList
             selectedAssignmentId={selectedAssignmentId}
@@ -73,7 +73,7 @@ const HomePage = (
           />
           <FileUpload />
         </div>
-        <div className="w-full h-[241px] flex-col justify-start items-center inline-flex">
+        <div className="w-full h-full flex-col justify-start items-center inline-flex">
           <div className="self-stretch py-2.5 border-b-2 border-neutral-400 justify-start items-start gap-2.5 inline-flex">
             <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
               <div className="text-center text-neutral-900 text-lg font-medium font-['Pretendard'] leading-[27px]">

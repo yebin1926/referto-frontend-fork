@@ -157,7 +157,7 @@ const ReferenceItem = ({
         <div className="justify-center items-center gap-2.5 flex">
           <Eye className="text-white w-[18px] h-[18px] relative" />
         </div>
-        <div className="text-right text-white text-lg font-light font-['Pretendard'] leading-normal">
+        <div className="text-right text-white text-lg font-medium font-['Pretendard'] leading-normal">
           View
         </div>
       </div>
