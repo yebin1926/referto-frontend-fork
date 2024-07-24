@@ -114,7 +114,7 @@ const LogInModal = ( props ) => {
           <div className="w-[400px] h-100% px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex flex-col justify-center items-center gap-[7px]">
             <div className="self-stretch h-full flex flex-col justify-start items-center gap-6">
               <div className="self-stretch h-full flex flex-col justify-start items-center gap-2.5 py-8">
-                <div className="self-stretch text-center text-neutral-900 text-2xl font-black leading-9">
+                <div className="self-stretch text-center text-neutral-900 text-2xl font-['Pretendard'] font-extrabold leading-9">
                   Log in
                 </div>
                 <div className="text-center font-['Pretendard'] font-semibold">

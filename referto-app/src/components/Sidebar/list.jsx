@@ -78,10 +78,10 @@ const SidebarList = (props) => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <div
-        className={`px-4 py-2  rounded-md justify-center items-center gap-2.5 flex`}>
-        <div className="text-right text-lg font-light font-['Pretendard'] leading-normal">
+        className={`px-4 py-2 rounded-md justify-center items-center gap-2.5 flex`}>
+        <div className="text-right text-lg font-semibold font-['Pretendard'] leading-normal">
           My Assignments
         </div>
         <div className="justify-center items-center gap-2.5 flex">

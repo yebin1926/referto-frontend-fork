@@ -55,7 +55,7 @@ const ReferenceItemDetail = ({
   };
 
   return (
-    <div className="w-full h-[80px] py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
+    <div className="w-full h-100% py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
           {index}

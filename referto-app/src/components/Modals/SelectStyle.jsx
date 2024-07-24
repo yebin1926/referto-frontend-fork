@@ -37,7 +37,7 @@ const SelectStyleModal = ({ onClose, onClick }) => {
           />
           <div className="w-full px-4 py-2 bg-neutral-900 rounded-lg justify-center items-center gap-2 inline-flex">
             <div
-              className="w-full text-center text-neutral-50 text-lg font-light font-['Pretendard'] leading-normal cursor-pointer"
+              className="w-full text-center text-neutral-50 text-lg font-medium font-['Pretendard'] leading-normal cursor-pointer"
               onClick={handleButtonClick}
             >
               Done
