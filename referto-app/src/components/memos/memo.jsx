@@ -5,8 +5,9 @@ import SuccessModal from "../Modals/SuccessModal";
 
 const ReferenceMemo = ({ content, paperId }) => {
   const [memoContent, setMemoContent] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
   const [copySuccessModalIsOpen, setCopySuccessModalIsOpen] = useState(false);
-  const [saveSuccessModalIsOpen, setSaveSuccessModalIsOpen] = useState(false);
+  //const [saveSuccessModalIsOpen, setSaveSuccessModalIsOpen] = useState(false);
 
   useEffect(() => {
     const getMemoAPI = async () => {
@@ -18,9 +19,13 @@ const ReferenceMemo = ({ content, paperId }) => {
   }, [paperId]);
 
   const handleContentChange = async (e) => {
+    setIsSaving(true);
     e.preventDefault();
     setMemoContent(e.target.value);
     const response = await updateMemo(paperId, { content: memoContent });
+    setTimeout(() => {
+      setIsSaving(false);
+    }, 1000);
   };
 
   const handleCopy = (e) => {
@@ -34,23 +39,24 @@ const ReferenceMemo = ({ content, paperId }) => {
     setCopySuccessModalIsOpen(true);
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const response = await updateMemo(paperId, { content: memoContent });
-    window.location.reload();
-    setSaveSuccessModalIsOpen(true);
-    //setMemoContent(response);
-  };
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const response = await updateMemo(paperId, { content: memoContent });
+  //   window.location.reload();
+  //   setSaveSuccessModalIsOpen(true);
+  //   //setMemoContent(response);
+  // };
 
   return (
     <form className="form bsg-white">
-      <div className="self-stretch justify-start items-center inline-flex ">
-        <div className="grow shrink basis-0 h-100% justify-start items-center gap-[7px] flex">
+      <div className="self-stretch flex justify-between items-center">
+        <div className="grow shrink basis-0 h-100% flex items-center gap-[7px]">
           <NotepadText className="w-6 h-6 relative" />
           <div className="text-neutral-700 text-lg font-semibold font-['Pretendard'] leading-[27px]">
             Memo
           </div>
         </div>
+        <div>{isSaving ? "저장 중..." : "저장 됨"}</div>
       </div>
       <div className=" mt-4 mb-8 self-stretch h-100% px-[15px] py-2.5 rounded-lg border border-neutral-400 flex-col justify-start items-center gap-[13px] flex">
         <div className="self-stretch text-neutral-900 text-base font-medium font-['Pretendard'] leading-normal">
@@ -66,15 +72,15 @@ const ReferenceMemo = ({ content, paperId }) => {
       </div>
       <div className="self-stretch justify-end items-center gap-[15px] inline-flex w-full">
         <div className="grow shrink basis-0 h-10 justify-end items-center gap-[18px] flex">
-          <button
-            onClick={onSubmit}
+          {/*<button
+            //onClick={onSubmit}
             className="px-4 py-2 rounded-md border border-neutral-700 justify-center items-center gap-2.5 flex"
           >
             <Save className="w-[18px] h-[18px] relative text-neutral-700" />
             <div className="text-right text-neutral-700 text-lg font-medium font-['Pretendard'] leading-normal">
               Save
             </div>
-          </button>
+          </button>*/}
           <button
             onClick={handleCopy}
             className="px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex"
@@ -91,12 +97,12 @@ const ReferenceMemo = ({ content, paperId }) => {
             setModalOpen={setCopySuccessModalIsOpen}
           />
         )}
-        {saveSuccessModalIsOpen && (
+        {/* {saveSuccessModalIsOpen && (
           <SuccessModal
             text={"저장되었습니다."}
             setModalOpen={setSaveSuccessModalIsOpen}
           />
-        )}
+        )} */}
       </div>
     </form>
   );
