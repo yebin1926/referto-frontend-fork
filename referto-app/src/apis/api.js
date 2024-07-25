@@ -2,7 +2,7 @@ import { instance, instanceWithToken } from "./axios";
 
 // User 관련 API들
 export const signIn = async (data) => {
-  const response = await instance.post("api/user/auth/", data);
+  const response = await instance.post("/user/auth/", data);
   if (response.status === 200) {
   } else {
     console.log("[ERROR] error while signing in");
@@ -10,7 +10,7 @@ export const signIn = async (data) => {
 };
 
 export const signUp = async (data) => {
-  const response = await instance.post("api/user/register/", data);
+  const response = await instance.post("/user/register/", data);
   if (response.status === 200 || response.status === 201) {
     return response.data;
   } else {
@@ -20,7 +20,7 @@ export const signUp = async (data) => {
 };
 
 export const getUser = async () => {
-  const response = await instanceWithToken.get("api/user/auth/");
+  const response = await instanceWithToken.get("/user/auth/");
   if (response.status === 200) {
     console.log("USER GET SUCCESS");
   } else {
@@ -37,7 +37,7 @@ export const getUser = async () => {
 
 // Assignments 관련 API들
 export const getAssignments = async () => {
-  const response = await instanceWithToken.get("api/assignments/");
+  const response = await instanceWithToken.get("/assignments/");
   if (response.status === 200) {
     console.log("ASSIGNMENTS GET SUCCESS");
     return response.data;
@@ -47,7 +47,7 @@ export const getAssignments = async () => {
 };
 
 export const createAssignment = async (data) => {
-  const response = await instanceWithToken.post("api/assignments/", data);
+  const response = await instanceWithToken.post("/assignments/", data);
   if (response.status === 201) {
     console.log("ASSIGNMENT CREATE SUCCESS");
     return response.data;
@@ -57,7 +57,7 @@ export const createAssignment = async (data) => {
 };
 
 export const updateAssignment = async (id, data) => {
-  const response = await instanceWithToken.put(`api/assignments/${id}/`, data);
+  const response = await instanceWithToken.put(`/assignments/${id}/`, data);
   if (response.status === 200) {
     console.log("ASSIGNMENT UPDATE SUCCESS");
     return response.data;
@@ -67,7 +67,7 @@ export const updateAssignment = async (id, data) => {
 };
 
 export const deleteAssignment = async (id) => {
-  const response = await instanceWithToken.delete(`api/assignments/${id}/`);
+  const response = await instanceWithToken.delete(`/assignments/${id}/`);
   if (response.status === 200) {
     console.log("ASSIGNMENT DELETE SUCCESS");
   } else {
@@ -76,7 +76,7 @@ export const deleteAssignment = async (id) => {
 };
 
 export const getAssignment = async (id) => {
-  const response = await instanceWithToken.get(`api/assignments/${id}/`);
+  const response = await instanceWithToken.get(`/assignments/${id}/`);
   if (response.status === 200) {
     console.log("ASSIGNMENTSTYLE GET SUCCESS");
     return response.data;
@@ -89,7 +89,7 @@ export const getAssignment = async (id) => {
 
 export const uploadPaper = async (formData, config) => {
   const response = await instanceWithToken.post(
-    "api/papers/",
+    "/papers/",
     formData,
     config
   );
@@ -103,7 +103,7 @@ export const uploadPaper = async (formData, config) => {
 
 export const getPaper = async (paperId) => {
   try {
-    const response = await instanceWithToken.get(`api/papers/${paperId}/`, {
+    const response = await instanceWithToken.get(`/papers/${paperId}/`, {
       responseType: "blob",
     });
 
@@ -130,7 +130,7 @@ export const getPaper = async (paperId) => {
 //   };
 
 export const deletePaper = async (paper_id) => {
-  const response = await instanceWithToken.delete(`api/papers/${paper_id}/`);
+  const response = await instanceWithToken.delete(`/papers/${paper_id}/`);
   if (response.status === 204) {
     console.log("PAPER DELETE SUCCESS");
   } else {
@@ -141,7 +141,7 @@ export const deletePaper = async (paper_id) => {
 // PaperInfos AI 생성 관련 API들
 
 export const uploadPaperInfo = async (paper_id) => {
-  const response = await instanceWithToken.post(`api/paperinfo/${paper_id}/`);
+  const response = await instanceWithToken.post(`/paperinfo/${paper_id}/`);
   if (response.status === 200) {
     console.log("PAPERINFO UPLOAD SUCCESS");
     return response.data;
@@ -152,7 +152,7 @@ export const uploadPaperInfo = async (paper_id) => {
 
 export const updatePaperInfo = async (paper_id, data) => {
   const response = await instanceWithToken.put(
-    `api/paperinfo/${paper_id}/`,
+    `/paperinfo/${paper_id}/`,
     data
   );
   if (response.status === 200) {
@@ -167,7 +167,7 @@ export const updatePaperInfo = async (paper_id, data) => {
 
 export const getPaperInfos = async (assignment_id) => {
   const response = await instanceWithToken.get(
-    `api/paperinfo/assignment/${assignment_id}/`
+    `/paperinfo/assignment/${assignment_id}/`
   );
   if (response.status === 200) {
     console.log("PAPERINFOS GET SUCCESS");
@@ -180,7 +180,7 @@ export const getPaperInfos = async (assignment_id) => {
 
 export const getPaperInfo = async (assignment_id, paper_id) => {
   const response = await instanceWithToken.get(
-    `api/paperinfo/assignment/${assignment_id}/${paper_id}/`
+    `/paperinfo/assignment/${assignment_id}/${paper_id}/`
   );
   if (response.status === 200) {
     console.log("PAPERINFO GET SUCCESS");
@@ -193,13 +193,13 @@ export const getPaperInfo = async (assignment_id, paper_id) => {
 // Memos 관련 API들
 
 export const getMemo = async (paperId) => {
-  const response = await instanceWithToken.get(`api/papers/${paperId}/memo/`);
+  const response = await instanceWithToken.get(`/papers/${paperId}/memo/`);
   return response.data;
 };
 
 export const createMemo = async (paperId, data) => {
   const response = await instanceWithToken.post(
-    `api/papers/${paperId}/memo/`,
+    `/papers/${paperId}/memo/`,
     data
   );
   if (response.status === 201) {
@@ -212,7 +212,7 @@ export const createMemo = async (paperId, data) => {
 
 export const updateMemo = async (paperId, data) => {
   const response = await instanceWithToken.put(
-    `api/papers/${paperId}/memo/`,
+    `/papers/${paperId}/memo/`,
     data
   );
   if (response.status === 200) {
