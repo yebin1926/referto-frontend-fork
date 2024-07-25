@@ -121,7 +121,7 @@ const ReferenceItem = ({
         </div>
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
-        <div className="grow shrink basis-0 text-neutral-700 text-sm font-medium font-['Pretendard'] leading-[27px]">
+        <div className="grow shrink basis-0 text-neutral-700 text-md font-medium font-['Pretendard'] leading-[27px]">
           {isEdit ? (
             <textarea
               value={content}
@@ -154,7 +154,7 @@ const ReferenceItem = ({
       </div>
       <div
         onClick={handleClickView}
-        className={`px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer`}
+        className={`px-3 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer`}
         //  ${
         //   isVisible ? "block" : "hidden"
         // }`}

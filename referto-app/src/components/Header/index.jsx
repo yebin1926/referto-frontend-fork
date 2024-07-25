@@ -60,7 +60,7 @@ const Header = (props) => {
               alt="logo"
               src={logo}
             />
-            <div className="absolute top-0 left-[34px] [font-family:'Pretendard-ExtraBold',Helvetica] font-bold text-neutral-50 text-[25px] tracking-[0] leading-[37.5px] whitespace-nowrap">
+            <div className="absolute top-0 left-[34px] font-[Pretendard] font-bold text-neutral-50 text-[25px] tracking-[0] leading-[37.5px] whitespace-nowrap">
               REFERTO
             </div>
           </Link>
@@ -70,14 +70,14 @@ const Header = (props) => {
         <div className="inline-flex items-center justify-center gap-2.5 relative self-stretch flex-[0_0_auto]">
           {isUserLoggedIn ? (
             <div className="flex flex-row">
-              <div className="w-fit mx-3 [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center">
+              <div className="w-fit mx-3 font-[Pretendard] font-medium text-neutral-50 text-md text-center">
                 {user}
               </div>
               <img alt="profile" src={userprofile} className="mr-5" />
               <Link
                 to="/"
                 onClick={handleSignOut}
-                className=" w-fit ml-5 [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center"
+                className=" w-fit ml-5 font-[Pretendard] font-medium text-neutral-50 text-md text-center"
               >
                 Sign Out
               </Link>
@@ -85,7 +85,7 @@ const Header = (props) => {
           ) : (
             <div className="items-center justify-center flex">
               <div
-                className="relative w-fit [font-family:'Pretendard-Medium',Helvetica] font-medium text-neutral-50 text-lg text-center tracking-[0] leading-6 whitespace-nowrap cursor-pointer"
+                className="relative w-fit font-[Pretendard] font-medium text-neutral-50 text-md text-center tracking-[0] leading-6 whitespace-nowrap cursor-pointer"
                 // onClick={navigate('/')}
               >
                 Log In
