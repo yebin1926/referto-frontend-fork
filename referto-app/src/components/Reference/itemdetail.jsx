@@ -91,7 +91,7 @@ const ReferenceItemDetail = ({
         </div>
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
-        <div className="grow shrink basis-0 text-neutral-700 text-sm font-medium font-['Pretendard'] leading-[27px]">
+        <div className="grow shrink basis-0 text-neutral-700 text-md font-medium font-['Pretendard'] leading-[27px]">
           {isEdit ? (
             <textarea
               value={content}

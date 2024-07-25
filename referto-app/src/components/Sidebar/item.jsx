@@ -26,6 +26,8 @@ const SidebarItem = ({
   const { assignmentId: selectedAssignmentIdString } = useParams();
   const selectedAssignmentId = Number(selectedAssignmentIdString)
 
+  document.body.style.overflow = 'hidden';
+
   const handleAssignment = () => {
     // console.log("handleAssignment 함수가 호출됨");
     if (ref.current) {
@@ -33,7 +35,6 @@ const SidebarItem = ({
       const rect = ref.current.getBoundingClientRect();
       setModalPosition({top: rect.bottom, left: rect.left});
       setIsOpen(true);
-      document.body.style.overflow = 'hidden';
     } else {
       // console.log("ref.current가 아닙니다.");
       // console.log(ref.current);
@@ -64,7 +65,7 @@ const SidebarItem = ({
   const handleDeleteAssignment = async() => {
     const currentIndex = assignmentsList.findIndex((elem) => elem.assignment_id === assignmentId)
 
-    setIsOpen(!isOpen)
+    // setIsOpen(!isOpen)
 
     if (assignmentsList.length === 1) {
       alert("Cannot delete the last remaining assignment.");
@@ -118,15 +119,15 @@ const SidebarItem = ({
   return (
     <div
       id="item"
-      className="rounded flex items-center justify-start gap-1.5 px-3.5 py-2.5 relative self-stretch w-full flex-[0_0_auto] overflow-hidden"
+      className="rounded flex items-center justify-start gap-1.5 px-3.5 py-1.5 self-stretch w-full flex-[0_0_auto] overflow-hidden"
     >
       {selectedAssignmentId === assignmentId ? (
-        <div className="bg-neutral-300 rounded-[20px] flex items-center justify-start gap-1.5 px-3.5 py-2.5 relative self-stretch w-full flex-[0_0_auto] overflow-hidden">
-          <img alt="dot" src={dotDark} className="h-1.5 w-1.5 relative flex-none" />
+        <div className="bg-neutral-300 rounded-[20px] flex items-center justify-start gap-1.5 px-3.5 py-2 self-stretch w-full flex-[0_0_auto] overflow-hidden">
+          <img alt="dot" src={dotDark} className="h-1.5 w-1.5 flex-none" />
           <div className="font-medium text-neutral-700 leading-6 text-lg tracking-0 truncate">
           {isEdit ? (
             <input
-              className="border text-neutral-700 w-20 h-10 p-1"
+              className="border text-neutral-700 w-full"
               value={onChangeValue}
               onChange={(e) => setOnChangeValue(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -141,7 +142,7 @@ const SidebarItem = ({
           <div className="flex-grow"></div>
           <div className="flex-none">
             <EllipsisVertical  
-              className="text-neutral-700 selection:w-[18px] h-[18px] relative cursor-pointer" 
+              className="text-neutral-700 selection:w-[18px] h-[18px] cursor-pointer" 
               onClick={handleAssignment} 
               ref={ref}/>
           </div>
@@ -149,10 +150,10 @@ const SidebarItem = ({
       ) : (
         <Link
           to={`/${assignmentId}`}
-          className="rounded flex items-center justify-start gap-1.5 px-3.5 py-2.5 relative self-stretch w-full flex-[0_0_auto] overflow-hidden"
+          className="rounded flex items-center justify-start gap-1.5 px-3.5 py-2 w-full truncate"
         >
-          <img alt="dot" src={dotLight} className="h-1.5 w-1.5 relative" />
-          <div className="font-medium text-neutral-400 leading-6 text-lg tracking-0 truncate max-w-[calc(100%-40px)]">
+          <img alt="dot" src={dotLight} className="h-1.5 w-1.5 flex-none" />
+          <div className="font-medium text-neutral-400 leading-6 text-lg tracking-0 truncate">
             {content}
           </div>
         </Link>

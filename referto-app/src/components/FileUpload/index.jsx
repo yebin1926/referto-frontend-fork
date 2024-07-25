@@ -79,7 +79,7 @@ const FileUpload = () => {
         onChange={handleFileChange}
       />
       <div
-        className="px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer"
+        className="px-3 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer"
         onClick={handleUploadClick}
       >
         <div className="justify-center items-center gap-2.5 flex">
