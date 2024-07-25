@@ -1,7 +1,11 @@
 import { useState } from "react";
 import StyleItem from "./item";
 
-const StyleList = ({selectedAssignmentId, selectedStyleName, setSelectedStyleName}) => {
+const StyleList = ({
+  selectedAssignmentId,
+  selectedStyleName,
+  setSelectedStyleName,
+}) => {
   const styles = [
     { id: 1, name: "APA" },
     { id: 2, name: "MLA" },

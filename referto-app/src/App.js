@@ -5,9 +5,22 @@ import HomePage from "./routes/HomePage";
 import DetailPage from "./routes/DetailPage";
 import "./App.css";
 import LogInModal from "./components/Modals/LogIn";
+import { getUser } from "./apis/api";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const getUserAPI = async () => {
+      try {
+        const currUser = await getUser();
+        setIsUserLoggedIn(true);
+      } catch (error) {
+        setIsUserLoggedIn(false);
+      }
+    };
+    getUserAPI();
+  }, []);
 
   // const [firstAssignmentId, setFirstAssignmentId] = useState('')
 
