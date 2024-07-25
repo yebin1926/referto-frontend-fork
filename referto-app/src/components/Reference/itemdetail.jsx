@@ -4,6 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { updatePaperInfo, deletePaper, getPaperInfo } from "../../apis/api";
 import DeleteConfirmModal from "../Modals/DeleteConfirmModal";
 import AlertModal from "../Modals/AlertModal";
+import SuccessModal from "../Modals/SuccessModal";
 import alertTriangle from "../../assets/images/alert-triangle.svg";
 
 const ReferenceItemDetail = ({
@@ -17,7 +18,8 @@ const ReferenceItemDetail = ({
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-  const [alertModalIsOpen, setAlertModalIsOpen] = useState(false);
+  const [editAlertModalIsOpen, setEditAlertModalIsOpen] = useState(false);
+  const [copySuccessModalIsOpen, setCopySuccessModalIsOpen] = useState(false);
   const { assignmentId } = useParams();
   const inputRef = useRef(null);
 
@@ -45,7 +47,7 @@ const ReferenceItemDetail = ({
   };
   const handleContentUpdate = async () => {
     if (content.trim().length < 1) {
-      setAlertModalIsOpen(true);
+      setEditAlertModalIsOpen(true);
       return;
     }
     const newContent = {
@@ -56,8 +58,8 @@ const ReferenceItemDetail = ({
     setIsEdit(!isEdit);
   };
 
-  const handleAlertCancel = () => {
-    setAlertModalIsOpen(false);
+  const handleEditAlertCancel = () => {
+    setEditAlertModalIsOpen(false);
     if (inputRef.current) {
       inputRef.current.focus();
     };
@@ -79,7 +81,7 @@ const ReferenceItemDetail = ({
     $textarea.select();
     document.execCommand("copy");
     document.body.removeChild($textarea);
-    alert("Your reference copied to clipboard!");
+    setCopySuccessModalIsOpen(true);
   };
 
   const handleKeyDown = (event) => {
@@ -138,10 +140,15 @@ const ReferenceItemDetail = ({
       handleDelete={handleReferenceDelete}
       handleDeleteCancel={handleReferenceDeleteCancel}
         />}
-      {alertModalIsOpen && <AlertModal 
+      {editAlertModalIsOpen && <AlertModal 
         icon={alertTriangle}
         color={"amber-500"}
-        handleAlertCancel={handleAlertCancel}
+        handleAlertCancel={handleEditAlertCancel}
+        text={"최소 1자 이상이어야 합니다."}
+     />}
+      {copySuccessModalIsOpen && <SuccessModal 
+        text={"클립보드에 복사되었습니다."}
+        setModalOpen={setCopySuccessModalIsOpen}
      />}
     </div>
   );

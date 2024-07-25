@@ -3,7 +3,7 @@ import checkCircle2 from "../../assets/images/check-circle-2.svg";
 import alertTriangle from "../../assets/images/alert-triangle.svg";
 import x from "../../assets/images/x.svg";
 
-const AlertModal = ({icon, color, handleAlertCancel}) => {
+const AlertModal = ({icon, color, handleAlertCancel, text}) => {
   return (
   <>
     <div className="fixed inset-0 bg-transparent z-40 pointer-events-auto"></div>
@@ -11,7 +11,7 @@ const AlertModal = ({icon, color, handleAlertCancel}) => {
       <div className="self-stretch h-[15px] justify-between items-center inline-flex">
           <div className="justify-start items-center gap-2 flex">
               <img src={icon} className="w-3.5 h-3.5 relative" />
-              <div className={`text-center text-${color} text-sm font-medium font-['Pretendard'] leading-tight`}>최소 1자 이상이어야 합니다.</div>
+              <div className={`text-center text-${color} text-sm font-medium font-['Pretendard'] leading-tight`}>{text}</div>
           </div>
           <img src={x} className="w-3.5 h-3.5 relative cursor-pointer" onClick={handleAlertCancel}/>
       </div>
