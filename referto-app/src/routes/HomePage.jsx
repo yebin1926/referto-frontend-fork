@@ -69,7 +69,7 @@ const HomePage = (
         <SidebarList isUserLoggedIn={isUserLoggedIn} />
       </div>
       <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
-        <div className="font-['Pretendard'] font-black text-3xl">
+        <div className="font-['Pretendard'] font-neutral-700 font-bold text-3xl text-left w-full">
           {currAssignment.name}
         </div>
         <div className="self-stretch justify-end items-center inline-flex">
