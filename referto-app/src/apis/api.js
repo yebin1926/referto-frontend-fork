@@ -88,11 +88,7 @@ export const getAssignment = async (id) => {
 // Papers 관련 API
 
 export const uploadPaper = async (formData, config) => {
-  const response = await instanceWithToken.post(
-    "/papers/",
-    formData,
-    config
-  );
+  const response = await instanceWithToken.post("/papers/", formData, config);
   if (response.status === 201) {
     console.log("PAPER UPLOAD SUCCESS");
     return response.data;
@@ -151,10 +147,7 @@ export const uploadPaperInfo = async (paper_id) => {
 };
 
 export const updatePaperInfo = async (paper_id, data) => {
-  const response = await instanceWithToken.put(
-    `/paperinfo/${paper_id}/`,
-    data
-  );
+  const response = await instanceWithToken.put(`/paperinfo/${paper_id}/`, data);
   if (response.status === 200) {
     console.log("PAPERINFO UPDATE SUCCESS");
     return response.data;

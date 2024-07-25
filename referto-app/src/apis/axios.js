@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getCookie } from "../utils/cookie";
 
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "http://localhost:8000/api";
 //axios.defaults.baseURL = "/api";
 axios.defaults.withCredentials = true;
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -44,24 +44,17 @@ instanceWithToken.interceptors.response.use(
 
       try {
         const refreshToken = getCookie("refresh_token");
-        console.log("******1: refreshToken: " + refreshToken);
 
         if (!refreshToken) {
           return Promise.reject(new Error("No refresh token found"));
         }
 
-        const response = await instance.post("/api/user/auth/refresh/", {
+        const response = await instance.post("/user/auth/refresh/", {
           refresh: refreshToken,
         });
-        console.log(
-          "*******response.data.access: " +
-            JSON.stringify(response.data.access, null, 2)
-        );
 
         if (response.status === 200) {
           const newAccessToken = response.data.access;
-
-          console.log("******2: newAccessToken: " + newAccessToken);
 
           document.cookie = `access_token=${newAccessToken}; path=/; HttpOnly`;
 
@@ -70,7 +63,6 @@ instanceWithToken.interceptors.response.use(
             "Authorization"
           ] = `Bearer ${newAccessToken}`;
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-          console.log("******3: return axios original request ");
 
           return axios(originalRequest);
         }
