@@ -3,10 +3,13 @@ import { useState, useRef, useCallback } from "react";
 import { createMemo, uploadPaper, uploadPaperInfo } from "../../apis/api";
 import { useParams } from "react-router-dom";
 import Loading from "./loading";
+import AlertModal from "./AlertModal";
+import alertCircle from "../../assets/images/alert-circle.svg";
 
 const FileUploadModal = ({setIsOpen}) => {
   const [uploadStatus, setUploadStatus] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [errorAlertModalIsOpen, setErrorAlertModalIsOpen] = useState(false);
   const fileInputRef = useRef(null);
   const { assignmentId } = useParams();
 
@@ -18,6 +21,7 @@ const FileUploadModal = ({setIsOpen}) => {
     if (!files || files.length === 0) return;
 
     setUploadStatus(true); //왜 안되는겨!!!!!
+    // console.log('uploadStatus:', uploadStatus);
     setIsOpen(false);
 
     const config = {
@@ -38,7 +42,7 @@ const FileUploadModal = ({setIsOpen}) => {
           await createMemo(response_paper.data.paper_id);
         } catch (error) {
           console.error("Error during file processing:", error);
-          alert("적절한 파일형식이 아닙니다.");
+          setErrorAlertModalIsOpen(true);
           setUploadStatus(false);
           return;
         }
@@ -51,11 +55,14 @@ const FileUploadModal = ({setIsOpen}) => {
       }, 500);
     } catch (error) {
       console.error("Error during file processing:", error);
-      alert("적절한 파일형식이 아닙니다.");
+      setErrorAlertModalIsOpen(true);
       setUploadStatus(false);
     }
   };
 
+  const handleErrorAlertCancel = () => {
+    setErrorAlertModalIsOpen(false);
+  }
   // Drag and Drop
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -124,6 +131,12 @@ const FileUploadModal = ({setIsOpen}) => {
         </div>
       </div>
       {uploadStatus && <Loading />}
+      {errorAlertModalIsOpen && <AlertModal 
+        icon={alertCircle}
+        color={"red-500"}
+        handleAlertCancel={handleErrorAlertCancel}
+        text={"파일 업로드 중 에러가 발생했습니다. 다시 시도해주세요."}
+     />}
     </div>
   );
 };

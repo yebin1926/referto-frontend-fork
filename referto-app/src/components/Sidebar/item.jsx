@@ -1,12 +1,13 @@
 import dotDark from "../../assets/images/dot-dark.svg";
 import dotLight from "../../assets/images/dot-light.svg";
+import alertTriangle from "../../assets/images/alert-triangle.svg";
 import { Link, useParams, useNavigate} from "react-router-dom";
 import { EllipsisVertical  } from 'lucide-react';
 import { useState, useRef, useEffect } from "react";
 import AssignmentModal from "../Modals/AssignmentModal";
 import { updateAssignment, deleteAssignment } from '../../apis/api';
 import DeleteConfirmModal from "../Modals/DeleteConfirmModal";
-
+import AlertModal from "../Modals/AlertModal";
 
 const SidebarItem = ({
   assignmentId,
@@ -17,6 +18,8 @@ const SidebarItem = ({
   const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [editAlertModalIsOpen, setEditAlertModalIsOpen] = useState(false);
+  const [deleteAlertModalIsOpen, setDeleteAlertModalIsOpen] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
   const [content, setContent] = useState(assignmentName);
   const [onChangeValue, setOnChangeValue] = useState(content);
@@ -43,12 +46,7 @@ const SidebarItem = ({
 
   const handleEditAssignment = async() => {
     if (onChangeValue.trim().length < 1) {
-      alert("Assignment name must be at least 1 character long!");
-      setTimeout(() => {
-        if (renameRef.current) {
-          renameRef.current.focus();
-        }
-      }, 0); // Set a timeout to ensure it runs after the alert is dismissed
+      setEditAlertModalIsOpen(true);
       return;
     }
     setIsEdit(false)
@@ -62,18 +60,31 @@ const SidebarItem = ({
     }
   };
 
+  const handleEditAlertCancel = () => {
+    setEditAlertModalIsOpen(false);
+    if (renameRef.current) {
+      renameRef.current.focus();
+    };
+  };
+
+  const handleDeleteAlertCancel = () => {
+    setDeleteAlertModalIsOpen(false);
+    setDeleteModalIsOpen(false);
+  };
+
   const handleDeleteAssignment = async() => {
     const currentIndex = assignmentsList.findIndex((elem) => elem.assignment_id === assignmentId)
 
     // setIsOpen(!isOpen)
 
     if (assignmentsList.length === 1) {
-      alert("Cannot delete the last remaining assignment.");
+      setDeleteAlertModalIsOpen(true);
       return ;
     } 
 
     try {
       await deleteAssignment(assignmentId);
+      setDeleteModalIsOpen(false);
       console.log('Assignment deleted successfully');
 
       if ((currentIndex + 1) === assignmentsList.length) {
@@ -88,6 +99,7 @@ const SidebarItem = ({
 
   const handleDeleteAssignmentCancel = () => {
     setDeleteModalIsOpen(false);
+    setDeleteAlertModalIsOpen(false);
     return; 
   }
 
@@ -169,6 +181,18 @@ const SidebarItem = ({
       {deleteModalIsOpen && <DeleteConfirmModal 
         handleDelete={handleDeleteAssignment}
         handleDeleteCancel={handleDeleteAssignmentCancel}
+     />}
+      {editAlertModalIsOpen && <AlertModal 
+        icon={alertTriangle}
+        color={"amber-500"}
+        handleAlertCancel={handleEditAlertCancel}
+        text={"최소 1자 이상이어야 합니다."}
+     />}
+      {deleteAlertModalIsOpen && <AlertModal 
+        icon={alertTriangle}
+        color={"amber-500"}
+        handleAlertCancel={handleDeleteAlertCancel}
+        text={"하나 남은 과제는 삭제할 수 없습니다."}
      />}
     </div>
   );

@@ -2,6 +2,7 @@ import { Copy, Upload } from "lucide-react";
 import ReferenceList from "../components/Reference/list";
 import SidebarList from "../components/Sidebar/list";
 import FileUploadModal from "../components/Modals/FileUpload";
+import SuccessModal from "../components/Modals/SuccessModal";
 import StyleList from "../components/Style/list";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -21,6 +22,7 @@ const HomePage = (
 ) => {
   const [referencesList, setReferencesList] = useState([]);
   const [selectedStyleName, setSelectedStyleName] = useState("APA");
+  const [copySuccessModalIsOpen, setCopySuccessModalIsOpen] = useState(false);
   const { isUserLoggedIn } = props;
   // const [selectedStyleId, setSelectedStyleId] = useState(1);
   const [isOpen, setIsOpen] = useState(false)
@@ -57,7 +59,7 @@ const HomePage = (
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-    alert("All references copied to clipboard!")
+    setCopySuccessModalIsOpen(true);
   };
 
   return (
@@ -114,6 +116,10 @@ const HomePage = (
           />
         </div>
       </div>
+      {copySuccessModalIsOpen && <SuccessModal 
+        text={"클립보드에 복사되었습니다."}
+        setModalOpen={setCopySuccessModalIsOpen}
+     />}
     </div>
   );
 };
