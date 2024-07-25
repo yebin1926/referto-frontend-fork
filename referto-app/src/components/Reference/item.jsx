@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { deletePaper, updatePaperInfo } from "../../apis/api";
+import DeleteConfirmModal from "../Modals/DeleteConfirmModal";
 
 const ReferenceItem = ({
   reference,
@@ -21,6 +22,7 @@ const ReferenceItem = ({
   const paperId = reference["paper"];
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const inputRef = useRef(null);
 
   // 컴포넌트가 다시 렌더링될 때마다 상태를 초기화하는 useEffect
@@ -68,12 +70,15 @@ const ReferenceItem = ({
     setReferencesList(updatedReferencesList);
   };
 
-  const handleReferenceDelete = async (paperId) => {
-    const confirmDelete = window.confirm('Do you really want to delete?')
-    if (!confirmDelete) return; 
+  const handleReferenceDelete = async (paperId) => { 
     const response = await deletePaper(paperId);
     window.location.reload();
   };
+
+  const handleReferenceDeleteCancel = () => {
+    setDeleteModalIsOpen(false);
+    return; 
+  }
 
   const handleCopy = () => {
     const $textarea = document.createElement("textarea");
@@ -167,9 +172,14 @@ const ReferenceItem = ({
       >
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          onClick={(event) => handleReferenceDelete(paperId)}
+          onClick={() => setDeleteModalIsOpen(true)}
         />
       </Link>
+      {deleteModalIsOpen && <DeleteConfirmModal 
+      deleteParams={paperId}
+      handleDelete={handleReferenceDelete}
+      handleDeleteCancel={handleReferenceDeleteCancel}
+        />}
     </div>
   );
 };

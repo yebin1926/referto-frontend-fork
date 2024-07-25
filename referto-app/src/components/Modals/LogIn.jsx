@@ -4,10 +4,12 @@ import Naver from "../../assets/images/Naver.png"
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
 import SignUpModal from "../Modals/SignUp";
+import LogInSuccessModal from "./LogInSuccessModal";
 
 const LogInModal = ( props ) => {
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
+  const [logInSuccessModalIsOpen, setLogInSuccessModalIsOpen] = useState(false);
   const { isUserLoggedIn, setIsUserLoggedIn } = props;
   const navigate = useNavigate()
 
@@ -56,13 +58,12 @@ const LogInModal = ( props ) => {
     e.preventDefault();
     try {
       await signIn(logInData);
-      alert("로그인 되었습니다");
+      setLogInSuccessModalIsOpen(true);
       closeLogInModal();
     } catch (error) {
       console.error('Error logging in:', error.message);
       alert('이메일 주소와 비밀번호를 확인해주세요.');
     }
-    handleRedirect();
   };
   
   const handleSignUpSwitch = () => {
@@ -166,7 +167,6 @@ const LogInModal = ( props ) => {
           </div>
         </div>
       )}
-
       {showSignUp && (
         <SignUpModal
           onClose={closeSignUpModal}
@@ -175,6 +175,7 @@ const LogInModal = ( props ) => {
           handleRedirect={handleRedirect}
         />
       )}
+      {logInSuccessModalIsOpen && <LogInSuccessModal handleRedirect={handleRedirect}/>}
     </>
   );
 };

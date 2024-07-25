@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { updatePaperInfo, deletePaper, getPaperInfo } from "../../apis/api";
+import DeleteConfirmModal from "../Modals/DeleteConfirmModal";
 
 const ReferenceItemDetail = ({
   index,
@@ -13,6 +14,7 @@ const ReferenceItemDetail = ({
   paperId,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const { assignmentId } = useParams();
   const inputRef = useRef(null);
 
@@ -56,15 +58,15 @@ const ReferenceItemDetail = ({
     setIsEdit(!isEdit);
   };
 
-  const handleReferenceDelete = async (paperId, event) => {
-    const confirmDelete = window.confirm('Do you really want to delete?')
-    if (!confirmDelete) {
-      event.preventDefault();
-      return; 
-    } 
+  const handleReferenceDelete = async (paperId) => {
     const response = await deletePaper(paperId);
+    window.location.href = (`/${assignmentId}`)
   };
 
+  const handleReferenceDeleteCancel = () => {
+    setDeleteModalIsOpen(false);
+    return; 
+  }
   const handleCopy = () => {
     const $textarea = document.createElement("textarea");
     document.body.appendChild($textarea);
@@ -120,15 +122,17 @@ const ReferenceItemDetail = ({
           />
         </div>
       </div>
-      <Link
-        to={`/${assignmentId}`}
-        className="w-11 self-stretch px-2.5 justify-center items-center gap-2.5 flex cursor-pointer"
-      >
+      <div className="w-11 self-stretch px-2.5 justify-center items-center gap-2.5 flex cursor-pointer">
         <Trash2
           className="text-red-400 w-6 h-6 relative"
-          onClick={(event) => handleReferenceDelete(paperId, event)}
+          onClick={() => setDeleteModalIsOpen(true)}
         />
-      </Link>
+      </div>
+      {deleteModalIsOpen && <DeleteConfirmModal 
+      deleteParams={paperId}
+      handleDelete={handleReferenceDelete}
+      handleDeleteCancel={handleReferenceDeleteCancel}
+        />}
     </div>
   );
 };

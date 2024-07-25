@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Pencil, Trash2, Check } from 'lucide-react';
 
-const AssignmentModal = ({ position, handleEditAssignment, handleDeleteAssignment, isEdit, setIsEdit, setIsOpen }) => {
+const AssignmentModal = ({ position, setDeleteModalIsOpen, isEdit, setIsEdit, setIsOpen }) => {
   const modalRef = useRef(null);
   
   useEffect(() => {
@@ -44,7 +44,7 @@ const AssignmentModal = ({ position, handleEditAssignment, handleDeleteAssignmen
       <MenuItem
         text="delete"
         icon={<Trash2 className="w-4 h-4"/>}
-        onClick={handleDeleteAssignment}
+        onClick={() => setDeleteModalIsOpen(true)}
       />
       </div>
     </div>

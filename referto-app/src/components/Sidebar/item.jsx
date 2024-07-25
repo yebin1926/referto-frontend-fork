@@ -5,6 +5,7 @@ import { EllipsisVertical  } from 'lucide-react';
 import { useState, useRef, useEffect } from "react";
 import AssignmentModal from "../Modals/AssignmentModal";
 import { updateAssignment, deleteAssignment } from '../../apis/api';
+import DeleteConfirmModal from "../Modals/DeleteConfirmModal";
 
 
 const SidebarItem = ({
@@ -15,6 +16,7 @@ const SidebarItem = ({
 
   const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
   const [content, setContent] = useState(assignmentName);
   const [onChangeValue, setOnChangeValue] = useState(content);
@@ -67,10 +69,7 @@ const SidebarItem = ({
     if (assignmentsList.length === 1) {
       alert("Cannot delete the last remaining assignment.");
       return ;
-    } else {
-    const confirmDelete = window.confirm('Do you really want to delete?')
-    if (!confirmDelete) return; 
-    }
+    } 
 
     try {
       await deleteAssignment(assignmentId);
@@ -85,6 +84,11 @@ const SidebarItem = ({
       console.error('Error deleting assignment:', error);
     }
   };
+
+  const handleDeleteAssignmentCancel = () => {
+    setDeleteModalIsOpen(false);
+    return; 
+  }
 
   useEffect(() => {
     const handleClickOutsideRename = (event) => {
@@ -157,10 +161,14 @@ const SidebarItem = ({
         assignmentId={assignmentId} 
         position={modalPosition}
         handleEditAssignment={handleEditAssignment} 
-        handleDeleteAssignment={handleDeleteAssignment}
+        setDeleteModalIsOpen={setDeleteModalIsOpen}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
         setIsOpen={setIsOpen}/>}
+      {deleteModalIsOpen && <DeleteConfirmModal 
+        handleDelete={handleDeleteAssignment}
+        handleDeleteCancel={handleDeleteAssignmentCancel}
+     />}
     </div>
   );
 };
