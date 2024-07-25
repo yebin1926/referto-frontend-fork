@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import { signIn, getAssignments, getUser } from "../../apis/api"
-import Naver from "../../assets/images/Naver.png"
+import { signIn, getAssignments, getUser } from "../../apis/api";
+import Naver from "../../assets/images/Naver.png";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
 import SignUpModal from "../Modals/SignUp";
 import LogInSuccessModal from "./LogInSuccessModal";
 
-const LogInModal = ( props ) => {
+const LogInModal = (props) => {
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
   const [logInSuccessModalIsOpen, setLogInSuccessModalIsOpen] = useState(false);
   const { isUserLoggedIn, setIsUserLoggedIn } = props;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const openLogInModal = () => {
     console.log("openLogIn");
@@ -43,7 +43,6 @@ const LogInModal = ( props ) => {
     console.log("useEffect loggedIn:", loggedIn);
   }, [isUserLoggedIn]);
 
-
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
@@ -58,14 +57,16 @@ const LogInModal = ( props ) => {
     e.preventDefault();
     try {
       await signIn(logInData);
+      setIsUserLoggedIn(true);
       setLogInSuccessModalIsOpen(true);
       closeLogInModal();
+      handleRedirect();
     } catch (error) {
-      console.error('Error logging in:', error.message);
-      alert('이메일 주소와 비밀번호를 확인해주세요.');
+      console.error("Error logging in:", error.message);
+      alert("이메일 주소와 비밀번호를 확인해주세요.");
     }
   };
-  
+
   const handleSignUpSwitch = () => {
     closeLogInModal();
     openSignUpModal();
@@ -81,19 +82,18 @@ const LogInModal = ( props ) => {
   //   }
   // }
 
-  const handleRedirect = async() => {
-
+  const handleRedirect = async () => {
     const getUserAPI = async () => {
       const user = await getUser();
-      return user
+      return user;
     };
 
     const fetchAssignments = async (email) => {
       try {
         const assignments = await getAssignments(email);
-        return assignments[0]['assignment_id']; // Return the first id
+        return assignments[0]["assignment_id"]; // Return the first id
       } catch (error) {
-        console.error('Error fetching assignments:', error);
+        console.error("Error fetching assignments:", error);
       }
     };
 
@@ -101,12 +101,12 @@ const LogInModal = ( props ) => {
     const firstAssignmentId = await fetchAssignments(user.email);
 
     if (firstAssignmentId) {
-      console.log('Redirecting to:', `/${firstAssignmentId}`);
+      console.log("Redirecting to:", `/${firstAssignmentId}`);
       navigate(`/${firstAssignmentId}`);
     } else {
-      console.error('First assignment ID is null');
+      console.error("First assignment ID is null");
     }
-  }
+  };
 
   return (
     <>
@@ -151,15 +151,20 @@ const LogInModal = ( props ) => {
                   className="w-full my-2 h-10 bg-green-500 rounded-lg flex justify-center items-center gap-2.5"
                   // onClick={handleNaverLogin}
                 >
-                  <img className="w-10 h-10" alt='Naver'src={Naver} />
+                  <img className="w-10 h-10" alt="Naver" src={Naver} />
                   <div className="justify-center items-center gap-2.5 flex">
-                      <div className="w-full self-stretch text-center text-white text-base font-medium font-['Pretendard'] leading-normal">Log in with Naver</div>
+                    <div className="w-full self-stretch text-center text-white text-base font-medium font-['Pretendard'] leading-normal">
+                      Log in with Naver
+                    </div>
                   </div>
                 </button>
                 <div className="text-center font-['Pretendard'] text-gray-700">
                   Are you new?
                 </div>
-                <button className="underline font-['Pretendard']" onClick={handleSignUpSwitch}>
+                <button
+                  className="underline font-['Pretendard']"
+                  onClick={handleSignUpSwitch}
+                >
                   Sign up
                 </button>
               </div>
@@ -175,7 +180,9 @@ const LogInModal = ( props ) => {
           handleRedirect={handleRedirect}
         />
       )}
-      {logInSuccessModalIsOpen && <LogInSuccessModal handleRedirect={handleRedirect}/>}
+      {/* {logInSuccessModalIsOpen && (
+        <LogInSuccessModal handleRedirect={handleRedirect} />
+      )} */}
     </>
   );
 };

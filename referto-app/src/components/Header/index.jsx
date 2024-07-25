@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LogInModal from "../Modals/LogIn";
 // import SignUpModal from "../Modals/SignUp";
 import { useState, useEffect } from "react";
-import { getCookie, removeCookie } from "../../utils/cookie";
+import { removeCookie } from "../../utils/cookie";
 import { getUser, getAssignments } from "../../apis/api";
 
 const Header = ( props ) => {
@@ -13,6 +13,7 @@ const Header = ( props ) => {
   // const [showSignUp, setShowSignUp] = useState(false);
   // const [user, setUser] = useState("null");
   const [firstAssignmentId, setFirstAssignmentId] = useState('')
+  const navigate = useNavigate()
   const [user, setUser] = useState("null");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,62 +36,24 @@ const Header = ( props ) => {
     }
   }, [isUserLoggedIn]);
 
-  // const openLogInModal = () => {
-  //   console.log("openLogIn");
-  //   setShowLogIn(true);
-  // };
-
-  // const closeLogInModal = () => {
-  //   console.log("closeLogIn");
-  //   setShowLogIn(false);
-  // };
-
-  // const openSignUpModal = () => {
-  //   console.log("openSignup");
-  //   setShowSignUp(true);
-  // };
-
-  // const closeSignUpModal = () => {
-  //   console.log("closeSignup");
-  //   setShowSignUp(false);
-  // };
-
-  // useEffect(() => {
-  //   const loggedIn = !!getCookie("access_token");
-  //   setIsUserLoggedIn(loggedIn);
-  //   if (loggedIn) {
-  //     setShowLogIn(false);
-  //     setShowSignUp(false);
-  //   }
-  //   console.log("useEffect loggedIn:", loggedIn);
-  // }, [isUserLoggedIn]);
-
   const handleSignOut = () => {
     removeCookie("access_token");
     removeCookie("refresh_token");
     window.location.href = "/";
   };
 
-  // useEffect(() => {
-  //   if (isUserLoggedIn) {
-  //     const getUserAPI = async () => {
-  //       const currUser = await getUser();
-  //       setUser(currUser.email);
-  //     };
-  //     getUserAPI();
-  //   }
-  // }, [isUserLoggedIn]);
-
   useEffect(() => {
-    const fetchAssignments = async () => {
+    if (isUserLoggedIn) {
+      const fetchAssignments = async () => {
         try {
           const assignments = await getAssignments(user);
-          setFirstAssignmentId(assignments[0]['assignment_id'])
+          setFirstAssignmentId(assignments[0]["assignment_id"]);
         } catch (error) {
-          console.error('Error fetching assignments:', error);
+          console.error("Error fetching assignments:", error);
         }
-      }
-    fetchAssignments()
+      };
+      fetchAssignments();
+    }
   }, [isUserLoggedIn]);
 
   return (
