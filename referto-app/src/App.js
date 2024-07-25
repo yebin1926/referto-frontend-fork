@@ -4,10 +4,23 @@ import Header from "./components/Header";
 import HomePage from "./routes/HomePage";
 import DetailPage from "./routes/DetailPage";
 import "./App.css";
-import LogInModal from "./components/Modals/LogIn";
+import LandingPage from "./routes/LandingPage";
+import { getUser } from "./apis/api";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const getUserAPI = async () => {
+      try {
+        const currUser = await getUser();
+        setIsUserLoggedIn(true);
+      } catch (error) {
+        setIsUserLoggedIn(false);
+      }
+    };
+    getUserAPI();
+  }, []);
 
   // const [firstAssignmentId, setFirstAssignmentId] = useState('')
 
@@ -59,7 +72,7 @@ function App() {
       <BrowserRouter>
         <Header
           isUserLoggedIn={isUserLoggedIn}
-          // setIsUserLoggedIn={setIsUserLoggedIn}
+          setIsUserLoggedIn={setIsUserLoggedIn}
         />
         <Routes>
           <Route
@@ -93,10 +106,9 @@ function App() {
           <Route
             path="/"
             element={
-              <LogInModal
+              <LandingPage
                 isUserLoggedIn={isUserLoggedIn}
-                setIsUserLoggedIn={setIsUserLoggedIn}
-              />
+                setIsUserLoggedIn={setIsUserLoggedIn} />
             }
           />
         </Routes>

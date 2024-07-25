@@ -22,10 +22,11 @@ const HomePage = (
 ) => {
   const [referencesList, setReferencesList] = useState([]);
   const [selectedStyleName, setSelectedStyleName] = useState("APA");
+  const [currAssignment, setCurrAssignment] = useState([]);
   const [copySuccessModalIsOpen, setCopySuccessModalIsOpen] = useState(false);
   const { isUserLoggedIn } = props;
   // const [selectedStyleId, setSelectedStyleId] = useState(1);
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const { assignmentId } = useParams();
   const selectedAssignmentId = Number(assignmentId);
@@ -39,17 +40,17 @@ const HomePage = (
       getReferencesAPI();
       const getAssignmentAPI = async () => {
         const assignment = await getAssignment(assignmentId);
-        // console.log('get 잘 가져왔어용', assignment)
+        setCurrAssignment(assignment);
         setSelectedStyleName(assignment.reference_type);
       };
       getAssignmentAPI();
     }
   }, [assignmentId]);
-  
+
   const handleCopyAll = () => {
     const referencesListText = [];
-    referencesList.forEach(item => {
-      if(item[selectedStyleName]) {  
+    referencesList.forEach((item) => {
+      if (item[selectedStyleName]) {
         referencesListText.push(item[selectedStyleName]);
       }
     });
@@ -67,7 +68,10 @@ const HomePage = (
       <div className="flex flex-col w-[260px] h-screen items-start gap-[50px] px-[20px] py-[30px] bg-neutral-200">
         <SidebarList isUserLoggedIn={isUserLoggedIn} />
       </div>
-      <div className="w-full h-full px-[100px] py-[70px] flex-col flex-1 justify-start items-center gap-[50px] inline-flex overflow-auto">
+      <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
+        <div className="font-['Pretendard'] font-neutral-700 font-bold text-3xl text-left w-full">
+          {currAssignment.name}
+        </div>
         <div className="self-stretch justify-end items-center inline-flex">
           <StyleList
             selectedAssignmentId={selectedAssignmentId}
@@ -76,7 +80,9 @@ const HomePage = (
           />
           <div
             className="px-3 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer"
-            onClick={() => {setIsOpen(true)}}
+            onClick={() => {
+              setIsOpen(true);
+            }}
           >
             <div className="justify-center items-center gap-2.5 flex">
               <Upload className="text-white selection:w-[18px] h-[18px] relative" />
@@ -85,7 +91,7 @@ const HomePage = (
               Upload
             </div>
           </div>
-          { isOpen && <FileUploadModal setIsOpen={setIsOpen}/>}
+          {isOpen && <FileUploadModal setIsOpen={setIsOpen} />}
         </div>
         <div className="w-full h-full flex-col justify-start items-center inline-flex">
           <div className="self-stretch py-2.5 border-b-2 border-neutral-400 justify-start items-start gap-2.5 inline-flex">
@@ -116,10 +122,12 @@ const HomePage = (
           />
         </div>
       </div>
-      {copySuccessModalIsOpen && <SuccessModal 
-        text={"클립보드에 복사되었습니다."}
-        setModalOpen={setCopySuccessModalIsOpen}
-     />}
+      {copySuccessModalIsOpen && (
+        <SuccessModal
+          text={"클립보드에 복사되었습니다."}
+          setModalOpen={setCopySuccessModalIsOpen}
+        />
+      )}
     </div>
   );
 };

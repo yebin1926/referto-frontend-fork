@@ -17,8 +17,10 @@ const ReferenceMemo = ({ content, paperId }) => {
     getMemoAPI();
   }, [paperId]);
 
-  const handleContentChange = (e) => {
+  const handleContentChange = async (e) => {
+    e.preventDefault();
     setMemoContent(e.target.value);
+    const response = await updateMemo(paperId, { content: memoContent });
   };
 
   const handleCopy = (e) => {
@@ -35,6 +37,7 @@ const ReferenceMemo = ({ content, paperId }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const response = await updateMemo(paperId, { content: memoContent });
+    window.location.reload();
     setSaveSuccessModalIsOpen(true);
     //setMemoContent(response);
   };
@@ -82,14 +85,18 @@ const ReferenceMemo = ({ content, paperId }) => {
             </div>
           </button>
         </div>
-        {copySuccessModalIsOpen && <SuccessModal 
-        text={"클립보드에 복사되었습니다."}
-        setModalOpen={setCopySuccessModalIsOpen}
-       />}
-        {saveSuccessModalIsOpen && <SuccessModal 
-        text={"저장되었습니다."}
-        setModalOpen={setSaveSuccessModalIsOpen}
-        />}
+        {copySuccessModalIsOpen && (
+          <SuccessModal
+            text={"클립보드에 복사되었습니다."}
+            setModalOpen={setCopySuccessModalIsOpen}
+          />
+        )}
+        {saveSuccessModalIsOpen && (
+          <SuccessModal
+            text={"저장되었습니다."}
+            setModalOpen={setSaveSuccessModalIsOpen}
+          />
+        )}
       </div>
     </form>
   );
