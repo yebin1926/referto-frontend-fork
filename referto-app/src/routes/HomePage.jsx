@@ -1,7 +1,7 @@
-import { Copy } from "lucide-react";
+import { Copy, Upload } from "lucide-react";
 import ReferenceList from "../components/Reference/list";
 import SidebarList from "../components/Sidebar/list";
-import FileUpload from "../components/FileUpload";
+import FileUploadModal from "../components/Modals/FileUpload";
 import StyleList from "../components/Style/list";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -23,6 +23,7 @@ const HomePage = (
   const [selectedStyleName, setSelectedStyleName] = useState("APA");
   const { isUserLoggedIn } = props;
   // const [selectedStyleId, setSelectedStyleId] = useState(1);
+  const [isOpen, setIsOpen] = useState(false)
 
   const { assignmentId } = useParams();
   const selectedAssignmentId = Number(assignmentId);
@@ -71,7 +72,18 @@ const HomePage = (
             selectedStyleName={selectedStyleName}
             setSelectedStyleName={setSelectedStyleName}
           />
-          <FileUpload />
+          <div
+            className="px-3 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer"
+            onClick={() => {setIsOpen(true)}}
+          >
+            <div className="justify-center items-center gap-2.5 flex">
+              <Upload className="text-white selection:w-[18px] h-[18px] relative" />
+            </div>
+            <div className="text-right text-white text-lg font-medium font-['Pretendard'] leading-normal">
+              Upload
+            </div>
+          </div>
+          { isOpen && <FileUploadModal setIsOpen={setIsOpen}/>}
         </div>
         <div className="w-full h-full flex-col justify-start items-center inline-flex">
           <div className="self-stretch py-2.5 border-b-2 border-neutral-400 justify-start items-start gap-2.5 inline-flex">
