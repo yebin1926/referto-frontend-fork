@@ -3,6 +3,9 @@ import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { updatePaperInfo, deletePaper, getPaperInfo } from "../../apis/api";
 import DeleteConfirmModal from "../Modals/DeleteConfirmModal";
+import AlertModal from "../Modals/AlertModal";
+import SuccessModal from "../Modals/SuccessModal";
+import alertTriangle from "../../assets/images/alert-triangle.svg";
 
 const ReferenceItemDetail = ({
   index,
@@ -15,6 +18,8 @@ const ReferenceItemDetail = ({
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [editAlertModalIsOpen, setEditAlertModalIsOpen] = useState(false);
+  const [copySuccessModalIsOpen, setCopySuccessModalIsOpen] = useState(false);
   const { assignmentId } = useParams();
   const inputRef = useRef(null);
 
@@ -42,12 +47,7 @@ const ReferenceItemDetail = ({
   };
   const handleContentUpdate = async () => {
     if (content.trim().length < 1) {
-      alert("Reference Content must be at least 1 character long!");
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
-      }, 0); // Set a timeout to ensure it runs after the alert is dismissed
+      setEditAlertModalIsOpen(true);
       return;
     }
     const newContent = {
@@ -57,6 +57,13 @@ const ReferenceItemDetail = ({
     const response = await updatePaperInfo(referenceId, newContent);
     window.location.reload();
     setIsEdit(!isEdit);
+  };
+
+  const handleEditAlertCancel = () => {
+    setEditAlertModalIsOpen(false);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    };
   };
 
   const handleReferenceDelete = async (paperId) => {
@@ -75,7 +82,7 @@ const ReferenceItemDetail = ({
     $textarea.select();
     document.execCommand("copy");
     document.body.removeChild($textarea);
-    alert("Your reference copied to clipboard!");
+    setCopySuccessModalIsOpen(true);
   };
 
   const handleKeyDown = (event) => {
@@ -134,6 +141,16 @@ const ReferenceItemDetail = ({
       handleDelete={handleReferenceDelete}
       handleDeleteCancel={handleReferenceDeleteCancel}
         />}
+      {editAlertModalIsOpen && <AlertModal 
+        icon={alertTriangle}
+        color={"amber-500"}
+        handleAlertCancel={handleEditAlertCancel}
+        text={"최소 1자 이상이어야 합니다."}
+     />}
+      {copySuccessModalIsOpen && <SuccessModal 
+        text={"클립보드에 복사되었습니다."}
+        setModalOpen={setCopySuccessModalIsOpen}
+     />}
     </div>
   );
 };

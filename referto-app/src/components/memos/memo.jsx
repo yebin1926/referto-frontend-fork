@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { NotepadText, Save, Copy } from "lucide-react";
 import { getMemo, updateMemo } from "../../apis/api";
-//import { useLocation } from "react-router-dom";
+import SuccessModal from "../Modals/SuccessModal";
 
 const ReferenceMemo = ({ content, paperId }) => {
   const [memoContent, setMemoContent] = useState("");
-  //const location = useLocation();
+  const [copySuccessModalIsOpen, setCopySuccessModalIsOpen] = useState(false);
+  const [saveSuccessModalIsOpen, setSaveSuccessModalIsOpen] = useState(false);
 
   useEffect(() => {
     const getMemoAPI = async () => {
@@ -30,13 +31,14 @@ const ReferenceMemo = ({ content, paperId }) => {
     $textarea.select();
     document.execCommand("copy");
     document.body.removeChild($textarea);
-    alert("Memo copied to clipboard!");
+    setCopySuccessModalIsOpen(true);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const response = await updateMemo(paperId, { content: memoContent });
     window.location.reload();
+    setSaveSuccessModalIsOpen(true);
     //setMemoContent(response);
   };
 
@@ -83,6 +85,18 @@ const ReferenceMemo = ({ content, paperId }) => {
             </div>
           </button>
         </div>
+        {copySuccessModalIsOpen && (
+          <SuccessModal
+            text={"클립보드에 복사되었습니다."}
+            setModalOpen={setCopySuccessModalIsOpen}
+          />
+        )}
+        {saveSuccessModalIsOpen && (
+          <SuccessModal
+            text={"저장되었습니다."}
+            setModalOpen={setSaveSuccessModalIsOpen}
+          />
+        )}
       </div>
     </form>
   );
