@@ -44,7 +44,7 @@ const AssignmentModal = ({ position, setDeleteModalIsOpen, isEdit, setIsEdit, se
       <MenuItem
         text="delete"
         icon={<Trash2 className="w-4 h-4"/>}
-        onClick={() => setDeleteModalIsOpen(true)}
+        onClick={() => {setIsOpen(false); setDeleteModalIsOpen(true);}}
       />
       </div>
     </div>

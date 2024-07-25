@@ -3,6 +3,8 @@ import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { updatePaperInfo, deletePaper, getPaperInfo } from "../../apis/api";
 import DeleteConfirmModal from "../Modals/DeleteConfirmModal";
+import AlertModal from "../Modals/AlertModal";
+import alertTriangle from "../../assets/images/alert-triangle.svg";
 
 const ReferenceItemDetail = ({
   index,
@@ -15,6 +17,7 @@ const ReferenceItemDetail = ({
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [alertModalIsOpen, setAlertModalIsOpen] = useState(false);
   const { assignmentId } = useParams();
   const inputRef = useRef(null);
 
@@ -42,12 +45,7 @@ const ReferenceItemDetail = ({
   };
   const handleContentUpdate = async () => {
     if (content.trim().length < 1) {
-      alert("Reference Content must be at least 1 character long!");
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
-      }, 0); // Set a timeout to ensure it runs after the alert is dismissed
+      setAlertModalIsOpen(true);
       return;
     }
     const newContent = {
@@ -56,6 +54,13 @@ const ReferenceItemDetail = ({
     };
     const response = await updatePaperInfo(referenceId, newContent);
     setIsEdit(!isEdit);
+  };
+
+  const handleAlertCancel = () => {
+    setAlertModalIsOpen(false);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    };
   };
 
   const handleReferenceDelete = async (paperId) => {
@@ -91,7 +96,7 @@ const ReferenceItemDetail = ({
         </div>
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
-        <div className="grow shrink basis-0 text-neutral-700 text-sm font-medium font-['Pretendard'] leading-[27px]">
+        <div className="grow shrink basis-0 text-neutral-700 text-md font-medium font-['Pretendard'] leading-[27px]">
           {isEdit ? (
             <textarea
               value={content}
@@ -133,6 +138,11 @@ const ReferenceItemDetail = ({
       handleDelete={handleReferenceDelete}
       handleDeleteCancel={handleReferenceDeleteCancel}
         />}
+      {alertModalIsOpen && <AlertModal 
+        icon={alertTriangle}
+        color={"amber-500"}
+        handleAlertCancel={handleAlertCancel}
+     />}
     </div>
   );
 };

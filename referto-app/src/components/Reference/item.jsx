@@ -3,6 +3,8 @@ import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { deletePaper, updatePaperInfo } from "../../apis/api";
 import DeleteConfirmModal from "../Modals/DeleteConfirmModal";
+import AlertModal from "../Modals/AlertModal";
+import alertTriangle from "../../assets/images/alert-triangle.svg";
 
 const ReferenceItem = ({
   reference,
@@ -23,6 +25,7 @@ const ReferenceItem = ({
   const { assignmentId } = useParams(); //path 에 있는 parameter 숫자 가져오는 것
   const [content, setContent] = useState(referenceName);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [alertModalIsOpen, setAlertModalIsOpen] = useState(false);
   const inputRef = useRef(null);
 
   // 컴포넌트가 다시 렌더링될 때마다 상태를 초기화하는 useEffect
@@ -50,12 +53,7 @@ const ReferenceItem = ({
 
   const handleContentUpdate = async () => {
     if (content.trim().length < 1) {
-      alert("Reference Content must be at least 1 character long!");
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
-      }, 0); // Set a timeout to ensure it runs after the alert is dismissed
+      setAlertModalIsOpen(true);
       return;
     }
     const newContent = {
@@ -70,6 +68,13 @@ const ReferenceItem = ({
     setReferencesList(updatedReferencesList);
   };
 
+  const handleAlertCancel = () => {
+    setAlertModalIsOpen(false);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    };
+  };
+
   const handleReferenceDelete = async (paperId) => { 
     const response = await deletePaper(paperId);
     window.location.reload();
@@ -78,7 +83,7 @@ const ReferenceItem = ({
   const handleReferenceDeleteCancel = () => {
     setDeleteModalIsOpen(false);
     return; 
-  }
+  };
 
   const handleCopy = () => {
     const $textarea = document.createElement("textarea");
@@ -121,7 +126,7 @@ const ReferenceItem = ({
         </div>
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
-        <div className="grow shrink basis-0 text-neutral-700 text-sm font-medium font-['Pretendard'] leading-[27px]">
+        <div className="grow shrink basis-0 text-neutral-700 text-md font-medium font-['Pretendard'] leading-[27px]">
           {isEdit ? (
             <textarea
               value={content}
@@ -154,7 +159,7 @@ const ReferenceItem = ({
       </div>
       <div
         onClick={handleClickView}
-        className={`px-4 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer`}
+        className={`px-3 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer`}
         //  ${
         //   isVisible ? "block" : "hidden"
         // }`}
@@ -180,6 +185,11 @@ const ReferenceItem = ({
       handleDelete={handleReferenceDelete}
       handleDeleteCancel={handleReferenceDeleteCancel}
         />}
+      {alertModalIsOpen && <AlertModal 
+        icon={alertTriangle}
+        color={"amber-500"}
+        handleAlertCancel={handleAlertCancel}
+     />}
     </div>
   );
 };
