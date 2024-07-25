@@ -61,7 +61,7 @@ const HomePage = (
 
   return (
     <div className="w-full h-screen flex flex-row justify-between">
-      <div className="flex flex-col w-[280px] h-full items-start gap-[50px] px-[20px] py-[50px] relative bg-neutral-200">
+      <div className="flex flex-col w-[260px] h-screen items-start gap-[50px] px-[20px] py-[30px] bg-neutral-200">
         <SidebarList isUserLoggedIn={isUserLoggedIn} />
       </div>
       <div className="w-full h-full px-[100px] py-[70px] flex-col flex-1 justify-start items-center gap-[50px] inline-flex overflow-auto">

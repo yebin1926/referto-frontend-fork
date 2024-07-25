@@ -78,26 +78,30 @@ const SidebarList = (props) => {
   }
 
   return (
-    <div className="w-full h-full">
+    <div className="w-[220px] h-screen">
       <div
-        className={`px-4 py-2 rounded-md justify-center items-center gap-2.5 flex`}>
-        <div className="text-right text-lg font-semibold font-['Pretendard'] leading-normal">
+        className="px-2 py-2 rounded-md justify-center items-center gap-2.5 flex">
+        <div className="text-left text-lg font-semibold font-['Pretendard'] leading-normal py-5">
           My Assignments
         </div>
         <div className="justify-center items-center gap-2.5 flex">
           <Plus className="selection:w-[18px] h-[18px] relative cursor-pointer" onClick={addAssignment}/>
         </div>
       </div>
-      {assignmentsList && (
-      assignmentsList.map((assignment) => (
-        <SidebarItem
-          key={assignment.assignment_id}
-          assignmentId={assignment.assignment_id}
-          assignmentName={assignment.name}
-          assignmentsList={assignmentsList}
-        />
-      ))
-    )}
+      <div className="w-full h-[650px] overflow-auto">
+        {assignmentsList && (
+        assignmentsList.map((assignment) => (
+          <SidebarItem
+            key={assignment.assignment_id}
+            assignmentId={assignment.assignment_id}
+            assignmentName={assignment.name}
+            assignmentsList={assignmentsList}
+          />
+          ))
+        )}
+      </div>
+      <div className="flex-col justify-start items-start gap-2.5 flex flex-1 overflow-hidden">
+      </div>
     </div>
   );
 };
