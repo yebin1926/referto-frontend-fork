@@ -6,7 +6,7 @@ export const Loading = () => {
     <div style={styles.overlay}>
       <FadeLoader color="#ffffff" />
       <div style={styles.text}>
-        <h3>pdf를 분석하고 있어요</h3>
+        <h3>파일을 분석하고 있어요</h3>
       </div>
     </div>
   );

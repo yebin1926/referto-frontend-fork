@@ -1,7 +1,17 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { signUp } from "../../apis/api";
+import AlertModal from "./AlertModal";
+import alertCircle from "../../assets/images/alert-circle.svg";
 
 const SignUpModal = ({ onClose, onSwitch, setIsUserLoggedIn, handleRedirect }) => {
+  const [errorAlertModalIsOpen, setErrorAlertModalIsOpen] = useState(false);
+  const inputRef = useRef(null);
+  const handleErrorAlertCancel = () => {
+    setErrorAlertModalIsOpen(false);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    };
+  };
   const [signUpData, setSignUpData] = useState({
     email: "",
     password: "",
@@ -17,12 +27,12 @@ const SignUpModal = ({ onClose, onSwitch, setIsUserLoggedIn, handleRedirect }) =
     try {
       await signUp(signUpData);
       onClose();
-      setIsUserLoggedIn(true)
+      setIsUserLoggedIn(true);
+      handleRedirect();
     } catch (error) {
       console.error('Error signing up:', error);
-      alert('이미 가입되어 있는 이메일 주소입니다.');
+      setErrorAlertModalIsOpen(true);
     }
-    handleRedirect();
   };
 
   const handleLogInSwitch = () => {
@@ -50,6 +60,7 @@ const SignUpModal = ({ onClose, onSwitch, setIsUserLoggedIn, handleRedirect }) =
                 id="email"
                 value={signUpData.email}
                 onChange={handleSignUpData}
+                ref={inputRef}
                 className="font-['Pretendard'] input border my-2 px-4 py-2 rounded-md w-full"
               />
               <input
@@ -77,6 +88,12 @@ const SignUpModal = ({ onClose, onSwitch, setIsUserLoggedIn, handleRedirect }) =
           </div>
         </div>
       </div>
+      {errorAlertModalIsOpen && <AlertModal 
+        icon={alertCircle}
+        color={"#EF4444"}
+        handleAlertCancel={handleErrorAlertCancel}
+        text={"이미 가입되어 있는 이메일 주소입니다."}
+     />}
     </div>
   );
 };

@@ -1,15 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { signIn, getAssignments, getUser } from "../../apis/api"
 import Naver from "../../assets/images/Naver.png"
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
 import SignUpModal from "../Modals/SignUp";
 import LogInSuccessModal from "./LogInSuccessModal";
+import AlertModal from "./AlertModal";
+import alertCircle from "../../assets/images/alert-circle.svg";
 
 const LogInModal = ( props ) => {
+  const inputRef = useRef(null);
   const [showLogIn, setShowLogIn] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
   const [logInSuccessModalIsOpen, setLogInSuccessModalIsOpen] = useState(false);
+  const [errorAlertModalIsOpen, setErrorAlertModalIsOpen] = useState(false);
   const { isUserLoggedIn, setIsUserLoggedIn } = props;
   const navigate = useNavigate()
 
@@ -31,6 +35,13 @@ const LogInModal = ( props ) => {
   const closeSignUpModal = () => {
     console.log("closeSignup");
     setShowSignUp(false);
+  };
+
+  const handleErrorAlertCancel = () => {
+    setErrorAlertModalIsOpen(false);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    };
   };
 
   useEffect(() => {
@@ -62,7 +73,7 @@ const LogInModal = ( props ) => {
       closeLogInModal();
     } catch (error) {
       console.error('Error logging in:', error.message);
-      alert('이메일 주소와 비밀번호를 확인해주세요.');
+      setErrorAlertModalIsOpen(true);
     }
   };
   
@@ -129,6 +140,7 @@ const LogInModal = ( props ) => {
                     id="email"
                     value={logInData.email}
                     onChange={handleLogInData}
+                    ref={inputRef}
                     className="font-['Pretendard'] input border my-2 px-4 py-2 rounded-md w-full"
                   />
                   <input
@@ -175,6 +187,12 @@ const LogInModal = ( props ) => {
           handleRedirect={handleRedirect}
         />
       )}
+      {errorAlertModalIsOpen && <AlertModal 
+        icon={alertCircle}
+        color={"#EF4444"}
+        handleAlertCancel={handleErrorAlertCancel}
+        text={"이메일 주소와 비밀번호를 확인해주세요."}
+     />}
       {logInSuccessModalIsOpen && <LogInSuccessModal handleRedirect={handleRedirect}/>}
     </>
   );
