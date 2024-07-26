@@ -1,5 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { Pencil, Copy, Trash2, Eye, Check } from "lucide-react";
+import {
+  Pencil,
+  Copy,
+  Trash2,
+  Eye,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { updatePaperInfo, deletePaper, getPaperInfo } from "../../apis/api";
 import DeleteConfirmModal from "../Modals/DeleteConfirmModal";
@@ -15,6 +23,8 @@ const ReferenceItemDetail = ({
   selectedStyleName,
   //assignmentId,
   paperId,
+  handlePrevPage,
+  handleNextPage,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
@@ -25,7 +35,7 @@ const ReferenceItemDetail = ({
 
   useEffect(() => {
     if (isEdit && inputRef.current) {
-      inputRef.current.style.height = '10px';
+      inputRef.current.style.height = "10px";
       inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
     }
   }, [isEdit]);
@@ -63,18 +73,18 @@ const ReferenceItemDetail = ({
     setEditAlertModalIsOpen(false);
     if (inputRef.current) {
       inputRef.current.focus();
-    };
+    }
   };
 
   const handleReferenceDelete = async (paperId) => {
     const response = await deletePaper(paperId);
-    window.location.href = (`/${assignmentId}`)
+    window.location.href = `/${assignmentId}`;
   };
 
   const handleReferenceDeleteCancel = () => {
     setDeleteModalIsOpen(false);
-    return; 
-  }
+    return;
+  };
   const handleCopy = () => {
     const $textarea = document.createElement("textarea");
     document.body.appendChild($textarea);
@@ -86,13 +96,16 @@ const ReferenceItemDetail = ({
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       handleContentUpdate();
     }
   };
 
   return (
     <div className="w-full h-100% py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
+      <div className="p-4">
+        {/* <ChevronLeft onClick={handlePrevPage} /> */}
+      </div>
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
           {index}
@@ -136,21 +149,30 @@ const ReferenceItemDetail = ({
           onClick={() => setDeleteModalIsOpen(true)}
         />
       </div>
-      {deleteModalIsOpen && <DeleteConfirmModal 
-      deleteParams={paperId}
-      handleDelete={handleReferenceDelete}
-      handleDeleteCancel={handleReferenceDeleteCancel}
-        />}
-      {editAlertModalIsOpen && <AlertModal 
-        icon={alertTriangle}
-        color={"#F59E0B"}
-        handleAlertCancel={handleEditAlertCancel}
-        text={"최소 1자 이상이어야 합니다."}
-     />}
-      {copySuccessModalIsOpen && <SuccessModal 
-        text={"클립보드에 복사되었습니다."}
-        setModalOpen={setCopySuccessModalIsOpen}
-     />}
+      <div className="p-6">
+        {/* <ChevronRight onClick={handleNextPage} /> */}
+      </div>
+      {deleteModalIsOpen && (
+        <DeleteConfirmModal
+          deleteParams={paperId}
+          handleDelete={handleReferenceDelete}
+          handleDeleteCancel={handleReferenceDeleteCancel}
+        />
+      )}
+      {editAlertModalIsOpen && (
+        <AlertModal
+          icon={alertTriangle}
+          color={"#F59E0B"}
+          handleAlertCancel={handleEditAlertCancel}
+          text={"최소 1자 이상이어야 합니다."}
+        />
+      )}
+      {copySuccessModalIsOpen && (
+        <SuccessModal
+          text={"클립보드에 복사되었습니다."}
+          setModalOpen={setCopySuccessModalIsOpen}
+        />
+      )}
     </div>
   );
 };

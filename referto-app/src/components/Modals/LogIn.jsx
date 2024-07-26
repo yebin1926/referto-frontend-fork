@@ -162,7 +162,7 @@ const LogInModal = (props) => {
             </div>
             <button
               className="underline font-['Pretendard']"
-              onClick={() => navigate('/account/signup')}
+              onClick={() => navigate("/account/signup")}
             >
               Sign up
             </button>
@@ -172,5 +172,5 @@ const LogInModal = (props) => {
     </div>
   );
 };
-  
+
 export default LogInModal;
