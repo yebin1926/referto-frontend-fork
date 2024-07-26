@@ -41,8 +41,9 @@ const FileUploadModal = ({setIsOpen}) => {
           const response_paper = await uploadPaper(formData, config);
           const response_paperinfo = await uploadPaperInfo(response_paper.data.paper_id);
           await createMemo(response_paper.data.paper_id);
+          console.log('1번째 try 에러없음');
         } catch (error) {
-          console.error("Error during file processing:", error);
+          console.error("1번째 Error during file processing:", error.message);
           setErrorAlertModalIsOpen(true);
           setUploadStatus(false);
           return;
@@ -50,12 +51,13 @@ const FileUploadModal = ({setIsOpen}) => {
       }
 
       console.log("All files processed successfully.");
+      console.log('2번째 try 에러없음');
       setUploadStatus(false);
       setTimeout(() => {
         window.location.reload();
       }, 500);
     } catch (error) {
-      console.error("Error during file processing:", error);
+      console.error("2번째 Error during file processing:", error.message);
       setErrorAlertModalIsOpen(true);
       setUploadStatus(false);
     }
@@ -68,6 +70,7 @@ const FileUploadModal = ({setIsOpen}) => {
   const handleErrorAlertCancel = () => {
     setErrorAlertModalIsOpen(false);
     setIsOpen(false);
+    window.location.reload();
   }
   // Drag and Drop
   const handleDragOver = (e) => {
@@ -107,9 +110,9 @@ const FileUploadModal = ({setIsOpen}) => {
               onClick={() => setIsOpen(false)}
             />
           </div>
-          <div className="self-stretch text-neutral-500 text-sm font-medium font-['Pretendard'] leading-tight">
+          {/* <div className="self-stretch text-neutral-500 text-sm font-medium font-['Pretendard'] leading-tight">
             * 인터넷 자료의 경우 사이트에서 ctr+s를 눌러 html 파일을 저장한 후 업로드해주세요.
-          </div>
+          </div> */}
         </div>
         <input
           type="file"
@@ -128,7 +131,7 @@ const FileUploadModal = ({setIsOpen}) => {
           <div className="self-stretch flex-col justify-start items-center gap-2 flex">
             <FileUp className="w-8 h-8 text-neutral-300" />
             <div className="self-stretch text-center text-neutral-300 text-sm font-medium font-['Pretendard'] leading-none">
-              html, pdf, doc, hwp 첨부 가능
+              {/* html, pdf, doc, hwp 첨부 가능 */}pdf 첨부 가능
             </div>
             <div className="self-stretch text-center text-neutral-300 text-sm font-medium font-['Pretendard'] leading-none">
               클릭하거나 업로드할 파일을 드롭하세요.
