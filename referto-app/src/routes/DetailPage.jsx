@@ -52,6 +52,7 @@ const DetailPage = () => {
     if (index > 1) {
       const newReference = referencesList[index - 1];
       const newReferenceId = newReference["paperInfo_id"];
+
       navigate(`/${assignmentId}/${newReferenceId}`, {
         state: {
           ...location.state,
@@ -67,7 +68,7 @@ const DetailPage = () => {
 
   const handleNextPage = () => {
     if (index < referencesList.length - 1) {
-      const newReference = referencesList[index + 1]; // Correct index logic
+      const newReference = referencesList[index + 1];
       const newReferenceId = newReference["paperInfo_id"];
       navigate(`/${assignmentId}/${newReferenceId}`, {
         state: {
@@ -88,6 +89,7 @@ const DetailPage = () => {
       <ReferenceItemDetail
         index={index}
         referenceId={referenceId}
+        referenceName={referenceName}
         content={content}
         setContent={setContent}
         selectedStyleName={selectedStyleName}
