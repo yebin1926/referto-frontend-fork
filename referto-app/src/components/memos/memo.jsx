@@ -52,7 +52,7 @@ const ReferenceMemo = ({ content, paperId }) => {
           </div>
         </div>
       </div>
-      <div className="self-stretch text-neutral-900 text-base font-medium font-['Pretendard'] leading-normal px-20 py-20">
+      <div className="self-stretch text-neutral-900 text-base font-medium font-['Pretendard'] leading-normal py-2">
         <label htmlFor="content" className="label"></label>
         <textarea
           placeholder="Add your text here"
