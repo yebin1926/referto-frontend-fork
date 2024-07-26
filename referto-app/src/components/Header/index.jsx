@@ -91,18 +91,18 @@ const Header = ( props ) => {
               <Link
                 to="/"
                 onClick={handleSignOut}
-                className=" w-fit ml-5 font-[Pretendard] font-medium text-neutral-50 text-md text-center"
+                className=" w-fit ml-5 font-[Pretendard] font-medium text-neutral-50 text-lg text-center"
               >
-                Sign Out
+                로그아웃
               </Link>
             </div>
           ) : (
             <div className="items-center justify-center flex">
               <div
-                className="relative w-fit font-[Pretendard] font-medium text-neutral-50 text-md text-center tracking-[0] leading-6 whitespace-nowrap cursor-pointer"
+                className="relative w-fit font-[Pretendard] font-medium text-neutral-50 text-lg text-center tracking-[0] leading-6 whitespace-nowrap cursor-pointer"
                 onClick={handleOpenModal}
               >
-                Log In
+                로그인
               </div>
               {isModalOpen && <LogInModal 
                 onClose={handleCloseModal}

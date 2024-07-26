@@ -61,21 +61,21 @@ const SignUpModal = ( props ) => {
 
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-200 z-100">
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-200 z-50">
       <div className="w-[400px] h-100% px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex-col justify-center items-center gap-[7px] inline-flex">
         <div className="self-stretch h-full flex-col justify-start items-center gap-6 flex">
           <div className="self-stretch h-full flex-col justify-start items-center gap-2.5 flex py-8">
             <div className="self-stretch text-center text-neutral-900 text-2xl font-['Pretendard'] font-extrabold leading-9">
-              Sign Up
+              회원가입
             </div>
-            <div className="text-center font-['Pretendard'] font-semibold">
-              Enter your email and password to sign up
+            <div className="text-center font-['Pretendard'] font-md">
+              이메일과 비밀번호를 입력하세요.
             </div>
             <form onSubmit={handleSignUpSubmit}>
               <input
                 required
                 type="email"
-                placeholder="email"
+                placeholder="이메일"
                 id="email"
                 value={signUpData.email}
                 onChange={handleSignUpData}
@@ -84,7 +84,7 @@ const SignUpModal = ( props ) => {
               <input
                 required
                 type="password"
-                placeholder="password"
+                placeholder="비밀번호"
                 id="password"
                 value={signUpData.password}
                 onChange={handleSignUpData}
@@ -94,14 +94,14 @@ const SignUpModal = ( props ) => {
                 type="submit"
                 className="bg-black text-white font-['Pretendard'] my-2 px-4 py-2 rounded-md w-full"
               >
-                SIGN UP
+                회원가입하기
               </button>
             </form>
             <div className="text-center font-['Pretendard'] text-gray-700">
-              Already have an account?
+              이미 계정이 있으신가요?
             </div>
             <button className="underline font-['Pretendard']" onClick={() => navigate('/account/login')}>
-              Log in
+              로그인
             </button>
           </div>
         </div>

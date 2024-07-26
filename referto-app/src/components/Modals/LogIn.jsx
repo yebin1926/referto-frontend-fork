@@ -110,21 +110,21 @@ const LogInModal = (props) => {
   // }
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex flex-column items-center justify-center bg-gray-200 z-100">
+    <div className="fixed top-0 left-0 w-full h-full flex flex-column items-center justify-center bg-gray-200 z-50">
       <div className="w-[400px] h-auto px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex flex-col justify-center items-center gap-[7px]">
         <div className="self-stretch flex flex-col justify-start items-center gap-6">
           <div className="self-stretch flex flex-col justify-start items-center gap-2.5 py-8">
             <div className="self-stretch text-center text-neutral-900 text-2xl font-['Pretendard'] font-extrabold leading-9">
-              Log in
+              로그인
             </div>
-            <div className="text-center font-['Pretendard'] font-semibold">
-              Enter your email and password to log in
+            <div className="text-center font-['Pretendard'] font-md">
+              이메일과 비밀번호를 입력하세요.
             </div>
             <form onSubmit={handleLogInSubmit}>
               <input
                 required
                 type="email"
-                placeholder="Email"
+                placeholder="이메일"
                 id="email"
                 value={logInData.email}
                 onChange={handleLogInData}
@@ -133,7 +133,7 @@ const LogInModal = (props) => {
               <input
                 required
                 type="password"
-                placeholder="Password"
+                placeholder="비밀번호"
                 id="password"
                 value={logInData.password}
                 onChange={handleLogInData}
@@ -143,10 +143,10 @@ const LogInModal = (props) => {
                 type="submit"
                 className="bg-black text-white font-['Pretendard'] my-2 px-4 py-2 rounded-md w-full"
               >
-                LOG IN
+                로그인하기
               </button>
             </form>
-            <button
+            {/* <button
               className="w-full my-2 h-10 bg-green-500 rounded-lg flex justify-center items-center gap-2.5"
               // onClick={handleNaverLogin}
             >
@@ -156,15 +156,15 @@ const LogInModal = (props) => {
                   Log in with Naver
                 </div>
               </div>
-            </button>
+            </button> */}
             <div className="text-center font-['Pretendard'] text-gray-700">
-              Are you new?
+              회원이 아니신가요?
             </div>
             <button
               className="underline font-['Pretendard']"
               onClick={() => navigate("/account/signup")}
             >
-              Sign up
+              회원가입
             </button>
           </div>
         </div>

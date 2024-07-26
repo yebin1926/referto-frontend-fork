@@ -7,6 +7,9 @@ module.exports = {
       screens: {
         'xxl': '1100px',
       },
+      placeholderColor: {
+        'custom-color': '#E5E5E5',
+      },
       keyframes: {
         slideDown: {
           '0%': { transform: 'translateY(-100%)', opacity: 0 },

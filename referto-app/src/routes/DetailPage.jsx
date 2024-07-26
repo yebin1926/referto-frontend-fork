@@ -86,7 +86,7 @@ const DetailPage = () => {
             {paperUrl ? (
               <PDFViewer pdfUrl={paperUrl} />
             ) : (
-              <div>Loading PDF...</div>
+              <div>파일 로딩 중...</div>
             )}
           </div>
         </div>

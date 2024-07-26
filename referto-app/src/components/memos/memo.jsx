@@ -53,7 +53,7 @@ const ReferenceMemo = ({ content, paperId }) => {
         <div className="grow shrink basis-0 h-100% flex items-center gap-[7px]">
           <NotepadText className="w-6 h-6 relative" />
           <div className="text-neutral-700 text-lg font-semibold font-['Pretendard'] leading-[27px]">
-            Memo
+            메모
           </div>
         </div>
         <div>{isSaving ? "저장 중..." : "저장 됨"}</div>
@@ -61,10 +61,10 @@ const ReferenceMemo = ({ content, paperId }) => {
       <div className="self-stretch text-neutral-900 text-base font-medium font-['Pretendard'] leading-normal py-2">
         <label htmlFor="content" className="label"></label>
         <textarea
-          placeholder="Add your text here"
+          placeholder="여기에 필요한 메모를 작성하세요. 복사 시 참고문헌이 함께 복사됩니다."
           defaultValue={memoContent}
           onChange={handleContentChange}
-          className="border-2 border-neutral-300 rounded-md w-full h-full px-1 py-1 focus:outline-none focus:border-neutral-500 resize-none"
+          className="font-[Pretendard] font-md border-2 border-neutral-300 rounded-md w-full h-full px-2 py-2 focus:outline-none focus:border-neutral-500 resize-none"
           rows="10"
           cols="40"
         />
@@ -86,7 +86,7 @@ const ReferenceMemo = ({ content, paperId }) => {
           >
             <Copy className="w-[18px] h-[18px] relative text-white" />
             <div className="text-right text-white text-lg font-medium font-['Pretendard'] leading-normal">
-              Copy
+              복사
             </div>
           </button>
         </div>
