@@ -39,7 +39,9 @@ const FileUploadModal = ({setIsOpen}) => {
 
         try {
           const response_paper = await uploadPaper(formData, config);
+          console.log("response_paper complete");
           const response_paperinfo = await uploadPaperInfo(response_paper.data.paper_id);
+          console.log("response_paperinfo complete");
           await createMemo(response_paper.data.paper_id);
           console.log('1번째 try 에러없음');
         } catch (error) {
