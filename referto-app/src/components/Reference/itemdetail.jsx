@@ -103,8 +103,8 @@ const ReferenceItemDetail = ({
 
   return (
     <div className="w-full h-100% py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
-      <div className="p-4">
-        {/* <ChevronLeft onClick={handlePrevPage} /> */}
+      <div className="p-4 cursor-pointer">
+        <ChevronLeft className="text-neutral-700 w-6 h-6" onClick={handlePrevPage} />
       </div>
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
         <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
@@ -149,8 +149,8 @@ const ReferenceItemDetail = ({
           onClick={() => setDeleteModalIsOpen(true)}
         />
       </div>
-      <div className="p-6">
-        {/* <ChevronRight onClick={handleNextPage} /> */}
+      <div className="p-6 cursor-pointer">
+        <ChevronRight className="text-neutral-700 h-6 w-6" onClick={handleNextPage} />
       </div>
       {deleteModalIsOpen && (
         <DeleteConfirmModal

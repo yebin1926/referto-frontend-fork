@@ -9,14 +9,14 @@ const ReferenceMemo = ({ content, paperId }) => {
   const [copySuccessModalIsOpen, setCopySuccessModalIsOpen] = useState(false);
   //const [saveSuccessModalIsOpen, setSaveSuccessModalIsOpen] = useState(false);
 
-  useEffect(() => {
-    const getMemoAPI = async () => {
-      const memo = await getMemo(paperId);
-      setMemoContent(memo.content);
-      console.log(memo);
-    };
-    getMemoAPI();
-  }, [paperId]);
+  // useEffect(() => {
+  //   const getMemoAPI = async () => {
+  //     const memo = await getMemo(paperId);
+  //     setMemoContent(memo.content);
+  //     console.log(memo);
+  //   };
+  //   getMemoAPI();
+  // }, [paperId]);
 
   const handleContentChange = async (e) => {
     setIsSaving(true);
