@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import ReferenceItemDetail from "../components/Reference/itemdetail";
 import { useLocation } from "react-router-dom";
 import PDFViewer from "../components/PDFView";
@@ -16,6 +16,7 @@ const DetailPage = () => {
     assignmentId,
     paperId,
     selectedStyleName,
+    referencesList,
   } = location.state || {};
 
   const [paperUrl, setPaperUrl] = useState(null);
@@ -41,11 +42,29 @@ const DetailPage = () => {
     const handleResize = () => {
       setIsScreenSmall(window.innerWidth < 1100);
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handlePrevPage = () => {
+    reference = referencesList[index - 1];
+    referenceId = reference["paperInfo_id"];
+    referenceName = reference[selectedStyleName];
+    setContent(referenceName);
+    paperId = reference["paper"];
+    window.location.reload();
+  };
+
+  const handleNextPage = () => {
+    reference = referencesList[index + 1];
+    referenceId = reference["paperInfo_id"];
+    referenceName = reference[selectedStyleName];
+    setContent(referenceName);
+    paperId = reference["paper"];
+    window.location.reload();
+  };
 
   return (
     <div className="w-full h-[959px] px-[100px] pt-[50px] pb-[100px] flex-col justify-start items-center inline-flex">
@@ -58,6 +77,8 @@ const DetailPage = () => {
         selectedStyleName={selectedStyleName}
         assignmentId={assignmentId}
         paperId={paperId}
+        handlePrevPage={handlePrevPage}
+        handleNextPage={handleNextPage}
       />
       <div className="w-full h-full justify-start items-start inline-flex">
         <div className="w-full h-full p-5 flex-row justify-start items-start inline-flex">

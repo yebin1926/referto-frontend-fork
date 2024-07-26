@@ -23,6 +23,8 @@ const ReferenceItemDetail = ({
   selectedStyleName,
   //assignmentId,
   paperId,
+  handlePrevPage,
+  handleNextPage,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
@@ -97,14 +99,6 @@ const ReferenceItemDetail = ({
     if (event.key === "Enter") {
       handleContentUpdate();
     }
-  };
-
-  const handlePrevPage = () => {
-    //
-  };
-
-  const handleNextPage = () => {
-    //
   };
 
   return (
