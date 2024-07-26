@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NotepadText, Save, Copy } from "lucide-react";
+import { NotepadText, Copy } from "lucide-react";
 import { getMemo, updateMemo } from "../../apis/api";
 import SuccessModal from "../Modals/SuccessModal";
 
@@ -53,7 +53,7 @@ const ReferenceMemo = ({ content, paperId }) => {
         <div className="grow shrink basis-0 h-100% flex items-center gap-[7px]">
           <NotepadText className="w-6 h-6 relative" />
           <div className="text-neutral-700 text-lg font-semibold font-['Pretendard'] leading-[27px]">
-            Memo 
+            Memo
           </div>
         </div>
         <div>{isSaving ? "저장 중..." : "저장 됨"}</div>
