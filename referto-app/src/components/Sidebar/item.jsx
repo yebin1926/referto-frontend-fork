@@ -184,13 +184,13 @@ const SidebarItem = ({
      />}
       {editAlertModalIsOpen && <AlertModal 
         icon={alertTriangle}
-        color={"amber-500"}
+        color={"#F59E0B"}
         handleAlertCancel={handleEditAlertCancel}
         text={"최소 1자 이상이어야 합니다."}
      />}
       {deleteAlertModalIsOpen && <AlertModal 
         icon={alertTriangle}
-        color={"amber-500"}
+        color={"#F59E0B"}
         handleAlertCancel={handleDeleteAlertCancel}
         text={"하나 남은 과제는 삭제할 수 없습니다."}
      />}
