@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ReferenceItemDetail from "../components/Reference/itemdetail";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PDFViewer from "../components/PDFView";
 import ReferenceMemo from "../components/memos/memo";
 import { getPaper } from "../apis/api";
@@ -11,31 +11,31 @@ const DetailPage = () => {
   const {
     index,
     reference,
+    selectedStyleName,
     referenceId,
     referenceName,
     assignmentId,
     paperId,
-    selectedStyleName,
     referencesList,
   } = location.state || {};
 
   const [paperUrl, setPaperUrl] = useState(null);
   const [content, setContent] = useState(referenceName);
   const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 1100);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPaper = async () => {
       try {
-        const paperBlobUrl = await getPaper(paperId);
-        setPaperUrl(paperBlobUrl);
+        if (paperId) {
+          const paperBlobUrl = await getPaper(paperId);
+          setPaperUrl(paperBlobUrl);
+        }
       } catch (error) {
         console.error("Error fetching paper:", error);
       }
     };
-
-    if (paperId) {
-      fetchPaper();
-    }
+    fetchPaper();
   }, [paperId]);
 
   useEffect(() => {
@@ -49,21 +49,37 @@ const DetailPage = () => {
   }, []);
 
   const handlePrevPage = () => {
-    reference = referencesList[index - 1];
-    referenceId = reference["paperInfo_id"];
-    referenceName = reference[selectedStyleName];
-    setContent(referenceName);
-    paperId = reference["paper"];
-    window.location.reload();
+    if (index > 1) {
+      const newReference = referencesList[index - 1];
+      const newReferenceId = newReference["paperInfo_id"];
+      navigate(`/${assignmentId}/${newReferenceId}`, {
+        state: {
+          ...location.state,
+          index: index - 1,
+          reference: newReference,
+          referenceId: newReferenceId,
+          referenceName: newReference[selectedStyleName],
+          paperId: newReference["paper"],
+        },
+      });
+    }
   };
 
   const handleNextPage = () => {
-    reference = referencesList[index + 1];
-    referenceId = reference["paperInfo_id"];
-    referenceName = reference[selectedStyleName];
-    setContent(referenceName);
-    paperId = reference["paper"];
-    window.location.reload();
+    if (index < referencesList.length - 1) {
+      const newReference = referencesList[index + 1]; // Correct index logic
+      const newReferenceId = newReference["paperInfo_id"];
+      navigate(`/${assignmentId}/${newReferenceId}`, {
+        state: {
+          ...location.state,
+          index: index + 1,
+          reference: newReference,
+          referenceId: newReferenceId,
+          referenceName: newReference[selectedStyleName],
+          paperId: newReference["paper"],
+        },
+      });
+    }
   };
 
   return (

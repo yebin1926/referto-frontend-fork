@@ -99,9 +99,9 @@ const ReferenceItem = ({
   const handleClickView = () => {
     navigate(`/${assignmentId}/${referenceId}`, {
       state: {
+        index,
         reference,
         selectedStyleName,
-        index,
         referenceId,
         referenceName,
         assignmentId,

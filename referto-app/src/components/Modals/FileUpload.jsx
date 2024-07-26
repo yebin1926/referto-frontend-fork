@@ -23,7 +23,7 @@ const FileUploadModal = ({setIsOpen}) => {
   const handleFileChange = async (files) => {
     if (!files || files.length === 0) return;
 
-    setUploadStatus(true); //왜 안되는겨!!!!!
+    setUploadStatus(true);
     setIsVisible(false);
     const config = {
       headers: {
