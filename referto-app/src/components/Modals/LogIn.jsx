@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { signIn, getAssignments, getUser } from "../../apis/api";
-import Naver from "../../assets/images/Naver.png";
+import Naver from "../../assets/images/Naver.png"
 import { useNavigate } from "react-router-dom";
+import AlertModal from "./AlertModal";
+import alertCircle from "../../assets/images/alert-circle.svg";
 // import logo from "../../assets/images/logo.svg"
 // import { getCookie } from "../../utils/cookie";
 // import SignUpModal from "../Modals/SignUp";
 // import LogInSuccessModal from "./LogInSuccessModal";
 
 const LogInModal = (props) => {
-  // const [showLogIn, setShowLogIn] = useState(true);
+  const inputRef = useRef(null);
+  const [errorAlertModalIsOpen, setErrorAlertModalIsOpen] = useState(false);
+  // const [showLogIn, ] = useState(true);
   // const [showSignUp, setShowSignUp] = useState(false);
   // const [logInSuccessModalIsOpen, setLogInSuccessModalIsOpen] = useState(false);
   const { isUserLoggedIn, setIsUserLoggedIn } = props;
   const navigate = useNavigate();
-
+  const handleErrorAlertCancel = () => {
+    setErrorAlertModalIsOpen(false);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    };
+  };
   // const openLogInModal = () => {
   //   console.log("openLogIn");
   //   setShowLogIn(true);
@@ -90,7 +99,7 @@ const LogInModal = (props) => {
       handleRedirect();
     } catch (error) {
       console.error("Error logging in:", error.message);
-      alert("이메일 주소와 비밀번호를 확인해주세요.");
+      setErrorAlertModalIsOpen(true);
     }
   };
 
@@ -128,6 +137,7 @@ const LogInModal = (props) => {
                 id="email"
                 value={logInData.email}
                 onChange={handleLogInData}
+                ref={inputRef}
                 className="font-['Pretendard'] input border-2 border-neutral-300 focus:outline-none focus:border-neutral-500 my-2 px-4 py-2 rounded-md w-full"
               />
               <input
@@ -169,6 +179,12 @@ const LogInModal = (props) => {
           </div>
         </div>
       </div>
+      {errorAlertModalIsOpen && <AlertModal 
+        icon={alertCircle}
+        color={"#EF4444"}
+        handleAlertCancel={handleErrorAlertCancel}
+        text={"이메일 주소와 비밀번호를 확인해주세요."}
+     />}
     </div>
   );
 };

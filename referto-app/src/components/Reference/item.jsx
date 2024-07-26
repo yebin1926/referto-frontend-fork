@@ -37,6 +37,13 @@ const ReferenceItem = ({
     }
   }, [content, isEdit]);
 
+  useEffect(() => {
+    if (isEdit && inputRef.current) {  
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEdit]);
+
   const handleEditContent = () => {
     setIsEdit(!isEdit);
   };
@@ -57,7 +64,7 @@ const ReferenceItem = ({
     await updatePaperInfo(referenceId, newContent);
     setIsEdit(!isEdit);
     const updatedReferencesList = [...referencesList];
-    updatedReferencesList[index][selectedStyleName] = content;
+    updatedReferencesList[index-1][selectedStyleName] = content;
     setReferencesList(updatedReferencesList);
   };
 
@@ -105,9 +112,22 @@ const ReferenceItem = ({
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
+      event.preventDefault();
       handleContentUpdate();
     }
   };
+
+  useEffect(() => {
+    const handleClickOutsideInput = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        handleContentUpdate();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutsideInput);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideInput);
+    }
+  },);
 
   return (
     <div className="w-full h-100% py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">

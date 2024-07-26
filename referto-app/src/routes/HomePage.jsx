@@ -8,6 +8,7 @@ import BlockMobileModal from "../components/Modals/BlockMobile.jsx";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPaperInfos, getAssignment } from "../apis/api.js";
+// document.body.classList.add('overflow-hidden');
 
 const HomePage = (props) => {
   const [referencesList, setReferencesList] = useState([]);
