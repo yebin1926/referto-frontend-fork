@@ -48,7 +48,7 @@ const ReferenceMemo = ({ content, paperId }) => {
         <div className="grow shrink basis-0 h-100% justify-start items-center gap-[7px] flex">
           <NotepadText className="w-6 h-6 relative" />
           <div className="text-neutral-700 text-lg font-semibold font-['Pretendard'] leading-[27px]">
-            Memo
+            Memo 
           </div>
         </div>
       </div>
