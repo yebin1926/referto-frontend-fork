@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { signIn, getAssignments, getUser } from "../../apis/api";
 import Naver from "../../assets/images/Naver.png";
 import { useNavigate } from "react-router-dom";

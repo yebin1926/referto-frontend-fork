@@ -45,7 +45,7 @@ const SignUpModal = ( props ) => {
     e.preventDefault();
     try {
       await signUp(signUpData);
-      // onClose();
+      // onClose(); 
       setIsUserLoggedIn(true)
     } catch (error) {
       console.error('Error signing up:', error);
