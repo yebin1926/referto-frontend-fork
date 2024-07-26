@@ -40,10 +40,12 @@ const FileUploadModal = ({ setIsOpen }) => {
 
         try {
           const response_paper = await uploadPaper(formData, config);
+          console.log("response_paper api successful");
           const response_paperinfo = await uploadPaperInfo(
             response_paper.data.paper_id
           );
           //await createMemo(response_paper.data.paper_id);
+          console.log("paperinfo api successful");
         } catch (error) {
           console.error("1번째 Error during file processing:", error.message);
           setErrorAlertModalIsOpen(true);
