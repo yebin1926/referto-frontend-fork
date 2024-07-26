@@ -175,7 +175,7 @@ const ReferenceItem = ({
       />}
       {editAlertModalIsOpen && <AlertModal 
         icon={alertTriangle}
-        color={"amber-500"}
+        color={"#F59E0B"}
         handleAlertCancel={handleEditAlertCancel}
         text={"최소 1자 이상이어야 합니다."}
       />}

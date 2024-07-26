@@ -4,12 +4,15 @@ import { createMemo, uploadPaper, uploadPaperInfo } from "../../apis/api";
 import { useParams } from "react-router-dom";
 import Loading from "./loading";
 import AlertModal from "./AlertModal";
+import SuccessModal from "./SuccessModal";
 import alertCircle from "../../assets/images/alert-circle.svg";
 
 const FileUploadModal = ({setIsOpen}) => {
   const [uploadStatus, setUploadStatus] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const [errorAlertModalIsOpen, setErrorAlertModalIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [uploadSuccessModalIsOpen, setUploadSuccessModalIsOpen] = useState(false);
   const fileInputRef = useRef(null);
   const { assignmentId } = useParams();
 
@@ -21,9 +24,7 @@ const FileUploadModal = ({setIsOpen}) => {
     if (!files || files.length === 0) return;
 
     setUploadStatus(true); //왜 안되는겨!!!!!
-    // console.log('uploadStatus:', uploadStatus);
-    setIsOpen(false);
-
+    setIsVisible(false);
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -58,10 +59,15 @@ const FileUploadModal = ({setIsOpen}) => {
       setErrorAlertModalIsOpen(true);
       setUploadStatus(false);
     }
+    setUploadSuccessModalIsOpen(true);
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 1000);
   };
 
   const handleErrorAlertCancel = () => {
     setErrorAlertModalIsOpen(false);
+    setIsOpen(false);
   }
   // Drag and Drop
   const handleDragOver = (e) => {
@@ -89,7 +95,7 @@ const FileUploadModal = ({setIsOpen}) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overflow-hidden">
       <div
-        className="w-[600px] h-auto px-8 py-8 bg-white rounded-2xl shadow flex-col justify-start items-start gap-7 inline-flex"
+        className={`w-[600px] h-auto px-8 py-8 bg-white rounded-2xl shadow flex-col justify-start items-start gap-7 inline-flex ${!isVisible ? 'hidden' : ''}`}
       >
         <div className="h-auto self-stretch flex-col justify-center items-start gap-2 inline-flex">
           <div className="self-stretch justify-between items-start inline-flex">
@@ -136,6 +142,10 @@ const FileUploadModal = ({setIsOpen}) => {
         color={"red-500"}
         handleAlertCancel={handleErrorAlertCancel}
         text={"파일 업로드 중 에러가 발생했습니다. 다시 시도해주세요."}
+     />}
+     {uploadSuccessModalIsOpen && <SuccessModal 
+        text={"파일 업로드 성공!"}
+        setModalOpen={setUploadSuccessModalIsOpen}
      />}
     </div>
   );
