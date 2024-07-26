@@ -12,7 +12,7 @@ const ReferenceItem = ({
   reference,
   selectedStyleName,
   index,
-  referencesList, 
+  referencesList,
   setReferencesList,
 }) => {
   const referenceId = reference["paperInfo_id"];
@@ -32,7 +32,7 @@ const ReferenceItem = ({
 
   useEffect(() => {
     if (isEdit && inputRef.current) {
-      inputRef.current.style.height = '10px';
+      inputRef.current.style.height = "10px";
       inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
     }
   }, [content, isEdit]);
@@ -106,6 +106,7 @@ const ReferenceItem = ({
         referenceName,
         assignmentId,
         paperId,
+        referencesList,
       },
     });
   };
@@ -188,21 +189,27 @@ const ReferenceItem = ({
           onClick={() => setDeleteModalIsOpen(true)}
         />
       </Link>
-      {deleteModalIsOpen && <DeleteConfirmModal 
-        deleteParams={paperId}
-        handleDelete={handleReferenceDelete}
-        handleDeleteCancel={handleReferenceDeleteCancel}
-      />}
-      {editAlertModalIsOpen && <AlertModal 
-        icon={alertTriangle}
-        color={"#F59E0B"}
-        handleAlertCancel={handleEditAlertCancel}
-        text={"최소 1자 이상이어야 합니다."}
-      />}
-      {copySuccessModalIsOpen && <SuccessModal 
-        text={"클립보드에 복사되었습니다."}
-        setModalOpen={setCopySuccessModalIsOpen}
-      />}
+      {deleteModalIsOpen && (
+        <DeleteConfirmModal
+          deleteParams={paperId}
+          handleDelete={handleReferenceDelete}
+          handleDeleteCancel={handleReferenceDeleteCancel}
+        />
+      )}
+      {editAlertModalIsOpen && (
+        <AlertModal
+          icon={alertTriangle}
+          color={"#F59E0B"}
+          handleAlertCancel={handleEditAlertCancel}
+          text={"최소 1자 이상이어야 합니다."}
+        />
+      )}
+      {copySuccessModalIsOpen && (
+        <SuccessModal
+          text={"클립보드에 복사되었습니다."}
+          setModalOpen={setCopySuccessModalIsOpen}
+        />
+      )}
     </div>
   );
 };

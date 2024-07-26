@@ -71,7 +71,7 @@ const SignUpModal = ( props ) => {
 
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-200">
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-200 z-100">
       <div className="w-[400px] h-100% px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex-col justify-center items-center gap-[7px] inline-flex">
         <div className="self-stretch h-full flex-col justify-start items-center gap-6 flex">
           <div className="self-stretch h-full flex-col justify-start items-center gap-2.5 flex py-8">
