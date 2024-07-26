@@ -131,15 +131,15 @@ const SidebarItem = ({
   return (
     <div
       id="item"
-      className="rounded flex items-center justify-start gap-1.5 px-3.5 py-1.5 self-stretch w-full flex-[0_0_auto] overflow-hidden"
+      className="w-full rounded flex items-center justify-start gap-1.5 px-3.5 py-1.5 self-stretch w-full flex-[0_0_auto] overflow-hidden"
     >
       {selectedAssignmentId === assignmentId ? (
-        <div className="bg-neutral-300 rounded-[20px] flex items-center justify-start gap-1.5 px-3.5 py-2 self-stretch w-full flex-[0_0_auto] overflow-hidden">
+        <div className="w-100% bg-neutral-300 rounded-[20px] flex items-center justify-start gap-1.5 px-3.5 py-2 self-stretch w-full flex-[0_0_auto] overflow-hidden">
           <img alt="dot" src={dotDark} className="h-1.5 w-1.5 flex-none" />
-          <div className="font-medium text-neutral-700 leading-6 text-lg tracking-0 truncate">
+          <div className="w-[180px] font-medium text-neutral-700 leading-6 text-lg tracking-0 truncate">
           {isEdit ? (
             <input
-              className="border text-neutral-700 w-full"
+              className="border-2 border-neutral-300 rounded-md w-full h-100% px-1 focus:outline-none focus:border-neutral-500"
               value={onChangeValue}
               onChange={(e) => setOnChangeValue(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -162,10 +162,10 @@ const SidebarItem = ({
       ) : (
         <Link
           to={`/${assignmentId}`}
-          className="rounded flex items-center justify-start gap-1.5 px-3.5 py-2 w-full truncate"
+          className="w-100% rounded flex items-center justify-start gap-1.5 px-3.5 py-2 w-full truncate"
         >
           <img alt="dot" src={dotLight} className="h-1.5 w-1.5 flex-none" />
-          <div className="font-medium text-neutral-400 leading-6 text-lg tracking-0 truncate">
+          <div className="w-[180px] font-medium text-neutral-400 leading-6 text-lg tracking-0 truncate">
             {content}
           </div>
         </Link>
@@ -184,13 +184,13 @@ const SidebarItem = ({
      />}
       {editAlertModalIsOpen && <AlertModal 
         icon={alertTriangle}
-        color={"amber-500"}
+        color={"#F59E0B"}
         handleAlertCancel={handleEditAlertCancel}
         text={"최소 1자 이상이어야 합니다."}
      />}
       {deleteAlertModalIsOpen && <AlertModal 
         icon={alertTriangle}
-        color={"amber-500"}
+        color={"#F59E0B"}
         handleAlertCancel={handleDeleteAlertCancel}
         text={"하나 남은 과제는 삭제할 수 없습니다."}
      />}

@@ -1,22 +1,12 @@
+import React, { useState, useEffect } from 'react';
 import ReferenceItemDetail from "../components/Reference/itemdetail";
-import { useParams, useLocation } from "react-router-dom";
-// import references from "../data/references";
+import { useLocation } from "react-router-dom";
 import PDFViewer from "../components/PDFView";
-import PDF1 from "../data/PDFs/PDF1.pdf";
 import ReferenceMemo from "../components/memos/memo";
 import { getPaper } from "../apis/api";
-import { useState, useEffect } from "react";
-import { PackagePlus } from "lucide-react";
+import BlockMobileModal from "../components/Modals/BlockMobile.jsx";
 
-const DetailPage = (
-  {
-    // handleReferenceDelete,
-    // handleReferenceUpdate,
-    // findIndexofReference,
-    // selectedStyleName,
-  }
-) => {
-  // const { assignmentId, referenceId } = useParams();
+const DetailPage = () => {
   const location = useLocation();
   const {
     index,
@@ -28,9 +18,9 @@ const DetailPage = (
     selectedStyleName,
   } = location.state || {};
 
-
   const [paperUrl, setPaperUrl] = useState(null);
   const [content, setContent] = useState(referenceName);
+  const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 1100);
 
   useEffect(() => {
     const fetchPaper = async () => {
@@ -47,8 +37,19 @@ const DetailPage = (
     }
   }, [paperId]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreenSmall(window.innerWidth < 1100);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div className="w-full h-[959px] px-[100px] pt-[50px] pb-[100px] flex-col justify-start items-center inline-flex">
+      {isScreenSmall && <BlockMobileModal />}
       <ReferenceItemDetail
         index={index}
         referenceId={referenceId}
@@ -70,7 +71,7 @@ const DetailPage = (
         </div>
 
         <div className="w-[413px] h-full px-6 py-5 border-neutral-400 flex-col justify-start items-center gap-[15px] inline-flex">
-          <ReferenceMemo paperId={paperId} content={content}/>
+          <ReferenceMemo paperId={paperId} content={content} />
         </div>
       </div>
     </div>

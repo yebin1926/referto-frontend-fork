@@ -25,8 +25,8 @@ const ReferenceItemDetail = ({
 
   useEffect(() => {
     if (isEdit && inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
+      inputRef.current.style.height = '10px';
+      inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
     }
   }, [isEdit]);
 
@@ -98,18 +98,18 @@ const ReferenceItemDetail = ({
           {index}
         </div>
       </div>
-      <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex">
-        <div className="grow shrink basis-0 text-neutral-700 text-md font-medium font-['Pretendard'] leading-[27px]">
+      <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex overflow-hidden">
+        <div className="grow shrink basis-0 text-neutral-700 text-md font-medium font-['Pretendard'] leading-[27px] overflow-hidden">
           {isEdit ? (
             <textarea
               value={content}
               onChange={handleChange}
-              className="border border-gray-300 rounded-m w-full"
+              className="border-2 border-neutral-300 rounded-md w-full h-full px-1 py-1 focus:outline-none focus:border-neutral-500 resize-none"
               ref={inputRef}
               onKeyDown={handleKeyDown}
             />
           ) : (
-            content
+            <div className="break-words whitespace-pre-wrap">{content}</div>
           )}
         </div>
         <div className="w-[83px] self-stretch px-2.5 justify-start items-center gap-[15px] flex cursor-pointer">
@@ -143,7 +143,7 @@ const ReferenceItemDetail = ({
         />}
       {editAlertModalIsOpen && <AlertModal 
         icon={alertTriangle}
-        color={"amber-500"}
+        color={"#F59E0B"}
         handleAlertCancel={handleEditAlertCancel}
         text={"최소 1자 이상이어야 합니다."}
      />}

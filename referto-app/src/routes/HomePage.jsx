@@ -4,29 +4,18 @@ import SidebarList from "../components/Sidebar/list";
 import FileUploadModal from "../components/Modals/FileUpload";
 import SuccessModal from "../components/Modals/SuccessModal";
 import StyleList from "../components/Style/list";
+import BlockMobileModal from "../components/Modals/BlockMobile.jsx";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPaperInfos, getAssignment } from "../apis/api.js";
 
-const HomePage = (
-  // referencesList,
-  // setReferencesList,
-  // handleReferenceDelete,
-  // handleReferenceUpdate,
-  // getAllReferences,
-  // findIndexofReference,
-  // isUserLoggedIn,
-  // selectedStyleName,
-  // setSelectedStyleName,
-  props
-) => {
+const HomePage = (props) => {
   const [referencesList, setReferencesList] = useState([]);
   const [selectedStyleName, setSelectedStyleName] = useState("APA");
   const [currAssignment, setCurrAssignment] = useState([]);
   const [copySuccessModalIsOpen, setCopySuccessModalIsOpen] = useState(false);
-  const { isUserLoggedIn } = props;
-  // const [selectedStyleId, setSelectedStyleId] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
+  const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 1100);
 
   const { assignmentId } = useParams();
   const selectedAssignmentId = Number(assignmentId);
@@ -38,6 +27,7 @@ const HomePage = (
         setReferencesList(references);
       };
       getReferencesAPI();
+      
       const getAssignmentAPI = async () => {
         const assignment = await getAssignment(assignmentId);
         setCurrAssignment(assignment);
@@ -46,6 +36,16 @@ const HomePage = (
       getAssignmentAPI();
     }
   }, [assignmentId]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreenSmall(window.innerWidth < 1100);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleCopyAll = () => {
     const referencesListText = [];
@@ -65,11 +65,11 @@ const HomePage = (
 
   return (
     <div className="w-full h-screen flex flex-row justify-between">
-      <div className="flex flex-col w-[260px] h-screen items-start gap-[50px] px-[20px] py-[30px] bg-neutral-200">
-        <SidebarList isUserLoggedIn={isUserLoggedIn} />
+      <div className="flex flex-col w-100% h-screen items-start gap-[50px] pl-[20px] pr-[10px] py-[30px] bg-neutral-200 overflow-hidden">
+        <SidebarList isUserLoggedIn={props.isUserLoggedIn} />
       </div>
-      <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
-        <div className="font-['Pretendard'] font-black text-3xl">
+      <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex overflow-auto">
+        <div className="font-['Pretendard'] font-neutral-700 font-bold text-3xl text-left w-full">
           {currAssignment.name}
         </div>
         <div className="self-stretch justify-end items-center inline-flex">
@@ -80,9 +80,7 @@ const HomePage = (
           />
           <div
             className="px-3 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer"
-            onClick={() => {
-              setIsOpen(true);
-            }}
+            onClick={() => setIsOpen(true)}
           >
             <div className="justify-center items-center gap-2.5 flex">
               <Upload className="text-white selection:w-[18px] h-[18px] relative" />
@@ -115,9 +113,6 @@ const HomePage = (
           <ReferenceList
             referencesList={referencesList}
             setReferencesList={setReferencesList}
-            // handleReferenceDelete={handleReferenceDelete}
-            // handleReferenceUpdate={handleReferenceUpdate}
-            // findIndexofReference={findIndexofReference}
             selectedStyleName={selectedStyleName}
           />
         </div>
@@ -128,6 +123,7 @@ const HomePage = (
           setModalOpen={setCopySuccessModalIsOpen}
         />
       )}
+      {isScreenSmall && <BlockMobileModal />}
     </div>
   );
 };
