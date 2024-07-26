@@ -78,9 +78,9 @@ const SidebarList = (props) => {
   }
 
   return (
-    <div className="w-[220px] h-screen">
+    <div className="w-full h-screen">
       <div
-        className="px-2 py-2 rounded-md justify-center items-center gap-2.5 flex">
+        className="w-full px-2 py-2 rounded-md justify-center items-center gap-2.5 flex">
         <div className="text-left text-lg font-semibold font-['Pretendard'] leading-normal py-5">
           My Assignments
         </div>
@@ -88,7 +88,7 @@ const SidebarList = (props) => {
           <Plus className="selection:w-[18px] h-[18px] relative cursor-pointer" onClick={addAssignment}/>
         </div>
       </div>
-      <div className="w-[220px] h-[650px] overflow-auto">
+      <div className="w-full h-[650px] overflow-auto">
         {assignmentsList && (
         assignmentsList.map((assignment) => (
           <SidebarItem
