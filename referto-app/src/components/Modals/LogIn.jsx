@@ -128,7 +128,7 @@ const LogInModal = (props) => {
                 id="email"
                 value={logInData.email}
                 onChange={handleLogInData}
-                className="font-['Pretendard'] input border my-2 px-4 py-2 rounded-md w-full"
+                className="font-['Pretendard'] input border-2 border-neutral-300 focus:outline-none focus:border-neutral-500 my-2 px-4 py-2 rounded-md w-full"
               />
               <input
                 required
@@ -137,7 +137,7 @@ const LogInModal = (props) => {
                 id="password"
                 value={logInData.password}
                 onChange={handleLogInData}
-                className="font-['Pretendard'] input border my-2 px-4 py-2 rounded-md w-full"
+                className="font-['Pretendard'] input border-2 border-neutral-300 focus:outline-none focus:border-neutral-500 my-2 px-4 py-2 rounded-md w-full"
               />
               <button
                 type="submit"

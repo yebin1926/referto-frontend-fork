@@ -11,85 +11,94 @@ import SignUpModal from "./components/Modals/SignUp";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [redirectTo, setRedirectTo] = useState(null);
-
-  // Note: useNavigate should be used within a BrowserRouter context
-  const navigate = useNavigate();
+  const [firstAssignmentId, setFirstAssignmentId] = useState('');
 
   useEffect(() => {
-    const handleRedirect = async () => {
+    const fetchData = async () => {
       try {
-        const currUser = await getUser();
-        setIsUserLoggedIn(true);
-        
-        const fetchAssignments = async (email) => {
-          try {
-            const assignments = await getAssignments(email);
-            return assignments[0]?.["assignment_id"];
-          } catch (error) {
-            console.error("Error fetching assignments:", error);
-          }
-        };
-
         const user = await getUser();
-        const firstAssignmentId = await fetchAssignments(user.email);
-
-        if (firstAssignmentId) {
-          setRedirectTo(`/${firstAssignmentId}`);
-        } else {
-          console.error("First assignment ID is null");
+        setIsUserLoggedIn(true);
+        if (user && user.email) {
+          const assignments = await getAssignments(user.email);
+          if (assignments.length > 0) {
+            setFirstAssignmentId(assignments[0]["assignment_id"]);
+          }
         }
-
       } catch (error) {
         setIsUserLoggedIn(false);
       }
     };
-
-    handleRedirect();
+    fetchData();
   }, []);
-
-  useEffect(() => {
-    if (redirectTo) {
-      navigate(redirectTo);
-    }
-  }, [redirectTo, navigate]);
 
   return (
     <div className="App">
-      <Header
-        isUserLoggedIn={isUserLoggedIn}
-        setIsUserLoggedIn={setIsUserLoggedIn}
-      />
-      <Routes>
-        <Route
-          path="/:assignmentId/:referenceId"
-          element={<DetailPage />}
+      <BrowserRouter>
+        <Header
+          isUserLoggedIn={isUserLoggedIn}
+          setIsUserLoggedIn={setIsUserLoggedIn}
         />
-        <Route
-          path="/:assignmentId"
-          element={<HomePage isUserLoggedIn={isUserLoggedIn} />}
-        />
-        <Route
-          path="/account/login"
-          element={<LogInModal isUserLoggedIn={isUserLoggedIn} setIsUserLoggedIn={setIsUserLoggedIn} />}
-        />
-        <Route
-          path="/account/signup"
-          element={<SignUpModal isUserLoggedIn={isUserLoggedIn} setIsUserLoggedIn={setIsUserLoggedIn} />}
-        />
-        <Route
-          path="/"
-          element={<LandingPage isUserLoggedIn={isUserLoggedIn} setIsUserLoggedIn={setIsUserLoggedIn} />}
-        />
-      </Routes>
+        <Routes>
+          <Route
+            path="/:assignmentId/:referenceId"
+            element={
+              <DetailPage
+                // referencesList={referencesList}
+                // handleReferenceDelete={handleReferenceDelete}
+                // handleReferenceUpdate={handleReferenceUpdate}
+                // findIndexofReference={findIndexofReference}
+                // selectedStyleName={selectedStyleName}
+              />
+            }
+          />
+          <Route
+            path="/:assignmentId"
+            element={
+              <HomePage
+                // referencesList={referencesList}
+                // setReferencesList={setReferencesList}
+                // handleReferenceDelete={handleReferenceDelete}
+                // handleReferenceUpdate={handleReferenceUpdate}
+                // getAllReferences={getAllReferences}
+                // findIndexofReference={findIndexofReference}
+                isUserLoggedIn={isUserLoggedIn}
+                // selectedStyleName={selectedStyleName}
+                // setSelectedStyleName={setSelectedStyleName}
+              />
+            }
+          />
+          <Route
+            path="/account/login"
+            element={
+              <LogInModal
+                isUserLoggedIn={isUserLoggedIn}
+                setIsUserLoggedIn={setIsUserLoggedIn}
+              />
+            }
+          />
+          <Route
+            path="/account/signup"
+            element={
+              <SignUpModal
+                isUserLoggedIn={isUserLoggedIn}
+                setIsUserLoggedIn={setIsUserLoggedIn}
+              />
+            }
+          />  
+          <Route
+            path="/"
+            element={
+              isUserLoggedIn ? <Navigate to={`/${firstAssignmentId}`} /> :
+              <LandingPage
+                isUserLoggedIn={isUserLoggedIn}
+                setIsUserLoggedIn={setIsUserLoggedIn}
+              />
+            }
+          />    
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
 
-export default function Root() {
-  return (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  );
-}
+export default App;

@@ -79,7 +79,7 @@ const SignUpModal = ( props ) => {
                 id="email"
                 value={signUpData.email}
                 onChange={handleSignUpData}
-                className="font-['Pretendard'] input border my-2 px-4 py-2 rounded-md w-full"
+                className="font-['Pretendard'] input border-2 border-neutral-300 focus:outline-none focus:border-neutral-500 my-2 px-4 py-2 rounded-md w-full"
               />
               <input
                 required
@@ -88,7 +88,7 @@ const SignUpModal = ( props ) => {
                 id="password"
                 value={signUpData.password}
                 onChange={handleSignUpData}
-                className="font-['Pretendard'] input border my-2 px-4 py-2 rounded-md w-full"
+                className="font-['Pretendard'] input border-2 border-neutral-300 focus:outline-none focus:border-neutral-500 my-2 px-4 py-2 rounded-md w-full"
               />
               <button
                 type="submit"
