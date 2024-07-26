@@ -41,6 +41,13 @@ const ReferenceItemDetail = ({
   }, [isEdit]);
 
   useEffect(() => {
+    if (isEdit && inputRef.current) {  
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEdit]);
+
+  useEffect(() => {
     const fetchPaperInfo = async () => {
       const response = await getPaperInfo(assignmentId, paperId);
       const newContent = response[selectedStyleName];
@@ -65,7 +72,7 @@ const ReferenceItemDetail = ({
       new_reference: content,
     };
     const response = await updatePaperInfo(referenceId, newContent);
-    window.location.reload();
+    // window.location.reload();
     setIsEdit(!isEdit);
   };
 
@@ -96,10 +103,23 @@ const ReferenceItemDetail = ({
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
+      event.preventDefault();
       handleContentUpdate();
-    }
+    };
   };
+
+  useEffect(() => {
+    const handleClickOutsideInput = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        handleContentUpdate();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutsideInput);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideInput);
+    }
+  },);
 
   return (
     <div className="w-full h-100% py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
