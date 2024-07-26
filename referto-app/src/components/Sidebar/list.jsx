@@ -68,7 +68,7 @@ const SidebarList = (props) => {
   const addAssignment = async () => {
     try {
       const newAssignment = await createAssignment({
-        name: 'untitled'
+        name: '과제 이름'
       });
       setAssignmentsList([...assignmentsList, newAssignment]);
       navigate(`/${newAssignment.assignment_id}`);
@@ -80,9 +80,9 @@ const SidebarList = (props) => {
   return (
     <div className="w-full h-screen">
       <div
-        className="w-full px-2 py-2 rounded-md justify-center items-center gap-2.5 flex">
-        <div className="text-left text-lg font-semibold font-['Pretendard'] leading-normal py-5">
-          My Assignments
+        className="w-full px-2 py-2 rounded-md justify-between items-center gap-2.5 flex">
+        <div className="text-left text-xl font-bold font-['Pretendard'] leading-normal py-5">
+          내 과제
         </div>
         <div className="justify-center items-center gap-2.5 flex">
           <Plus className="selection:w-[18px] h-[18px] relative cursor-pointer" onClick={addAssignment}/>

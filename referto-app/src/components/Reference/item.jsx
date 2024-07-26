@@ -177,7 +177,7 @@ const ReferenceItem = ({
           <Eye className="text-white w-[18px] h-[18px] relative" />
         </div>
         <div className="text-right text-white text-lg font-medium font-['Pretendard'] leading-normal">
-          View
+          보기
         </div>
       </div>
       <Link

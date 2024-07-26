@@ -58,7 +58,7 @@ const PDFViewer = ({ pdfUrl }) => {
                             color: '#171717',          
                         }}
                     >
-                        Add a note
+                        메모 추가하기
                     </div>
                   )}
                 offset={{ left: 0, top: -8 }}
@@ -122,7 +122,7 @@ const PDFViewer = ({ pdfUrl }) => {
                                     padding: '4px 8px',
                                 }}
                             >
-                                Add
+                                추가
                             </Button>
                         </div>
                         <Button
@@ -134,7 +134,7 @@ const PDFViewer = ({ pdfUrl }) => {
                                 padding: '4px 8px',
                             }}
                         >
-                            Cancel
+                            취소
                         </Button>
                     </div>
                 </div>
@@ -232,12 +232,11 @@ const PDFViewer = ({ pdfUrl }) => {
                         padding: '8px 12px',
                         background: '#171717',
                         color: '#fff',
-                        border: 'none',
                         borderRadius: '4px',
                         cursor: 'pointer',
                     }}
                 >
-                    {showSidebar ? 'Hide Notes' : 'Show Notes'}
+                    {showSidebar ? '메모 닫기' : '메모 보기'}
                 </button>
             </div>
             {showSidebar && <Sidebar notes={notes} jumpToHighlightArea={jumpToHighlightArea} />}

@@ -87,7 +87,7 @@ const HomePage = (props) => {
               <Upload className="text-white selection:w-[18px] h-[18px] relative" />
             </div>
             <div className="text-right text-white text-lg font-medium font-['Pretendard'] leading-normal">
-              Upload
+              업로드
             </div>
           </div>
           {isOpen && <FileUploadModal setIsOpen={setIsOpen} />}
@@ -101,7 +101,7 @@ const HomePage = (props) => {
             </div>
             <div className="grow shrink basis-0 self-stretch justify-center items-center gap-2.5 flex">
               <div className="grow shrink basis-0 text-neutral-900 text-lg font-medium font-['Pretendard'] leading-[27px]">
-                Reference
+                참고문헌
               </div>
             </div>
             <div className="w-11 self-stretch px-2.5 justify-start items-center gap-[15px] flex">
