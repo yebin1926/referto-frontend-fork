@@ -139,7 +139,7 @@ const SidebarItem = ({
           <div className="font-medium text-neutral-700 leading-6 text-lg tracking-0 truncate">
           {isEdit ? (
             <input
-              className="border text-neutral-700 w-full"
+              className="border-2 border-neutral-300 rounded-md w-full h-100% px-1 focus:outline-none focus:border-neutral-500"
               value={onChangeValue}
               onChange={(e) => setOnChangeValue(e.target.value)}
               onKeyDown={handleKeyDown}

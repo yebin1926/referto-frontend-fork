@@ -6,6 +6,8 @@ import DetailPage from "./routes/DetailPage";
 import "./App.css";
 import LandingPage from "./routes/LandingPage";
 import { getUser } from "./apis/api";
+import LogInModal from "./components/Modals/LogIn";
+import SignUpModal from "./components/Modals/SignUp";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -104,13 +106,32 @@ function App() {
             }
           />
           <Route
+            path="/account/login"
+            element={
+              <LogInModal
+                  isUserLoggedIn={isUserLoggedIn}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
+                />
+            }
+          />
+          <Route
+            path="/account/signup"
+            element={
+              <SignUpModal
+                  isUserLoggedIn={isUserLoggedIn}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
+                />
+            }
+          />  
+          <Route
             path="/"
             element={
               <LandingPage
-                isUserLoggedIn={isUserLoggedIn}
-                setIsUserLoggedIn={setIsUserLoggedIn} />
+                  isUserLoggedIn={isUserLoggedIn}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
+                />
             }
-          />
+          />    
         </Routes>
       </BrowserRouter>
     </div>

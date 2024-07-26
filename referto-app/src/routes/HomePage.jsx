@@ -65,10 +65,10 @@ const HomePage = (
 
   return (
     <div className="w-full h-screen flex flex-row justify-between">
-      <div className="flex flex-col w-[260px] h-screen items-start gap-[50px] px-[20px] py-[30px] bg-neutral-200">
+      <div className="flex flex-col w-[260px] h-screen items-start gap-[50px] px-[20px] py-[30px] bg-neutral-200 overflow-hidden">
         <SidebarList isUserLoggedIn={isUserLoggedIn} />
       </div>
-      <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex">
+      <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex overflow-auto">
         <div className="font-['Pretendard'] font-neutral-700 font-bold text-3xl text-left w-full">
           {currAssignment.name}
         </div>

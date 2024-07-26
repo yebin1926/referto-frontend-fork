@@ -59,9 +59,16 @@ const Header = ( props ) => {
   return (
     <div className="flex w-full h-[65px] items-center justify-between px-10 py-0 relative bg-neutral-700">
       <div className="inline-flex items-center justify-center gap-2.5 relative flex-[0_0_auto]">
-        <div className="flex w-[145px] items-center gap-2.5 relative">
-          <Link to={"/"} 
-           className="relative w-[146.54px] h-[38px] mr-[-1.54px]">
+      <div className="flex w-[145px] items-center gap-2.5 relative">
+          <div className="relative w-[146.54px] h-[38px] mr-[-1.54px] cursor-pointer" 
+            onClick={() => {
+              if (isUserLoggedIn) {
+                navigate(`/${firstAssignmentId}`);
+              } else {
+                navigate('/');
+              }
+            }}
+          >
             <img
               className="absolute w-[26px] h-7 top-[5px] -left-px"
               alt="logo"
@@ -70,8 +77,8 @@ const Header = ( props ) => {
             <div className="absolute top-0 left-[34px] font-[Pretendard] font-bold text-neutral-50 text-[25px] tracking-[0] leading-[37.5px] whitespace-nowrap">
               REFERTO
             </div>
-          </Link>
-        </div>
+          </div>
+      </div>
       </div>
       <div className="inline-flex items-center justify-end gap-2.5 relative self-stretch flex-[0_0_auto]">
         <div className="inline-flex items-center justify-center gap-2.5 relative self-stretch flex-[0_0_auto]">

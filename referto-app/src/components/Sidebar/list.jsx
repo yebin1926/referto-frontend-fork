@@ -88,7 +88,7 @@ const SidebarList = (props) => {
           <Plus className="selection:w-[18px] h-[18px] relative cursor-pointer" onClick={addAssignment}/>
         </div>
       </div>
-      <div className="w-full h-[650px] overflow-auto">
+      <div className="w-[220px] h-[650px] overflow-auto">
         {assignmentsList && (
         assignmentsList.map((assignment) => (
           <SidebarItem
