@@ -124,7 +124,7 @@ const HomePage = (props) => {
           setModalOpen={setCopySuccessModalIsOpen}
         />
       )}
-      {isScreenSmall && <BlockMobileModal />}
+      {/* {isScreenSmall && <BlockMobileModal />} */}
     </div>
   );
 };
