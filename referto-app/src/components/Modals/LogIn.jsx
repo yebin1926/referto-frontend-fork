@@ -110,7 +110,7 @@ const LogInModal = (props) => {
   // }
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex flex-column items-center justify-center bg-gray-200">
+    <div className="fixed top-0 left-0 w-full h-full flex flex-column items-center justify-center bg-gray-200 z-100">
       <div className="w-[400px] h-auto px-[30px] pt-6 pb-[30px] bg-neutral-50 rounded-[20px] flex flex-col justify-center items-center gap-[7px]">
         <div className="self-stretch flex flex-col justify-start items-center gap-6">
           <div className="self-stretch flex flex-col justify-start items-center gap-2.5 py-8">
