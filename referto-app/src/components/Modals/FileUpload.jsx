@@ -7,12 +7,13 @@ import AlertModal from "./AlertModal";
 import SuccessModal from "./SuccessModal";
 import alertCircle from "../../assets/images/alert-circle.svg";
 
-const FileUploadModal = ({setIsOpen}) => {
+const FileUploadModal = ({ setIsOpen }) => {
   const [uploadStatus, setUploadStatus] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const [errorAlertModalIsOpen, setErrorAlertModalIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [uploadSuccessModalIsOpen, setUploadSuccessModalIsOpen] = useState(false);
+  const [uploadSuccessModalIsOpen, setUploadSuccessModalIsOpen] =
+    useState(false);
   const fileInputRef = useRef(null);
   const { assignmentId } = useParams();
 
@@ -39,11 +40,10 @@ const FileUploadModal = ({setIsOpen}) => {
 
         try {
           const response_paper = await uploadPaper(formData, config);
-          console.log("response_paper complete");
-          const response_paperinfo = await uploadPaperInfo(response_paper.data.paper_id);
-          console.log("response_paperinfo complete");
-          await createMemo(response_paper.data.paper_id);
-          console.log('1번째 try 에러없음');
+          const response_paperinfo = await uploadPaperInfo(
+            response_paper.data.paper_id
+          );
+          //await createMemo(response_paper.data.paper_id);
         } catch (error) {
           console.error("1번째 Error during file processing:", error.message);
           setErrorAlertModalIsOpen(true);
@@ -53,7 +53,7 @@ const FileUploadModal = ({setIsOpen}) => {
       }
 
       console.log("All files processed successfully.");
-      console.log('2번째 try 에러없음');
+      console.log("2번째 try 에러없음");
       setUploadStatus(false);
       setTimeout(() => {
         window.location.reload();
@@ -73,7 +73,7 @@ const FileUploadModal = ({setIsOpen}) => {
     setErrorAlertModalIsOpen(false);
     setIsOpen(false);
     window.location.reload();
-  }
+  };
   // Drag and Drop
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -100,7 +100,9 @@ const FileUploadModal = ({setIsOpen}) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overflow-hidden">
       <div
-        className={`w-[600px] h-auto px-8 py-8 bg-white rounded-2xl shadow flex-col justify-start items-start gap-7 inline-flex ${!isVisible ? 'hidden' : ''}`}
+        className={`w-[600px] h-auto px-8 py-8 bg-white rounded-2xl shadow flex-col justify-start items-start gap-7 inline-flex ${
+          !isVisible ? "hidden" : ""
+        }`}
       >
         <div className="h-auto self-stretch flex-col justify-center items-start gap-2 inline-flex">
           <div className="self-stretch justify-between items-start inline-flex">
@@ -112,9 +114,10 @@ const FileUploadModal = ({setIsOpen}) => {
               onClick={() => setIsOpen(false)}
             />
           </div>
-          {/* <div className="self-stretch text-neutral-500 text-sm font-medium font-['Pretendard'] leading-tight">
-            * 인터넷 자료의 경우 사이트에서 ctr+s를 눌러 html 파일을 저장한 후 업로드해주세요.
-          </div> */}
+          <div className="self-stretch text-neutral-500 text-sm font-medium font-['Pretendard'] leading-tight">
+            * 인터넷 자료의 경우 사이트에서 ctr+s를 눌러 html 파일을 저장한 후
+            업로드해주세요.
+          </div>
         </div>
         <input
           type="file"
@@ -124,7 +127,9 @@ const FileUploadModal = ({setIsOpen}) => {
           onChange={handleInputChange}
         />
         <div
-          className={`self-stretch px-2.5 py-6 bg-neutral-50 rounded border border-2 border-dashed border-neutral-300 flex-col justify-center items-center gap-1 flex cursor-pointer ${isDragOver ? 'bg-neutral-400' : ''}`}
+          className={`self-stretch px-2.5 py-6 bg-neutral-50 rounded border border-2 border-dashed border-neutral-300 flex-col justify-center items-center gap-1 flex cursor-pointer ${
+            isDragOver ? "bg-neutral-400" : ""
+          }`}
           onClick={handleUploadClick}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -142,16 +147,20 @@ const FileUploadModal = ({setIsOpen}) => {
         </div>
       </div>
       {uploadStatus && <Loading />}
-      {errorAlertModalIsOpen && <AlertModal 
-        icon={alertCircle}
-        color={"#EF4444"}
-        handleAlertCancel={handleErrorAlertCancel}
-        text={"파일 업로드 중 에러가 발생했습니다. 다시 시도해주세요."}
-     />}
-     {uploadSuccessModalIsOpen && <SuccessModal 
-        text={"파일 업로드 성공!"}
-        setModalOpen={setUploadSuccessModalIsOpen}
-     />}
+      {errorAlertModalIsOpen && (
+        <AlertModal
+          icon={alertCircle}
+          color={"#EF4444"}
+          handleAlertCancel={handleErrorAlertCancel}
+          text={"파일 업로드 중 에러가 발생했습니다. 다시 시도해주세요."}
+        />
+      )}
+      {uploadSuccessModalIsOpen && (
+        <SuccessModal
+          text={"파일 업로드 성공!"}
+          setModalOpen={setUploadSuccessModalIsOpen}
+        />
+      )}
     </div>
   );
 };
