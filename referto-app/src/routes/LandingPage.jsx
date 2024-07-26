@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import LogInModal from '../components/Modals/LogIn';
+import landingimage from '../assets/images/landingimage.png';
+import capture from '../assets/images/capture.png';
+import { CircleCheckBig } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const LandingPage = ( props ) => {
+const LandingPage = (props) => {
     const { isUserLoggedIn, setIsUserLoggedIn } = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate()
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-    
     return (
         <div className="w-full h-full flex flex-col items-center">
             {/* Hero Section */}
@@ -28,41 +25,41 @@ const LandingPage = ( props ) => {
                     </div>
                     <div 
                         className="px-6 py-3 bg-neutral-900 rounded-md text-center text-white text-xl font-medium leading-normal cursor-pointer" 
-                        onClick={handleOpenModal}
+                        onClick={() => navigate('/account/login')}
                     >
                         시작하기
                     </div>
                     <div className="py-8 flex flex-col items-center gap-2.5">
-                        <img className="w-[643px] h-[487px]" src="https://via.placeholder.com/643x487" alt="Main visual" />
+                        <img className="w-full h-auto" src={landingimage} alt="research paper" />
                     </div>
                 </div>
             </div>
-            
+
             {/* Key Features Section */}
-            <div className="w-full h-full py-[50px] bg-neutral-900 flex flex-col items-center gap-20">
+            <div className="w-full h-full py-[150px] bg-neutral-900 flex flex-col items-center gap-20">
                 <div className="flex flex-col items-center gap-[27px]">
                     <div className="text-white text-[52px] font-semibold leading-[62px] tracking-tight">주요 기능</div>
                 </div>
-                <div className="flex justify-between w-full max-w-[1300px]">
-                    <img className="w-[940px] h-[705px]" src="https://via.placeholder.com/940x705" alt="Features" />
-                    <div className="p-5 flex flex-col gap-[25px]">
-                        <div className="flex flex-col gap-[25px]">
-                            {[1, 2, 3].map(num => (
-                                <div key={num} className="flex items-start gap-[13px]">
-                                    <div className="w-[50px] h-[50px] flex items-center">
-                                        <img className="w-[50px] h-[50px] rounded-full" src={`https://via.placeholder.com/50x50?text=Feature+${num}`} alt={`Feature ${num}`} />
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <div className="text-white text-xl font-medium leading-[30px] tracking-tight">
-                                            {num === 1 ? '과제 관리' : num === 2 ? 'Intuitive interface' : 'Or with rules'}
-                                        </div>
-                                        <div className="text-white text-base font-normal leading-normal tracking-tight">
-                                            When you add work to your <br />Slate calendar we automatically <br />calculate useful insights <br />
-                                        </div>
-                                    </div>
+                <div className="h-full flex justify-center items-center gap-[100px]">
+                    <img className="w-[894px] h-auto" src={capture} alt="key features" />
+                    <div className="p-5 flex flex-col justify-start items-start gap-[50px]">
+                        {[
+                            { title: '과제 관리', description: 'When you add work to your Slate calendar we automatically calculate useful insights' },
+                            { title: '직관적인 인터페이스', description: 'Easy to use and manage your tasks with a simple and intuitive interface' },
+                            { title: '규칙 기반 관리', description: 'Manage your tasks with customizable rules and automation' }
+                        ].map((feature, index) => (
+                            <div key={index} className="flex flex-col gap-2.5">
+                                <div className='flex flex-row gap-[12px] items-center'>
+                                    <CircleCheckBig className='text-white' />
+                                    <div className="text-white text-xl font-medium leading-[30px] tracking-tight">{feature.title}</div>
                                 </div>
-                            ))}
-                        </div>
+                                <div className="text-white text-base font-normal leading-normal tracking-tight">
+                                    {feature.description.split('\n').map((line, index) => (
+                                        <span key={index}>{line}<br /></span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -70,21 +67,29 @@ const LandingPage = ( props ) => {
             {/* Team Section */}
             <div className="w-full h-full px-5 py-[150px] bg-neutral-200 flex flex-col items-center gap-20">
                 <div className="text-neutral-900 text-[52px] font-semibold leading-[62px] tracking-tight">팀 소개</div>
-                <div className="flex justify-between gap-[23px] w-full max-w-[1300px]">
+                <div className="h-100% justify-center items-start gap-[23px] inline-flex">
                     {[1, 2, 3, 4].map(num => (
-                        <div key={num} className="flex flex-col gap-5">
-                            <div className="h-[305px] p-10 bg-[#181818] rounded-[10px] border border-[#dedede] flex flex-col gap-[30px]">
-                                <div className="flex items-center gap-[13px]">
-                                    <div className="w-[50px] h-[50px] flex items-center">
+                        <div key={num} className="h-100% flex-col justify-start items-center gap-5 inline-flex">
+                            <div className="self-stretch grow shrink basis-0 p-10 bg-[#181818] rounded-[10px] border border-[#dedede] flex-col justify-start items-start gap-[30px] flex">
+                                <div className="justify-start items-center gap-[13px] inline-flex">
+                                    <div className="w-[50px] h-[50px] justify-center items-center flex">
                                         <img className="w-[50px] h-[50px] rounded-full" src={`https://via.placeholder.com/50x50?text=Member+${num}`} alt={`Team member ${num}`} />
                                     </div>
-                                    <div className="flex flex-col">
-                                        <div className="text-white text-base font-medium leading-normal">Name {num}</div>
-                                        <div className="text-white text-base font-medium leading-normal">Designer</div>
+                                    <div className="flex-col justify-start items-start inline-flex">
+                                        <div className="px-2.5 justify-start items-center inline-flex">
+                                            <div className="text-white text-base font-medium font-['Pretendard'] leading-normal tracking-tight">Name {num}</div>
+                                        </div>
+                                        <div className="px-2.5 justify-start items-center gap-2.5 inline-flex">
+                                            <div className="text-white text-base font-medium font-['Pretendard'] leading-normal tracking-tight">Designer</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="text-white text-base font-normal leading-normal">
-                                    Slate helps you see how many more days <br />you need to work to reach your financial <br />goal for the month and year.
+                                <div className="justify-start items-center inline-flex">
+                                    <div className="text-white text-base font-normal font-['Pretendard'] leading-normal tracking-tight">
+                                        Slate helps you see how many more days <br />
+                                        you need to work to reach your financial <br />
+                                        goal for the month and year.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -93,10 +98,12 @@ const LandingPage = ( props ) => {
             </div>
 
             {/* Render LogInModal conditionally */}
-            {isModalOpen && <LogInModal 
-                onClose={handleCloseModal}
-                isUserLoggedIn={isUserLoggedIn}
-                setIsUserLoggedIn={setIsUserLoggedIn} />}
+            {isModalOpen && (
+                <LogInModal 
+                    isUserLoggedIn={isUserLoggedIn}
+                    setIsUserLoggedIn={setIsUserLoggedIn} 
+                />
+            )}
         </div>
     );
 }

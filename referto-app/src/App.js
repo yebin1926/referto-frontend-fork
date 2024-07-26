@@ -1,71 +1,35 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { BrowserRouter, Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import HomePage from "./routes/HomePage";
 import DetailPage from "./routes/DetailPage";
 import "./App.css";
 import LandingPage from "./routes/LandingPage";
-import { getUser } from "./apis/api";
+import { getUser, getAssignments } from "./apis/api";
+import LogInModal from "./components/Modals/LogIn";
+import SignUpModal from "./components/Modals/SignUp";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [firstAssignmentId, setFirstAssignmentId] = useState('');
 
   useEffect(() => {
-    const getUserAPI = async () => {
+    const fetchData = async () => {
       try {
-        const currUser = await getUser();
+        const user = await getUser();
         setIsUserLoggedIn(true);
+        if (user && user.email) {
+          const assignments = await getAssignments(user.email);
+          if (assignments.length > 0) {
+            setFirstAssignmentId(assignments[0]["assignment_id"]);
+          }
+        }
       } catch (error) {
         setIsUserLoggedIn(false);
       }
     };
-    getUserAPI();
+    fetchData();
   }, []);
-
-  // const [firstAssignmentId, setFirstAssignmentId] = useState('')
-
-  // useEffect(() => {
-  //   const fetchAssignments = async () => {
-  //       try {
-  //         const assignments = await getAssignments(user);
-  //         setFirstAssignmentId(assignments[0]['assignment_id'])
-  //       } catch (error) {
-  //         console.error('Error fetching assignments:', error);
-  //       }
-  //     }
-  //   fetchAssignments()
-  // }, [isUserLoggedIn]);
-
-  // const [referencesList, setReferencesList] = useState([]);
-  // const [selectedStyleName, setSelectedStyleName] = useState("APA")
-
-  // const findIndexofReference = (referenceId) => {
-  //   const index = referencesList.findIndex(
-  //     (reference) => reference.paperInfo_id === referenceId
-  //   );
-  //   return index;
-  // };
-
-  // const handleReferenceDelete = (referenceId, event) => {
-  //   if (window.confirm("Do you really want to delete?")) {
-  //     setReferencesList(
-  //       referencesList.filter(
-  //         (reference) => reference.paperInfo_id !== referenceId
-  //       )
-  //     );
-  //   } else {
-  //     event.preventDefault();
-  //   }
-  // };
-
-  // const handleReferenceUpdate = (referenceId, newContent) => {
-  //   updatePaperInfo(referenceId, newContent);
-  // };
-
-  // const getAllReferences = useCallback(() => {
-  //   return referencesList.map((ref) => ref.reference);
-  // }, [referencesList]);
-  // //referencesList에서 reference각주부분만 가져와서 리스트로 만듦.
 
   return (
     <div className="App">
@@ -79,11 +43,11 @@ function App() {
             path="/:assignmentId/:referenceId"
             element={
               <DetailPage
-              // referencesList={referencesList}
-              // handleReferenceDelete={handleReferenceDelete}
-              // handleReferenceUpdate={handleReferenceUpdate}
-              // findIndexofReference={findIndexofReference}
-              // selectedStyleName={selectedStyleName}
+                // referencesList={referencesList}
+                // handleReferenceDelete={handleReferenceDelete}
+                // handleReferenceUpdate={handleReferenceUpdate}
+                // findIndexofReference={findIndexofReference}
+                // selectedStyleName={selectedStyleName}
               />
             }
           />
@@ -104,13 +68,33 @@ function App() {
             }
           />
           <Route
-            path="/"
+            path="/account/login"
             element={
-              <LandingPage
+              <LogInModal
                 isUserLoggedIn={isUserLoggedIn}
-                setIsUserLoggedIn={setIsUserLoggedIn} />
+                setIsUserLoggedIn={setIsUserLoggedIn}
+              />
             }
           />
+          <Route
+            path="/account/signup"
+            element={
+              <SignUpModal
+                isUserLoggedIn={isUserLoggedIn}
+                setIsUserLoggedIn={setIsUserLoggedIn}
+              />
+            }
+          />  
+          <Route
+            path="/"
+            element={
+              isUserLoggedIn ? <Navigate to={`/${firstAssignmentId}`} /> :
+              <LandingPage
+                isUserLoggedIn={isUserLoggedIn}
+                setIsUserLoggedIn={setIsUserLoggedIn}
+              />
+            }
+          />    
         </Routes>
       </BrowserRouter>
     </div>
