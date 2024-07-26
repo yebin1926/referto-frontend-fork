@@ -52,17 +52,16 @@ const ReferenceMemo = ({ content, paperId }) => {
           </div>
         </div>
       </div>
-      <div className=" mt-4 mb-8 self-stretch h-100% px-[15px] py-2.5 rounded-lg border border-neutral-400 flex-col justify-start items-center gap-[13px] flex">
-        <div className="self-stretch text-neutral-900 text-base font-medium font-['Pretendard'] leading-normal">
-          <label htmlFor="content" className="label"></label>
-          <textarea
-            placeholder="Add your text here"
-            defaultValue={memoContent}
-            onChange={handleContentChange}
-            rows="10"
-            cols="40"
-          ></textarea>
-        </div>
+      <div className="self-stretch text-neutral-900 text-base font-medium font-['Pretendard'] leading-normal px-20 py-20">
+        <label htmlFor="content" className="label"></label>
+        <textarea
+          placeholder="Add your text here"
+          defaultValue={memoContent}
+          onChange={handleContentChange}
+          className="border-2 border-neutral-300 rounded-md w-full h-full px-1 py-1 focus:outline-none focus:border-neutral-500 resize-none"
+          rows="10"
+          cols="40"
+        />
       </div>
       <div className="self-stretch justify-end items-center gap-[15px] inline-flex w-full">
         <div className="grow shrink basis-0 h-10 justify-end items-center gap-[18px] flex">
