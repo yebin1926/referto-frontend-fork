@@ -52,7 +52,7 @@ const PDFViewer = ({ pdfUrl }) => {
                     <div
                         className='font-[Pretendard]'
                         style={{
-                            width: '100px',
+                            width: '100%',
                             padding: '8px',
                             background: 'white',
                             color: '#171717',          
