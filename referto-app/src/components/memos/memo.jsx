@@ -9,14 +9,14 @@ const ReferenceMemo = ({ content, paperId }) => {
   const [copySuccessModalIsOpen, setCopySuccessModalIsOpen] = useState(false);
   //const [saveSuccessModalIsOpen, setSaveSuccessModalIsOpen] = useState(false);
 
-  // useEffect(() => {
-  //   const getMemoAPI = async () => {
-  //     const memo = await getMemo(paperId);
-  //     setMemoContent(memo.content);
-  //     console.log(memo);
-  //   };
-  //   getMemoAPI();
-  // }, [paperId]);
+  useEffect(() => {
+    const getMemoAPI = async () => {
+      const memo = await getMemo(paperId);
+      setMemoContent(memo.content);
+      console.log(memo);
+    };
+    getMemoAPI();
+  }, [paperId]);
 
   const handleContentChange = async (e) => {
     setIsSaving(true);
@@ -56,7 +56,7 @@ const ReferenceMemo = ({ content, paperId }) => {
             메모
           </div>
         </div>
-        <div>{isSaving ? "저장 중..." : "저장 됨"}</div>
+        <div className="font-[Pretendard] font-medium text-[12px] text-neutral-500">{isSaving ? "저장 중..." : "저장 됨"}</div>
       </div>
       <div className="self-stretch text-neutral-900 text-base font-medium font-['Pretendard'] leading-normal py-2">
         <label htmlFor="content" className="label"></label>

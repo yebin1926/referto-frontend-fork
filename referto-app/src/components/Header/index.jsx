@@ -84,7 +84,7 @@ const Header = ( props ) => {
         <div className="inline-flex items-center justify-center gap-2.5 relative self-stretch flex-[0_0_auto]">
           {isUserLoggedIn ? (
             <div className="flex flex-row">
-              <div className="w-fit mx-3 font-[Pretendard] font-medium text-neutral-50 text-md text-center">
+              <div className="w-fit mx-3 font-[Pretendard] font-medium text-neutral-50 text-lg text-center">
                 {user}
               </div>
               <img alt="profile" src={userprofile} className="mr-5" />

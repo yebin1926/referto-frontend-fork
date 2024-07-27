@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import LogInModal from '../components/Modals/LogIn';
 import landingimage from '../assets/images/landingimage.png';
+import hyeri from '../assets/images/hyeri.jpg';
+import yebin from '../assets/images/yebin.jpg';
+import eunjae from '../assets/images/eunjae.jpg';
+import gyeongseo from '../assets/images/gyeongseo.jpg';
 import capture from '../assets/images/capture.png';
 import { CircleCheckBig } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +12,34 @@ import { useNavigate } from 'react-router-dom';
 const LandingPage = (props) => {
     const { isUserLoggedIn, setIsUserLoggedIn } = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const teamMembers = [
+        { 
+            name: "박혜리", 
+            role: "대장", 
+            description: "얘들아 밥 빨리 먹고 일하자 ^^", 
+            image: hyeri
+        },
+        { 
+            name: "이은재", 
+            role: "갓은재", 
+            description: "~~~~~~", 
+            image: eunjae
+        },
+        { 
+            name: "황경서", 
+            role: "갓경서", 
+            description: "~~~~~~", 
+            image: gyeongseo
+        },
+        { 
+            name: "편예빈", 
+            role: "베짱이, 간식팀장", 
+            description: "우리 팀이 제일 잘나가 ~", 
+            image: yebin
+        }
+    ];
 
     return (
         <div className="w-full h-full flex flex-col items-center">
@@ -23,8 +54,8 @@ const LandingPage = (props) => {
                             REFERTO와 함께 쉽고 빠르게 참고문헌을 생성하고 관리해보세요.
                         </div>
                     </div>
-                    <div 
-                        className="px-6 py-3 bg-neutral-900 rounded-md text-center text-white text-xl font-medium leading-normal cursor-pointer" 
+                    <div
+                        className="px-6 py-3 bg-neutral-900 rounded-md text-center text-white text-xl font-medium leading-normal cursor-pointer"
                         onClick={() => navigate('/account/login')}
                     >
                         시작하기
@@ -41,16 +72,16 @@ const LandingPage = (props) => {
                     <div className="text-white text-[52px] font-semibold leading-[62px] tracking-tight">주요 기능</div>
                 </div>
                 <div className="h-full flex justify-center items-center gap-[100px]">
-                    <img className="w-[894px] h-auto" src={capture} alt="key features" />
+                    <img className="w-[600px] h-auto" src={capture} alt="key features" />
                     <div className="p-5 flex flex-col justify-start items-start gap-[50px]">
                         {[
-                            { title: '과제 관리', description: 'When you add work to your Slate calendar we automatically calculate useful insights' },
-                            { title: '직관적인 인터페이스', description: 'Easy to use and manage your tasks with a simple and intuitive interface' },
-                            { title: '규칙 기반 관리', description: 'Manage your tasks with customizable rules and automation' }
+                            { title: '참고문헌 생성', description: '파일을 업로드하기만 하면 양식에 따라 참고문헌 자동 생성!' },
+                            { title: '과제 관리', description: '내 과제와 참고문헌을 한 번에 관리할 수 있어요.' },
+                            { title: '메모 추가', description: '참고문헌에 하이라이팅과 메모를 표시하고 각주와 함께 복사해보세요.' }
                         ].map((feature, index) => (
                             <div key={index} className="flex flex-col gap-2.5">
-                                <div className='flex flex-row gap-[12px] items-center'>
-                                    <CircleCheckBig className='text-white' />
+                                <div className="flex flex-row gap-[12px] items-center">
+                                    <CircleCheckBig className="text-white" />
                                     <div className="text-white text-xl font-medium leading-[30px] tracking-tight">{feature.title}</div>
                                 </div>
                                 <div className="text-white text-base font-normal leading-normal tracking-tight">
@@ -66,30 +97,26 @@ const LandingPage = (props) => {
 
             {/* Team Section */}
             <div className="w-full h-full px-5 py-[150px] bg-neutral-200 flex flex-col items-center gap-20">
-                <div className="text-neutral-900 text-[52px] font-semibold leading-[62px] tracking-tight">팀 소개</div>
-                <div className="h-100% justify-center items-start gap-[23px] inline-flex">
-                    {[1, 2, 3, 4].map(num => (
-                        <div key={num} className="h-100% flex-col justify-start items-center gap-5 inline-flex">
-                            <div className="self-stretch grow shrink basis-0 p-10 bg-[#181818] rounded-[10px] border border-[#dedede] flex-col justify-start items-start gap-[30px] flex">
-                                <div className="justify-start items-center gap-[13px] inline-flex">
-                                    <div className="w-[50px] h-[50px] justify-center items-center flex">
-                                        <img className="w-[50px] h-[50px] rounded-full" src={`https://via.placeholder.com/50x50?text=Member+${num}`} alt={`Team member ${num}`} />
+                <div className="text-neutral-900 text-[52px] font-semibold font-['Pretendard'] leading-[62px] tracking-tight">팀 소개</div>
+                <div className="w-full flex justify-center items-start gap-[23px] flex-wrap">
+                    {teamMembers.map((member, index) => (
+                        <div key={index} className="flex flex-col justify-start items-center gap-5">
+                            <div className="p-10 bg-[#181818] rounded-[10px] border border-[#dedede] flex flex-col justify-start items-start gap-[30px]">
+                                <div className="flex items-center gap-[13px]">
+                                    <div className="w-[50px] h-[50px] flex items-center justify-center">
+                                        <img className="w-[50px] h-[50px] rounded-full" src={member.image} alt={member.name} />
                                     </div>
-                                    <div className="flex-col justify-start items-start inline-flex">
-                                        <div className="px-2.5 justify-start items-center inline-flex">
-                                            <div className="text-white text-base font-medium font-['Pretendard'] leading-normal tracking-tight">Name {num}</div>
+                                    <div className="flex flex-col items-start">
+                                        <div className="text-white text-base font-medium font-['Pretendard'] leading-normal tracking-tight">
+                                            {member.name}
                                         </div>
-                                        <div className="px-2.5 justify-start items-center gap-2.5 inline-flex">
-                                            <div className="text-white text-base font-medium font-['Pretendard'] leading-normal tracking-tight">Designer</div>
+                                        <div className="text-white text-base font-medium font-['Pretendard'] leading-normal tracking-tight">
+                                            {member.role}
                                         </div>
                                     </div>
                                 </div>
-                                <div className="justify-start items-center inline-flex">
-                                    <div className="text-white text-base font-normal font-['Pretendard'] leading-normal tracking-tight">
-                                        Slate helps you see how many more days <br />
-                                        you need to work to reach your financial <br />
-                                        goal for the month and year.
-                                    </div>
+                                <div className="text-white text-base font-normal font-['Pretendard'] leading-normal tracking-tight">
+                                    {member.description}
                                 </div>
                             </div>
                         </div>
@@ -99,9 +126,9 @@ const LandingPage = (props) => {
 
             {/* Render LogInModal conditionally */}
             {isModalOpen && (
-                <LogInModal 
+                <LogInModal
                     isUserLoggedIn={isUserLoggedIn}
-                    setIsUserLoggedIn={setIsUserLoggedIn} 
+                    setIsUserLoggedIn={setIsUserLoggedIn}
                 />
             )}
         </div>

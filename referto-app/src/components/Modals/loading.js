@@ -1,36 +1,14 @@
-import React from 'react';
 import { FadeLoader } from 'react-spinners';
 
 export const Loading = () => {
   return (
-    <div style={styles.overlay}>
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex flex-col items-center justify-center z-50">
       <FadeLoader color="#ffffff" />
-      <div style={styles.text}>
-        <h3>파일을 분석하고 있어요</h3>
+      <div className="mt-5 text-neutral-50 font-md">
+        파일을 분석하고 있어요
       </div>
     </div>
   );
-};
-
-const styles = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1000,
-  },
-  text: {
-    marginTop: '20px',
-    color: '#fff',
-    fontWeight: '700',
-  },
 };
 
 export default Loading;

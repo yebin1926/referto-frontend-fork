@@ -46,6 +46,7 @@ const FileUploadModal = ({ setIsOpen }) => {
           );
           console.log("response_paperinfo 통과");
           //await createMemo(response_paper.data.paper_id);
+          console.log("paperinfo api successful");
         } catch (error) {
           console.error("1번째 Error during file processing:", error.message);
           setErrorAlertModalIsOpen(true);
