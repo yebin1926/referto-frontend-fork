@@ -54,7 +54,8 @@ const SidebarItem = ({
     try {
       const data = await updateAssignment(selectedAssignmentId , {name: onChangeValue});
       console.log('Assignment name updated successfully:', data);
-      setContent(data.name)
+      setContent(data.name);
+      window.location.reload();
     } catch (error) {
       console.error('Error updating assignment name:', error);
     }
