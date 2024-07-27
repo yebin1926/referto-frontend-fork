@@ -35,8 +35,8 @@ const LandingPage = (props) => {
         },
         { 
             name: "황경서", 
-            role: "~~~~~", 
-            description: "~~~~~~~", 
+            role: "백엔드 인부", 
+            description: "열심히 삽질 중입니다.", 
             image: gyeongseo
         }
     ];
