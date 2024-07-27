@@ -68,7 +68,7 @@ const SidebarList = (props) => {
   const addAssignment = async () => {
     try {
       const newAssignment = await createAssignment({
-        name: '과제 이름'
+        name: 'untitled'
       });
       setAssignmentsList([...assignmentsList, newAssignment]);
       navigate(`/${newAssignment.assignment_id}`);

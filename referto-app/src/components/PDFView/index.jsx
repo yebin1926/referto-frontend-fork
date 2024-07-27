@@ -52,7 +52,7 @@ const PDFViewer = ({ pdfUrl }) => {
                     <div
                         className='font-[Pretendard]'
                         style={{
-                            width: '100%',
+                            width: '120px',
                             padding: '8px',
                             background: 'white',
                             color: '#171717',          
@@ -196,7 +196,7 @@ const PDFViewer = ({ pdfUrl }) => {
 
     const Sidebar = ({ notes, jumpToHighlightArea }) => (
         <div className="w-[250px] h-100% text-neutral-900 font-[Pretendard] font-bold py-2 pl-3 overflowY-auto" >
-            Notes
+            메모
             {notes.map((note) => (
                 <div
                     key={note.id}

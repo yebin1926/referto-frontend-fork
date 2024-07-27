@@ -23,21 +23,21 @@ const LandingPage = (props) => {
         },
         { 
             name: "이은재", 
-            role: "갓은재", 
-            description: "~~~~~~", 
+            role: "프론트!", 
+            description: "제 2024 여름은 레퍼투입니다. ('2024 여름' === 'REFERTO')",
             image: eunjae
-        },
-        { 
-            name: "황경서", 
-            role: "갓경서", 
-            description: "~~~~~~", 
-            image: gyeongseo
         },
         { 
             name: "편예빈", 
             role: "베짱이, 간식팀장", 
-            description: "우리 팀이 제일 잘나가 ~", 
+            description: "참외가 제일 잘나가~", 
             image: yebin
+        },
+        { 
+            name: "황경서", 
+            role: "백엔드 인부", 
+            description: "열심히 삽질 중입니다.", 
+            image: gyeongseo
         }
     ];
 
@@ -72,7 +72,7 @@ const LandingPage = (props) => {
                     <div className="text-white text-[52px] font-semibold leading-[62px] tracking-tight">주요 기능</div>
                 </div>
                 <div className="h-full flex justify-center items-center gap-[100px]">
-                    <img className="w-[600px] h-auto" src={capture} alt="key features" />
+                    <img className="w-[800px] h-auto" src={capture} alt="key features" />
                     <div className="p-5 flex flex-col justify-start items-start gap-[50px]">
                         {[
                             { title: '참고문헌 생성', description: '파일을 업로드하기만 하면 양식에 따라 참고문헌 자동 생성!' },
@@ -82,9 +82,9 @@ const LandingPage = (props) => {
                             <div key={index} className="flex flex-col gap-2.5">
                                 <div className="flex flex-row gap-[12px] items-center">
                                     <CircleCheckBig className="text-white" />
-                                    <div className="text-white text-xl font-medium leading-[30px] tracking-tight">{feature.title}</div>
+                                    <div className="text-white text-2xl font-medium leading-[30px] tracking-tight">{feature.title}</div>
                                 </div>
-                                <div className="text-white text-base font-normal leading-normal tracking-tight">
+                                <div className="text-white text-base font-normal text-xl leading-normal tracking-tight">
                                     {feature.description.split('\n').map((line, index) => (
                                         <span key={index}>{line}<br /></span>
                                     ))}
@@ -101,13 +101,13 @@ const LandingPage = (props) => {
                 <div className="w-full flex justify-center items-start gap-[23px] flex-wrap">
                     {teamMembers.map((member, index) => (
                         <div key={index} className="flex flex-col justify-start items-center gap-5">
-                            <div className="p-10 bg-[#181818] rounded-[10px] border border-[#dedede] flex flex-col justify-start items-start gap-[30px]">
+                            <div className="w-[300px] h-[230px] p-10 bg-[#181818] rounded-[10px] border border-[#dedede] flex flex-col justify-start items-start gap-[30px]">
                                 <div className="flex items-center gap-[13px]">
                                     <div className="w-[50px] h-[50px] flex items-center justify-center">
                                         <img className="w-[50px] h-[50px] rounded-full" src={member.image} alt={member.name} />
                                     </div>
                                     <div className="flex flex-col items-start">
-                                        <div className="text-white text-base font-medium font-['Pretendard'] leading-normal tracking-tight">
+                                        <div className="text-white text-base font-semibold font-['Pretendard'] leading-normal tracking-tight">
                                             {member.name}
                                         </div>
                                         <div className="text-white text-base font-medium font-['Pretendard'] leading-normal tracking-tight">
