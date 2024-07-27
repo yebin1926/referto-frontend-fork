@@ -1,6 +1,6 @@
 {
   "short_name": "REFERTO",
-  "name": "Make quick references",
+  "name": "REFERTO",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo.svg",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo.svg",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

@@ -72,7 +72,7 @@ const LandingPage = (props) => {
                     <div className="text-white text-[52px] font-semibold leading-[62px] tracking-tight">주요 기능</div>
                 </div>
                 <div className="h-full flex justify-center items-center gap-[100px]">
-                    <img className="w-[600px] h-auto" src={capture} alt="key features" />
+                    <img className="w-[800px] h-auto" src={capture} alt="key features" />
                     <div className="p-5 flex flex-col justify-start items-start gap-[50px]">
                         {[
                             { title: '참고문헌 생성', description: '파일을 업로드하기만 하면 양식에 따라 참고문헌 자동 생성!' },
@@ -82,9 +82,9 @@ const LandingPage = (props) => {
                             <div key={index} className="flex flex-col gap-2.5">
                                 <div className="flex flex-row gap-[12px] items-center">
                                     <CircleCheckBig className="text-white" />
-                                    <div className="text-white text-xl font-medium leading-[30px] tracking-tight">{feature.title}</div>
+                                    <div className="text-white text-2xl font-medium leading-[30px] tracking-tight">{feature.title}</div>
                                 </div>
-                                <div className="text-white text-base font-normal leading-normal tracking-tight">
+                                <div className="text-white text-base font-normal text-xl leading-normal tracking-tight">
                                     {feature.description.split('\n').map((line, index) => (
                                         <span key={index}>{line}<br /></span>
                                     ))}
@@ -101,7 +101,7 @@ const LandingPage = (props) => {
                 <div className="w-full flex justify-center items-start gap-[23px] flex-wrap">
                     {teamMembers.map((member, index) => (
                         <div key={index} className="flex flex-col justify-start items-center gap-5">
-                            <div className="w-[300px] p-10 bg-[#181818] rounded-[10px] border border-[#dedede] flex flex-col justify-start items-start gap-[30px]">
+                            <div className="w-[300px] h-[230px] p-10 bg-[#181818] rounded-[10px] border border-[#dedede] flex flex-col justify-start items-start gap-[30px]">
                                 <div className="flex items-center gap-[13px]">
                                     <div className="w-[50px] h-[50px] flex items-center justify-center">
                                         <img className="w-[50px] h-[50px] rounded-full" src={member.image} alt={member.name} />
