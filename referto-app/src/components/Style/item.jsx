@@ -11,7 +11,6 @@ const StyleItem = ({
     try {
       const data = await updateAssignment(selectedAssignmentId, {reference_type: styleName});
       console.log('Assignment reference_type updated successfully:', data);
-      window.location.reload()
       setSelectedStyleName(styleName);
     } catch (error) {
       console.error('Error updating assignment reference_type:', error);
