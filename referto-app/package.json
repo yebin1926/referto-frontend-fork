@@ -52,5 +52,5 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "tailwindcss": "^3.4.4"
   },
-  "proxy": "https://referto-backend.fly.dev/"
+  "proxy": "http://43.201.56.176:8000/"
 }
