@@ -17,7 +17,6 @@ const DetailPage = () => {
     assignmentId,
     paperId,
     referencesList,
-    darkMode,
   } = location.state || {};
 
   const [paperUrl, setPaperUrl] = useState(null);
@@ -85,11 +84,7 @@ const DetailPage = () => {
   };
 
   return (
-    <div
-      className={`w-full h-[959px] px-[100px] pt-[50px] pb-[100px] flex-col justify-start items-center inline-flex ${
-        darkMode ? "bg-black text-white" : ""
-      }`}
-    >
+    <div className="w-full h-[959px] px-[100px] pt-[50px] pb-[100px] flex-col justify-start items-center inline-flex">
       {isScreenSmall && <BlockMobileModal />}
       <ReferenceItemDetail
         index={index}

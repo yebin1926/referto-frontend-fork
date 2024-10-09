@@ -7,10 +7,9 @@ const ReferenceList = ({
   // handleReferenceUpdate,
   // findIndexofReference,
   selectedStyleName,
-  darkMode,
 }) => {
   return (
-    <div className={`w-full`}>
+    <div className="w-full">
       {console.log("referencesList:", referencesList)}
       {console.log(
         "reference list에서 확인하는 스타일 이름:",
@@ -26,9 +25,8 @@ const ReferenceList = ({
           // findIndexofReference={findIndexofReference}
           selectedStyleName={selectedStyleName}
           index={index + 1}
-          referencesList={referencesList}
+          referencesList = {referencesList}
           setReferencesList={setReferencesList}
-          darkMode={darkMode}
         />
       ))}
     </div>

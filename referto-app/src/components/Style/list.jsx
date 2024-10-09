@@ -5,7 +5,6 @@ const StyleList = ({
   selectedAssignmentId,
   selectedStyleName,
   setSelectedStyleName,
-  darkMode,
 }) => {
   const styles = [
     { id: 1, name: "APA" },
@@ -26,7 +25,6 @@ const StyleList = ({
           // selectedStyleId={selectedStyleId}
           // setSelectedStyleId={setSelectedStyleId}
           selectedAssignmentId={selectedAssignmentId}
-          darkMode={darkMode}
         />
       ))}
     </div>

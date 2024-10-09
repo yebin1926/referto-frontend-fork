@@ -10,11 +10,6 @@ import { useEffect, useState } from "react";
 import { getPaperInfos, getAssignment } from "../apis/api.js";
 // document.body.classList.add('overflow-hidden');
 
-import { useSelector, useDispatch } from "react-redux";
-import { toggleDarkMode } from "../Redux/dark-slice.js";
-import { FiSun } from "react-icons/fi";
-import { FiMoon } from "react-icons/fi";
-
 const HomePage = (props) => {
   const [referencesList, setReferencesList] = useState([]);
   const [selectedStyleName, setSelectedStyleName] = useState("APA");
@@ -26,9 +21,6 @@ const HomePage = (props) => {
   const { assignmentId } = useParams();
   const selectedAssignmentId = Number(assignmentId);
 
-  const darkMode = useSelector((state) => state.darkMode.value);
-  const dispatch = useDispatch();
-
   useEffect(() => {
     if (assignmentId) {
       const getReferencesAPI = async () => {
@@ -36,7 +28,7 @@ const HomePage = (props) => {
         setReferencesList(references);
       };
       getReferencesAPI();
-
+      
       const getAssignmentAPI = async () => {
         const assignment = await getAssignment(assignmentId);
         setCurrAssignment(assignment);
@@ -72,46 +64,20 @@ const HomePage = (props) => {
     setCopySuccessModalIsOpen(true);
   };
 
-  useEffect(() => {
-    // Add or remove the 'dark' class on the <html> element whenever darkMode changes
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
-
   return (
-    <div
-      className={`w-full h-screen flex flex-row ${
-        darkMode ? " bg-black text-white" : "from-neutral-400 to-neutral-200"
-      } ${darkMode ? "dark" : ""}`}
-    >
-      <div
-        className={`flex-none w-[250px] h-screen items-start gap-[50px] pl-[20px] pr-[10px] py-[30px] overflow-hidden`}
-      >
+    <div className="w-full h-screen flex flex-row justify-between">
+      <div className="flex flex-col w-100% h-screen items-start gap-[50px] pl-[20px] pr-[10px] py-[30px] bg-neutral-200 overflow-hidden">
         <SidebarList isUserLoggedIn={props.isUserLoggedIn} />
       </div>
-
-      <div className="flex-grow h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex overflow-auto">
-        <div className="flex justify-between items-center w-full mb-4">
-          <div className="font-['Pretendard'] font-neutral-700 font-bold text-3xl text-left">
-            {currAssignment.name}
-          </div>
-          <button
-            onClick={() => dispatch(toggleDarkMode())}
-            className={`p-3 bg-purple-600 text-white rounded`}
-            id="darkmode_button"
-          >
-            {darkMode ? <FiSun /> : <FiMoon />}
-          </button>
+      <div className="w-full h-[850px] px-[100px] py-[70px] flex-col justify-start items-center gap-[50px] inline-flex overflow-auto">
+        <div className="font-['Pretendard'] font-neutral-700 font-bold text-3xl text-left w-full">
+          {currAssignment.name}
         </div>
         <div className="self-stretch justify-end items-center inline-flex">
           <StyleList
             selectedAssignmentId={selectedAssignmentId}
             selectedStyleName={selectedStyleName}
             setSelectedStyleName={setSelectedStyleName}
-            darkMode={darkMode}
           />
           <div
             className="px-3 py-2 bg-neutral-900 rounded-md justify-center items-center gap-2.5 flex cursor-pointer"
@@ -126,21 +92,15 @@ const HomePage = (props) => {
           </div>
           {isOpen && <FileUploadModal setIsOpen={setIsOpen} />}
         </div>
-
-        {/* Reference List */}
         <div className="w-full h-full flex-col justify-start items-center inline-flex">
-          <div
-            className={`self-stretch py-2.5 border-b-2 border-neutral-400 justify-start items-start gap-2.5 inline-flex ${
-              darkMode ? " text-white" : "text-neutral-800"
-            }`}
-          >
+          <div className="self-stretch py-2.5 border-b-2 border-neutral-400 justify-start items-start gap-2.5 inline-flex">
             <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
-              <div className="text-center  text-lg font-medium font-['Pretendard'] leading-[27px]">
+              <div className="text-center text-neutral-900 text-lg font-medium font-['Pretendard'] leading-[27px]">
                 no.
               </div>
             </div>
             <div className="grow shrink basis-0 self-stretch justify-center items-center gap-2.5 flex">
-              <div className="grow shrink basis-0 text-lg font-medium font-['Pretendard'] leading-[27px]">
+              <div className="grow shrink basis-0 text-neutral-900 text-lg font-medium font-['Pretendard'] leading-[27px]">
                 참고문헌
               </div>
             </div>
@@ -155,7 +115,6 @@ const HomePage = (props) => {
             referencesList={referencesList}
             setReferencesList={setReferencesList}
             selectedStyleName={selectedStyleName}
-            darkMode={darkMode}
           />
         </div>
       </div>
