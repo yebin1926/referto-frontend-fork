@@ -52,11 +52,13 @@ const ReferenceMemo = ({ content, paperId }) => {
       <div className="self-stretch flex justify-between items-center">
         <div className="grow shrink basis-0 h-100% flex items-center gap-[7px]">
           <NotepadText className="w-6 h-6 relative" />
-          <div className="text-neutral-700 text-lg font-semibold font-['Pretendard'] leading-[27px]">
+          <div className=" text-lg font-semibold font-['Pretendard'] leading-[27px]">
             메모
           </div>
         </div>
-        <div className="font-[Pretendard] font-medium text-[12px] text-neutral-500">{isSaving ? "저장 중..." : "저장 됨"}</div>
+        <div className="font-[Pretendard] font-medium text-[12px] ">
+          {isSaving ? "저장 중..." : "저장 됨"}
+        </div>
       </div>
       <div className="self-stretch text-neutral-900 text-base font-medium font-['Pretendard'] leading-normal py-2">
         <label htmlFor="content" className="label"></label>

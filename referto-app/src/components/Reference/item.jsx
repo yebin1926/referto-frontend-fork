@@ -14,6 +14,7 @@ const ReferenceItem = ({
   index,
   referencesList,
   setReferencesList,
+  darkMode,
 }) => {
   const referenceId = reference["paperInfo_id"];
   const referenceName = reference[selectedStyleName];
@@ -38,7 +39,7 @@ const ReferenceItem = ({
   }, [content, isEdit]);
 
   useEffect(() => {
-    if (isEdit && inputRef.current) {  
+    if (isEdit && inputRef.current) {
       inputRef.current.focus();
       inputRef.current.select();
     }
@@ -64,7 +65,7 @@ const ReferenceItem = ({
     await updatePaperInfo(referenceId, newContent);
     setIsEdit(!isEdit);
     const updatedReferencesList = [...referencesList];
-    updatedReferencesList[index-1][selectedStyleName] = content;
+    updatedReferencesList[index - 1][selectedStyleName] = content;
     setReferencesList(updatedReferencesList);
   };
 
@@ -107,12 +108,13 @@ const ReferenceItem = ({
         assignmentId,
         paperId,
         referencesList,
+        darkMode,
       },
     });
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
       handleContentUpdate();
     }
@@ -124,26 +126,34 @@ const ReferenceItem = ({
         handleContentUpdate();
       }
     };
-    document.addEventListener('mousedown', handleClickOutsideInput);
+    document.addEventListener("mousedown", handleClickOutsideInput);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutsideInput);
-    }
-  },);
+      document.removeEventListener("mousedown", handleClickOutsideInput);
+    };
+  });
 
   return (
     <div className="w-full h-100% py-2.5 border-b border-neutral-400 justify-start items-center gap-2.5 inline-flex">
       <div className="w-[53px] self-stretch px-2.5 flex-col justify-center items-center gap-2.5 inline-flex">
-        <div className="text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px]">
+        <div
+          className={`text-neutral-500 text-lg font-medium font-['Pretendard'] leading-[27px] ${
+            darkMode ? "text-white" : "text-neutral-900" // Conditional text color
+          } `}
+        >
           {index}
         </div>
       </div>
       <div className="grow shrink basis-0 self-stretch justify-start items-center gap-[15px] flex overflow-hidden">
-        <div className="h-100% grow shrink basis-0 text-neutral-700 text-md font-medium font-['Pretendard'] leading-[27px] overflow-hidden">
+        <div
+          className={`h-100% grow shrink basis-0 text-md font-medium font-['Pretendard'] leading-[27px] overflow-hidden ${
+            darkMode ? "text-white" : "text-neutral-700" // Conditional text color
+          }`}
+        >
           {isEdit ? (
             <textarea
               value={content}
               onChange={handleChange}
-              className="border-2 border-neutral-300 rounded-md w-full h-100% px-1 py-1 focus:outline-none focus:border-neutral-500 resize-none"
+              className="border-2 border-neutral-300 rounded-md w-full h-100% px-1 py-1 focus:outline-none focus:border-neutral-500 resize-none text-neutral-700"
               ref={inputRef}
               onKeyDown={handleKeyDown}
             />
