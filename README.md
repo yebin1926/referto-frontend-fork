@@ -1,50 +1,70 @@
-# 📝 REFERTO: 참고문헌 생성 및 관리 서비스
-![image](https://github.com/user-attachments/assets/b3a7e6b4-bc75-4194-81d1-7685fdefb8f2)
+# Getting Started with Create React App
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-<div align="center">
-🍉 2024 서울대학교 멋쟁이 사자처럼 여름 해커톤 🍉
+## Available Scripts
 
-🔗 https://www.referto.site/
+In the project directory, you can run:
 
-📲 [백엔드 레포지토리](https://github.com/vonvon56/referto-backend)
-</div>
+### `npm start`
 
----
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## 👥 팀원 소개
-|이름|박혜리|이은재|편예빈|황경서|
-|:---:|:---:|:---:|:---:|:---:|
-|역할|대장, 프론트엔드|프론트엔드|프론트엔드, 간식팀장|백엔드|
-|깃허브|[@Hypell](https://github.com/Hypell)|[@eunjaelee1004](https://github.com/eunjaelee1004)|[@yebin1926](https://github.com/yebin1926)|[@vonvon56](https://github.com/vonvon56)|
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
+### `npm test`
 
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## ℹ️ 프로젝트 소개
+### `npm run build`
 
-- 원하는 참고문헌을 등록할 수 있습니다.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- 등록한 참고문헌의 4가지 인용 양식(APA, Vancouver, MLA, Chicago)이 자동으로 생성됩니다.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-- 문헌별 세부 페이지에 접속하여 하이라이팅, 메모를 할 수 있습니다.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run eject`
 
-## 🛠️ 기술 스택
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/Django-092E20?style=flat&logo=Django&logoColor=white"/> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" /> <img src="https://img.shields.io/badge/amazonwebservices-232F3E?style=flat&logo=amazonwebservices&logoColor=white"/>
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## 🖥️ API 
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-![REFERTO](https://github.com/user-attachments/assets/bc377203-a96f-4917-9999-53ce5486c61c)
+## Learn More
 
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## ⚙️ 프론트엔드 주요 기능
-- 하이라이팅 & 메모
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-  pdf 파일의 모달에서 직접 하이라이팅과 메모를 기록할 수 있습니다.
-  메모는 모두 하나로 모아 볼 수 있다.
+### Code Splitting
 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
+### Analyzing the Bundle Size
 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
